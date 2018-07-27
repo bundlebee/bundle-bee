@@ -2,26 +2,32 @@
   "name": "bundle-bee",
   "version": "1.0.0",
   "description": "\"A minimal Electron App to compare bundles\"",
-  "main": "main.js",
+  "main": "main_process.js",
   "scripts": {
+    "bundle": "webpack --mode development",
+    "serve": "electron .",
+    "start": "npm-run-all --parallel bundle serve",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
     "build": "webpack -p --env production",
     "electron": "electron .",
     "dev": "webpack-dev-server --mode development"
   },
-  "keywords": [
-    "rollup, react, d3, electron, webpack, parcel"
-  ],
-  "author": "Goldber, Mariano, Modras, Morrell",
-  "license": "MIT",
-  "dependencies": {
+  "author": "Goldberg, Mariano, Modras, Morrell",
+  "repository": "pastahito/electron-react-webpack",
+  "license": "WTFPL",
+  "devDependencies": {
     "ajv-keywords": "^3.2.0",
-    "babel-core": "^6.26.3",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
-    "css-loader": "^1.0.0",
+    "css-loader": "^0.28.10",
     "d3": "^5.5.0",
+    "electron": "^1.8.2",
+    "electron-reload": "^1.2.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.10",
     "node-sass": "^4.9.2",
+    "npm-run-all": "^4.1.2",
     "path": "^0.12.7",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -31,7 +37,7 @@
     "webpack": "^4.16.2",
     "webpack-dev-server": "^3.1.5"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",

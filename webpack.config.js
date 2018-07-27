@@ -1,38 +1,57 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['babel-preset-env', 'babel-preset-react']
-          },
-        },
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ],
-      },
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Template or whatever you want',
-      template: 'index.html',
-    })
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
+
+    watch: true,
+
+    target: 'electron-renderer',
+
+    entry: './app/src/index.js',
+
+    output: {
+        path: __dirname + '/app/build',
+        publicPath: 'build/',
+        filename: 'bundle.js'
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                options: {
+                    presets: ['react']
+                }
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                  loader: 'css-loader',
+                  options: {
+                    modules: true
+                  }
+                })
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'file-loader',
+                query: {
+                    name: '[name].[ext]?[hash]'
+                }
+            }
+        ]
+    },
+
+    plugins: [
+        new ExtractTextPlugin({
+            filename: 'bundle.css',
+            disable: false,
+            allChunks: true
+        })
+    ],
+
+    resolve: {
+      extensions: ['.js', '.json', '.jsx']
+    }
+
 }
