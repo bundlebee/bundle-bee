@@ -1,0 +1,95 @@
+
+._3aKKaZG0TuNoKGJdXpWsBF {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #5DBCD2; */
+}
+
+._2pXwBhBDU1PTUUHW9jeapv {
+  width: 200px;
+  height: 300px;
+  background: #05e;
+}
+
+._3ApPa0cKDsXN8CU7Mu0nl1 {
+  width: 100%;
+  height: 100%;
+  background: red;
+  transition: transform 1s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+._3ApPa0cKDsXN8CU7Mu0nl1:hover {
+  transform: rotateY(45deg);
+}
+
+._2pXwBhBDU1PTUUHW9jeapv:hover ._3ApPa0cKDsXN8CU7Mu0nl1 {
+  transform: rotateY(180deg);
+}
+
+._3ApPa0cKDsXN8CU7Mu0nl1 figure {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 auto;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.qRHI1TP5LQvp4jIwj1wFZ {
+  background: lightblue;
+  color: white;
+  text-align: center;
+}
+
+._3ZXF8V5fqe-R70upUVrkGe {
+  background: purple;
+  color: white;
+  transform: rotateY(180deg);
+  text-align: center;
+}
+
+._3ZXF8V5fqe-R70upUVrkGe button {
+  background: rgb(83, 83, 206);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+}/*
+ * Global constants goes here
+ */
+:root {
+    --primary-color: #42b983;
+}
+
+
+/*
+ * Global CSS goes here, it requires to use :global before each style
+ */
+html {
+    height: 100%;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: auto;
+}
+#app {
+    color: #2c3e50;
+    max-width: 600px;
+    font-family: Source Sans Pro, Helvetica, sans-serif;
+    text-align: center;
+}
+#app p {
+    text-align: justify;
+}
+.hello {
+    color: var(--primary-color);
+}
