@@ -1,0 +1,33 @@
+{
+  "name": "bundle-bee",
+  "version": "1.0.0",
+  "description": "\"A minimal Electron App to compare bundles\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "electron": "electron ."
+  },
+  "keywords": [
+    "rollup, react, d3, electron, webpack, parcel"
+  ],
+  "author": "Goldber, Mariano, Modras, Morrell",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^5.5.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "webpack": "^4.16.2",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^3.6.1",
+    "electron": "^2.0.5",
+    "electron-reload": "^1.2.5",
+    "nodemon": "^1.18.3"
+  }
+}
