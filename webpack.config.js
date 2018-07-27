@@ -23,13 +23,14 @@ module.exports = {
                     presets: ['react']
                 }
             },
+            { test: /\.s(c|a)ss/, exclude: /node_modules/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
-                  loader: 'css-loader',
-                  options: {
-                    modules: true
-                  }
+                    loader: 'css-loader',
+                    options: {
+                        modules: true
+                    }
                 })
             },
             {
@@ -51,7 +52,7 @@ module.exports = {
     ],
 
     resolve: {
-      extensions: ['.js', '.json', '.jsx']
+        extensions: ['.js', '.json', '.jsx']
     }
 
 }

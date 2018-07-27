@@ -1,10 +1,9 @@
-import React from 'react'
-import {render} from 'react-dom'
-import App from './components/App.jsx'
-import './global.css'
-import './styles.css';
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/App.jsx';
+import './global.css';
 
 render(
-    <App/>,
+    <App />,
     document.getElementById('app')
 )

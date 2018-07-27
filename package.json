@@ -13,7 +13,7 @@
     "dev": "webpack-dev-server --mode development"
   },
   "author": "Goldberg, Mariano, Modras, Morrell",
-  "repository": "pastahito/electron-react-webpack",
+  "repository": "bundle-bee/bundle-bee",
   "license": "WTFPL",
   "devDependencies": {
     "ajv-keywords": "^3.2.0",
