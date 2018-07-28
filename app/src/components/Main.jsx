@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
-import Card from './Card.jsx';
 import './main.sass';
 
 export class Main extends Component {
