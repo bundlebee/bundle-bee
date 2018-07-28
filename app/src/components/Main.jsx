@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import DropZone from './DropZone.jsx';
+import './main.sass';
+import Chart from './Chart.jsx';
 
-import Card from './Card.jsx';
-
-export class Main extends Component {
-
+export class Main extends Component { 
   render() {
-    console.log('at main');
-
     return (
       <div>
-        <Card />
+        <DropZone>
+          <div>
+            <h1>Drop your entry file anywhere to get started</h1>
+          </div>
+        </DropZone>
+
+        <Chart />
       </div>
     )
   }
