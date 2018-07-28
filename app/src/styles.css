@@ -61,3 +61,40 @@
   border: none;
   padding: 10px 20px;
 }
+
+body{
+  /* background-color:black; */
+}
+
+.container {
+ 
+  height: 600px;
+  width: 80%;
+  display: flex;  
+  flex-wrap: wrap;
+
+}
+
+.box {
+  border: 1px solid red;
+
+}
+
+#explanation {
+  position: absolute;
+  top: 470px;
+  left: 395px;
+  width: 140px;
+  text-align: center;
+  /* z-index: -1; */
+}
+/* ok */
+#percentage {
+  font-size: 2.5em;
+}
+
+#fileNames {
+  /* list-style-type: none; */
+ padding: 5px 100px 50px 100px;
+ color: blue;
+}
