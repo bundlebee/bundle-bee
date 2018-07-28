@@ -1,4 +1,4 @@
-# BUNDLE BE
+# BUNDLE BEE
 
 ### Auto-config your webpack, parcel & rollup build tools. 
 
