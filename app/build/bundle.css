@@ -60,6 +60,43 @@
   color: white;
   border: none;
   padding: 10px 20px;
+}
+
+body{
+  /* background-color:black; */
+}
+
+._3aKKaZG0TuNoKGJdXpWsBF {
+ 
+  height: 600px;
+  width: 80%;
+  display: flex;  
+  flex-wrap: wrap;
+
+}
+
+.H4vA-zZKO2pcTeetedbSa {
+  border: 1px solid red;
+
+}
+
+#_5FI2jUKNGKyK2i0wdFK2B {
+  position: absolute;
+  top: 470px;
+  left: 395px;
+  width: 140px;
+  text-align: center;
+  /* z-index: -1; */
+}
+/* ok */
+#_3wqrUGoCMwHG7PnS-STr1S {
+  font-size: 2.5em;
+}
+
+#_3Y5vxIsuehTKRylOB3sLl6 {
+  /* list-style-type: none; */
+ padding: 5px 100px 50px 100px;
+ color: blue;
 }/*
  * Global constants goes here
  */
