@@ -10,7 +10,8 @@
 // TODO, only the regular build runs when we use env webpack. check on using production and development
 // TODO get the scripts we need to use
 // TODO make sure temp.js is getting deleted, and potentially change the name
-
+// TODO we find a config file in cra even though it isn't there. fix this
+// TODO add mini-css-extract to our config files
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
@@ -64,7 +65,14 @@ const boiler1root = '/Users/bren/React/React_Boilerplate-v1'; // $$ (npm run env
 const boiler2entry = '../../../../../React/React_Boilerplate-v2/src/app.js'; // $$  (env webpack)
 const boiler2root = '/Users/bren/React/React_Boilerplate-v2'; // $$  (env webpack)
 
-const entryFile = scrumEntry;
+const cra = '../../../../playground/example-cra/test/src/App.js';
+const craRoot = '/Users/bren/Codesmith/zweek-7-PROJECT/playground/example-cra/test/';
+
+const craWithWP = '../../../../playground/cra-bundler-config-comparison/cra-webpack/src/App.js';
+const craRootWithWP =
+  '/Users/bren/Codesmith/zweek-7-PROJECT/playground/cra-bundler-config-comparison/cra-webpack/';
+
+const entryFile = craWithWP;
 
 const absolutePath = path.resolve(entryFile);
 const rootDir = path.dirname(absolutePath);
@@ -229,7 +237,11 @@ getFiles(rootDir, (err, res) => {
                   let files = res.reduce((files, fileInfo) => {
                     const { name } = fileInfo;
                     // TODO prompt if multiple webpack configs found
-                    if (name === 'webpack.config.js' && !webpackConfig.exists) {
+                    if (
+                      name === 'webpack.config.js' &&
+                      !fileInfo.fullPath.includes('/node_modules/') &&
+                      !webpackConfig.exists
+                    ) {
                       webpackConfig.exists = true;
                       webpackConfig.content = fs.readFileSync(fileInfo.fullPath, 'utf-8');
                       webpackConfig.info = fileInfo;
@@ -306,6 +318,32 @@ getFiles(rootDir, (err, res) => {
                             console.log('chdir: ' + err);
                           }
                         }
+                      }
+                    );
+                  } else {
+                    createWebpackConfigAndSave(
+                      writePathWithName,
+                      extensions,
+                      null,
+                      indexHtmlPath,
+                      // this is the callback function we are passing in to the write file command
+                      webpackConfigSavePath => {
+                        // build the production build
+                        cmd.get(
+                          `webpack --config ${webpackConfigSavePath} --mode production`,
+                          (err, res) => {
+                            if (err) throw new Error(err);
+                            // build the development build
+                            cmd.get(
+                              `webpack --config ${webpackConfigSavePath} --mode development`,
+                              (err, res) => {
+                                if (err) throw new Error(err);
+                                console.log(res);
+                                console.log('production and development builds successful');
+                              }
+                            );
+                          }
+                        );
                       }
                     );
                   }
