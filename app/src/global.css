@@ -1,33 +1,63 @@
-/*
- * Global constants goes here
- */
 :root {
     --primary-color: #42b983;
 }
 
-
 /*
  * Global CSS goes here, it requires to use :global before each style
  */
+
 :global html {
     height: 100%;
+    border: 15px solid #000;
+    background-color: cooler;
 }
-:global body {
+
+:global #app {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
     margin: auto;
-}
-:global #app {
     color: #2c3e50;
     max-width: 600px;
     font-family: Source Sans Pro, Helvetica, sans-serif;
     text-align: center;
 }
+
 :global #app p {
     text-align: justify;
 }
+
 :global .hello {
     color: var(--primary-color);
+}
+
+h1 {
+    margin: 0px;
+    padding: 10px;
+    color: #333;
+    font-size: 26px;
+    background: #ddd;
+    border-bottom: 1px solid #ccc;
+}
+
+.card {
+    margin: 2rem;
+    height: 100px;
+    background-color: purple;
+    color: white;
+}
+
+.card-hide {
+    display: none;
+}
+
+.user-prompt {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: green;
+}
+
+.loading {
+    font-size: 3rem;
 }

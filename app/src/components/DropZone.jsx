@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Card from './Card.jsx';
-import ModalPrompt from './ModalPrompt.jsx';
+import './dropzone.sass';
 
 class DropZone extends Component {
   constructor() {
@@ -58,29 +57,16 @@ class DropZone extends Component {
     console.log('Files dropped: ', files);
     // Upload files
     this.setState({ className: 'drop-zone-hide', showModal: true });
-    // confirmWebpackUsage();
     return false;
   }
 
-  confirmWebpackUsage(e) {
-    this.setState({ showModal: true });
-    //check which button gets clicked
-
-    //send that info to backend function
-
-    this.setState({ showModal: false });
-  }
   render() {
     return (
       <div>
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
-          Drop a file to Upload
+          Drop Here to Upload
         </div>
-        <ModalPrompt showModal={this.state.showModal} />
-        <Card className={this.state.className} />
-        <Card className={this.state.className} />
-        <Card className={this.state.className} />
       </div>
     );
   }
