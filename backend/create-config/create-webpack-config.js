@@ -216,16 +216,3 @@ getFiles(rootDir)
     }
   })
   .catch(e => console.log('ERROR: ', e));
-//!! NO LONGER NEED TO SAVE TEMP FILE WITH ENTRYFILE IMPORT AND RUN THAT. SET CONTECT IN CONFIG TO ROOTDIR, AND IT CAN RUN WITHOUT ERROR
-// write temp file to their root that imports their entry file so we can run our config on a file in the root of their project
-// const tempFile = 'temp.js';
-// const tempFileFullPath = path.join(rootDir, tempFile);
-// const pathFromTempToEntry = './' + path.relative(rootDir, entryFileAbsolutePath); // TODO see if it is still necessary to write this file to get webpack working
-// const tempFileContent = `import '${pathFromTempToEntry}'`;
-
-// fs.writeFile(tempFileFullPath, tempFileContent, (err, res) => {
-//   if (err) throw new Error(err);
-//   console.log('temp file written');
-//   filesToDeleteAfterRunning.push(tempFileFullPath);
-// });
-// if they do want to use our config, create local config file in electron, and use that with entry as temp.js
