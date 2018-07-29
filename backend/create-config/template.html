@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My Page from template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div id="root">
+    <div style="position: absolute; top:40vh; left: 40vw">
+      <svg width="12.5rem" height="12.5rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
+        class="lds-ripple" style="background: none;">
+        <circle cx="50" cy="50" r="39.2648" fill="none" ng-attr-stroke="{{config.c1}}" ng-attr-stroke-width="{{config.width}}" stroke="#93dbe9"
+          stroke-width="8">
+          <animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="1" keySplines="0 0.2 0.8 1" begin="-0.5s"
+            repeatCount="indefinite"></animate>
+          <animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="1" keySplines="0.2 0 0.8 1" begin="-0.5s"
+            repeatCount="indefinite"></animate>
+        </circle>
+        <circle cx="50" cy="50" r="23.4381" fill="none" ng-attr-stroke="{{config.c2}}" ng-attr-stroke-width="{{config.width}}" stroke="#689cc5"
+          stroke-width="8">
+          <animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="1" keySplines="0 0.2 0.8 1" begin="0s" repeatCount="indefinite"></animate>
+          <animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="1" keySplines="0.2 0 0.8 1" begin="0s"
+            repeatCount="indefinite"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</body>
+
+</html>
