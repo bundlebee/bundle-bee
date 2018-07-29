@@ -3,7 +3,7 @@ const util = require('util');
 const createRules = require('./create-rules.js');
 
 // NOTE: NEED TO ADD ARGUMENT FOR HTML FILE IF IT EXISTS. MAYBE PUBLIC PATH, output path, ETC AS WELL
-module.exports = (entry, extensions, outputPath, htmlTemplateEntry) => {
+module.exports = (entry, extensions, outputPath, htmlTemplateEntry, rootDir) => {
   // set the path as absolute
   entry = path.resolve(entry);
   // util.inspect  preserves regex (unlike) JSON.stringify.  showHidden : false allows for deeply nested objects
@@ -15,6 +15,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: '${entry}',
+    context: '${rootDir}',
     output: {
       path: '${outputPath}',
       filename: 'bundle.js',

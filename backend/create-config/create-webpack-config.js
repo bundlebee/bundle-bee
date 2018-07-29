@@ -16,11 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
 const cmd = require('node-cmd');
-const babylon = require('babylon');
-const traverse = require('babel-traverse').default;
-const babel = require('babel-core');
-
-// stuff for the prompt down below
+const resolvePath = require('resolve-path');
 prompt.start();
 
 const distDirPath = path.join(__dirname, '..', 'dist');
@@ -40,8 +36,16 @@ const deleteTemporaryFilesAndFolders = files => {
     });
   });
 };
-const getFiles = require('./get-files-from-root.js');
-const createWebpackConfig = require('./webpack-template');
+const getFiles = rootDir => {
+  return new Promise((resolve, reject) => {
+    const folderIndexer = require('./utils/get-files-from-root.js');
+    folderIndexer(rootDir, (err, res) => {
+      if (err) reject(err);
+      if (res) resolve(res);
+    });
+  });
+};
+const createWebpackConfig = require('./utils/webpack-template');
 
 // dev testing purposes only
 const scrumEntry = '../../../../week-5/reactscrumboard/src/index.js'; // $$ (BUILD:PROD)
@@ -72,44 +76,44 @@ const craWithWP = '../../../../playground/cra-bundler-config-comparison/cra-webp
 const craRootWithWP =
   '/Users/bren/Codesmith/zweek-7-PROJECT/playground/cra-bundler-config-comparison/cra-webpack/';
 
-const entryFile = craWithWP;
-
-const absolutePath = path.resolve(entryFile);
-const rootDir = path.dirname(absolutePath);
-
-function sameDirectoryAspackageJSON(fileEntry) {
+function providedRootSameDirectoryAsPackageJSON(fileEntry, rootDir) {
   return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
 }
-// this could easily be placed back in the getfiles function
-// i moved it out because i use the same functionality twice.
-// if you just paste the code twice, you don't need to have extenisons as an argument. it is available in scope down below
-function createWebpackConfigAndSave(entryFile, extensions, outputPath, indexHtmlPath, cb) {
-  const dynamicWebpackConfig = createWebpackConfig(
-    entryFile,
-    extensions,
-    outputPath || path.join(__dirname, '..', 'dist'),
-    indexHtmlPath || path.join(__dirname, 'template.html')
-  );
-  const webpackConfigSavePath = path.join(__dirname, '..', 'webpack.config.js');
-  fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
-    if (err) throw new Error(err);
-    filesToDeleteAfterRunning.push(webpackConfigSavePath);
-    // after writing, send the path to our callback to be used to run the shell script on our config file
-    if (cb && cb.constructor.name === 'Function') cb(webpackConfigSavePath);
+
+const createAndSaveWebpackConfig = (entryFile, extensions, outputPath, indexHtmlPath, rootDir) => {
+  return new Promise((resolve, reject) => {
+    const dynamicWebpackConfig = createWebpackConfig(
+      entryFile,
+      extensions,
+      outputPath || path.join(__dirname, '..', 'dist'),
+      indexHtmlPath || path.join(__dirname, 'template.html'),
+      rootDir
+    );
+    const webpackConfigSavePath = path.join(__dirname, '..', 'webpack.config.js');
+    fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
+      if (err) reject(err);
+      filesToDeleteAfterRunning.push(webpackConfigSavePath);
+      resolve(webpackConfigSavePath);
+    });
   });
-}
+};
 
-getFiles(rootDir, (err, res) => {
+const getRequiredInfoFromFiles = (files, rootDir) => {
   const webpackConfig = { exists: false, path: null, content: null };
-  let entryIsInRoot = false;
+  let entryIsInRoot;
   let indexHtmlPath;
-  let files = res.reduce((files, fileInfo) => {
+  let filePaths = files.reduce((files, fileInfo) => {
     // check if entry file is in root of project
-    if (!entryIsInRoot && sameDirectoryAspackageJSON(fileInfo)) entryIsInRoot = true;
-
+    if (!entryIsInRoot && providedRootSameDirectoryAsPackageJSON(fileInfo, rootDir))
+      entryIsInRoot = true;
     const { name } = fileInfo;
     // TODO prompt if multiple webpack configs found
-    if (name === 'webpack.config.js' && !webpackConfig.exists) {
+    // check for webpack config outside of node modules
+    if (
+      name === 'webpack.config.js' &&
+      !fileInfo.fullPath.includes('/node_modules/') &&
+      !webpackConfig.exists
+    ) {
       webpackConfig.exists = true;
       webpackConfig.content = fs.readFileSync(fileInfo.fullPath, 'utf-8');
       webpackConfig.info = fileInfo;
@@ -117,34 +121,56 @@ getFiles(rootDir, (err, res) => {
     if (name === 'index.html' && !indexHtmlPath) indexHtmlPath = fileInfo.fullPath;
     return files.concat(name);
   }, []);
-  const extensions = files.map(filename => path.extname(filename));
-  // this will not check for webpack in folders above the current directory yet.
-  if (webpackConfig.exists) {
-    // let them choose if they want to use our config
-    prompt.get(
-      [
-        {
-          name: 'answer',
-          description:
-            'We can generate a new configuration file, but It looks like you already have a webpack configuration file set up. Would you like us to use that?(y/n)',
-          type: 'string',
-          pattern: /^y(es)?$|^no?$/,
-          message: `Answer must be 'yes', 'no', 'y', or 'n'`,
-          default: 'y',
-          required: true,
-        },
-      ],
-      (err, { answer }) => {
-        if (err) throw new Error(err);
-        if (answer === 'n' || answer === 'no') {
-          //if they do want to use our config, dont write it to their project yet, but use a new config
-          createWebpackConfigAndSave(
-            entryFile,
-            extensions,
-            null,
-            indexHtmlPath,
-            // this is the callback function we are passing in to the write file command
-            webpackConfigSavePath => {
+  const extensions = files
+    .map(file => path.extname(file.name))
+    .reduce((acc, ext) => (acc.includes(ext) ? acc : acc.concat(ext)), []);
+  return {
+    webpackConfig,
+    entryIsInRoot,
+    indexHtmlPath,
+    extensions,
+    filePaths,
+  };
+};
+
+const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
+
+const rootDir = scrumRoot;
+getFiles(rootDir)
+  .then(files => {
+    const {
+      webpackConfig,
+      entryIsInRoot,
+      indexHtmlPath,
+      atSameLevelAsPackageJSON,
+      extensions,
+    } = getRequiredInfoFromFiles(files, rootDir);
+
+    if (!entryIsInRoot) console.log('no package.json in provided directory'); // TODO prompt them to make sure this is the root folder
+    if (webpackConfig.exists) {
+      prompt.get(
+        [
+          {
+            name: 'answer',
+            description:
+              'It looks like you already have a webpack configuration file set up. Would you like us to use that?(y/n)',
+            type: 'string',
+            pattern: /^y(es)?$|^no?$/,
+            message: `Answer must be 'yes', 'no', 'y', or 'n'`,
+            default: 'y',
+            required: true,
+          },
+        ],
+        (err, { answer }) => {
+          if (err) throw new Error(err);
+          if (answer === 'n' || answer === 'no') {
+            createAndSaveWebpackConfig(
+              entryFileAbsolutePath,
+              extensions,
+              null,
+              indexHtmlPath,
+              rootDir
+            ).then(webpackConfigSavePath => {
               // build the production build
               cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
                 if (err) throw new Error(err);
@@ -156,272 +182,50 @@ getFiles(rootDir, (err, res) => {
                     if (err) throw new Error(err);
                     console.log(res);
                     console.log('production and development builds successful');
+                    // setTimeout(() => {
+                    //   deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
+                    // }, 10000);
                   }
                 );
               });
-            }
-          );
-        } else if (answer === 'y' || answer === 'yes') {
-          console.log('running existing webpack.config.js');
-          // if not, run their config
-          // run the production build
-          console.log(webpackConfig.info.fullPath);
-          cmd.get(
-            `webpack --config ${webpackConfig.info.fullPath} --mode production`,
-            (err, res) => {
-              if (err) throw new Error(err);
-              console.log(res);
-              // build the development build
-              cmd.get(
-                `webpack --config ${webpackConfig.info.fullPath} --mode development`,
-                (err, res) => {
-                  if (err) throw new Error(err);
-                  console.log(res);
-                  console.log('production and development builds successful');
-                }
-              );
-            }
-          );
-        }
-      }
-    );
-  } else {
-    // when no config file found and package.json not in same directory as entry
-    prompt.get(
-      [
-        {
-          name: 'answer',
-          description: 'Is this file in your root directory?',
-          type: 'string',
-          pattern: /^y(es)?$|^no?$/,
-
-          message: `Answer must be 'yes', 'no', 'y', or 'n'`,
-          default: 'y',
-          required: true,
-        },
-      ],
-      (err, { answer }) => {
-        if (err) throw new Error(err);
-        if (answer === 'y' || answer === 'yes') {
-          console.log('building webpack config');
-          createWebpackConfigAndSave(entryFile, extensions, null, indexHtmlPath, res => {
-            console.log('webpack build finished');
-          });
-        } else if (answer === 'n' || answer === 'no') {
-          prompt.get(
-            [
-              {
-                name: 'answer',
-                description: 'Please drag a file from your root directory:',
-                type: 'string',
-                default: 'y',
-                required: true,
-              },
-            ],
-            (err, { answer: confirmedRootDir }) => {
-              const tempFile = 'temp.js';
-              const pathFromRootToEntry = './' + path.relative(confirmedRootDir, absolutePath);
-              const tempFileContent = `import '${pathFromRootToEntry}'`;
-              const writePathWithName = path.join(confirmedRootDir, tempFile);
-              console.log(writePathWithName);
-
-              fs.writeFile(writePathWithName, tempFileContent, (err, res) => {
+            });
+          } else if (answer === 'y' || answer === 'yes') {
+            console.log('running existing webpack.config.js');
+            // if not, run their config
+            try {
+              const pathBackFromRoot = path.relative(rootDir, __dirname);
+              const pathToTheirRoot = path.relative(__dirname, rootDir);
+              process.chdir(pathToTheirRoot);
+              console.log('New directory: ' + process.cwd());
+              cmd.get(`npm run env webpack`, (err, res) => {
                 if (err) throw new Error(err);
-                console.log('temp file written');
-                filesToDeleteAfterRunning.push(writePathWithName);
-                // now that we have the temp file that imports their entry, we create a config that uses that entry point and  write that
-                getFiles(confirmedRootDir, (err, res) => {
-                  const webpackConfig = { exists: false, path: null, content: null };
-                  let entryIsInRoot = true;
-                  let indexHtmlPath;
-                  let files = res.reduce((files, fileInfo) => {
-                    const { name } = fileInfo;
-                    // TODO prompt if multiple webpack configs found
-                    if (
-                      name === 'webpack.config.js' &&
-                      !fileInfo.fullPath.includes('/node_modules/') &&
-                      !webpackConfig.exists
-                    ) {
-                      webpackConfig.exists = true;
-                      webpackConfig.content = fs.readFileSync(fileInfo.fullPath, 'utf-8');
-                      webpackConfig.info = fileInfo;
-                    }
-                    if (name === 'index.html' && !indexHtmlPath) indexHtmlPath = fileInfo.fullPath;
-                    return files.concat(name);
-                  }, []);
-                  const extensions = files.map(filename => path.extname(filename));
-                  // this will not check for webpack in folders above the current directory yet.
-                  if (webpackConfig.exists) {
-                    // let them choose if they want to use our config
-                    prompt.get(
-                      [
-                        {
-                          name: 'answer',
-                          description:
-                            'We can generate a new configuration file, but It looks like you already have a webpack configuration file set up. Would you like us to use that?(y/n)',
-                          type: 'string',
-                          pattern: /^y(es)?$|^no?$/,
-                          message: `Answer must be 'yes', 'no', 'y', or 'n'`,
-                          default: 'y',
-                          required: true,
-                        },
-                      ],
-                      (err, { answer }) => {
-                        if (err) throw new Error(err);
-                        if (answer === 'n' || answer === 'no') {
-                          //if they do want to use our config, dont write it to their project yet, but use a new config
-                          createWebpackConfigAndSave(
-                            writePathWithName,
-                            extensions,
-                            null,
-                            indexHtmlPath,
-                            // this is the callback function we are passing in to the write file command
-                            webpackConfigSavePath => {
-                              // build the production build
-                              cmd.get(
-                                `webpack --config ${webpackConfigSavePath} --mode production`,
-                                (err, res) => {
-                                  if (err) throw new Error(err);
-                                  console.log(res);
-                                  // build the development build
-                                  cmd.get(
-                                    `webpack --config ${webpackConfigSavePath} --mode development`,
-                                    (err, res) => {
-                                      if (err) throw new Error(err);
-                                      console.log(res);
-                                      console.log('production and development builds successful');
-                                    }
-                                  );
-                                }
-                              );
-                            }
-                          );
-                        } else if (answer === 'y' || answer === 'yes') {
-                          console.log('running existing webpack.config.js');
-                          // if not, run their config
-                          try {
-                            const pathBackFromRoot = path.relative(confirmedRootDir, __dirname);
-                            const pathToTheirRoot = path.relative(__dirname, confirmedRootDir);
-                            process.chdir(pathToTheirRoot);
-                            console.log('New directory: ' + process.cwd());
-                            cmd.get(`npm run env webpack`, (err, res) => {
-                              if (err) throw new Error(err);
-                              console.log(res);
-                              console.log('production and development builds successful');
-                              process.chdir(pathBackFromRoot);
-                              console.log('directory after write', process.cwd());
-                              setTimeout(() => {
-                                deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
-                              }, 10000);
-                            });
-                          } catch (err) {
-                            console.log('chdir: ' + err);
-                          }
-                        }
-                      }
-                    );
-                  } else {
-                    createWebpackConfigAndSave(
-                      writePathWithName,
-                      extensions,
-                      null,
-                      indexHtmlPath,
-                      // this is the callback function we are passing in to the write file command
-                      webpackConfigSavePath => {
-                        // build the production build
-                        cmd.get(
-                          `webpack --config ${webpackConfigSavePath} --mode production`,
-                          (err, res) => {
-                            if (err) throw new Error(err);
-                            // build the development build
-                            cmd.get(
-                              `webpack --config ${webpackConfigSavePath} --mode development`,
-                              (err, res) => {
-                                if (err) throw new Error(err);
-                                console.log(res);
-                                console.log('production and development builds successful');
-                              }
-                            );
-                          }
-                        );
-                      }
-                    );
-                  }
-                });
+                console.log(res);
+                console.log('production and development builds successful');
+                process.chdir(pathBackFromRoot);
+                console.log('directory after write', process.cwd());
+                setTimeout(() => {
+                  deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
+                }, 10000);
               });
+            } catch (err) {
+              console.log('chdir: ' + err);
             }
-          );
+          }
         }
-      }
-    );
-  }
-});
-// setTimeout(() => {
-//   console.log('deleting');
-//   filesToDeleteAfterRunning.forEach((path, i, arr) => {
-//     console.log(path);
-//     fs.unlink(path, (err, res) => {
-//       if (i === arr.length - 1) {
-//         console.log('last file deleted');
-//         fs.rmdir(distDirPath, (err, res) => console.log('dist directory deleted'));
-//       }
-//     });
-//   });
-// }, 60000);
+      );
+    }
+  })
+  .catch(e => console.log('ERROR: ', e));
+//!! NO LONGER NEED TO SAVE TEMP FILE WITH ENTRYFILE IMPORT AND RUN THAT. SET CONTECT IN CONFIG TO ROOTDIR, AND IT CAN RUN WITHOUT ERROR
+// write temp file to their root that imports their entry file so we can run our config on a file in the root of their project
+// const tempFile = 'temp.js';
+// const tempFileFullPath = path.join(rootDir, tempFile);
+// const pathFromTempToEntry = './' + path.relative(rootDir, entryFileAbsolutePath); // TODO see if it is still necessary to write this file to get webpack working
+// const tempFileContent = `import '${pathFromTempToEntry}'`;
 
-// this will save the dynamicwebpackconfig to their root directory for when we want that
-// if they want a specific output folder for their bundle file or a specific name, we will need to ask for those
-
-// const dynamicWebpackConfig = createWebpackConfig(
-//   entryFile,
-//   extensions,
-//   path.join(rootDir, 'dist'),
-//   indexHtmlPath
-// );
-// const fileNameWithPathToRoot = path.join(rootDir, 'webpack.config.js');
-// fs.writeFile(fileNameWithPathToRoot, dynamicWebpackConfig, (err, res) => {
-//   console.log('file written');
+// fs.writeFile(tempFileFullPath, tempFileContent, (err, res) => {
+//   if (err) throw new Error(err);
+//   console.log('temp file written');
+//   filesToDeleteAfterRunning.push(tempFileFullPath);
 // });
-
-// Generate an AST from their config, replace their entry with our temp file, and then save that config to our
-// const ast = babylon.parse(webpackConfig.content, {
-//   sourceType: 'module',
-// });
-// // TODO change the output to dist if writing a new tamplate to our local directory from their config file base
-// //   /Users/bren/React/1-indecisionApp/
-// // ! TRAVERSE FILE AND CHANGE ENTRY, THEN WRITE AS TEMP CONFIG LOCALLY, AND THEN RUN (AND CHANGE ALL TO REQUIRE.RESOLVE
-// const outputObject = {
-//   path:
-//     confirmedRootDir +
-//     path.join(path.relative(confirmedRootDir, __dirname), '..', 'dist'),
-//   filename: 'bundle.js',
-// };
-// console.log(outputObject.path);
-
-// traverse(ast, {
-//   //!! this is what we need to rewrite
-//   // path: path.join(__dirname, '../../Codesmith/zweek-7-PROJECT/create-webpack-config/dist'),
-//   enter(path) {
-//     if (path.node.type === 'Identifier' && path.node.name === 'output') {
-//       path.parent.value = babel.types.valueToNode(outputObject);
-//     }
-//   },
-// });
-// const { code: userWebpackWithNewTempJSEntry } = babel.transformFromAst(
-//   ast,
-//   null,
-//   {
-//     presets: ['env'],
-//   }
-// );
-// const webpackWithTempJSEntrySavePath = path.join(
-//   confirmedRootDir,
-//   'webpack.config.js'
-// );
-// fs.writeFile(
-//   webpackWithTempJSEntrySavePath,
-//   userWebpackWithNewTempJSEntry,
-//   (err, res) => {
-//     if (err) throw new Error(err);
-//   }
-// );
+// if they do want to use our config, create local config file in electron, and use that with entry as temp.js
