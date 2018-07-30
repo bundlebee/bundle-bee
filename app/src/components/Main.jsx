@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
+import Chart from './Chart.jsx';
 
 import { connect } from 'react-redux';
 import { isLoading } from '../redux/actions/homeActions';
@@ -65,7 +66,12 @@ export class Main extends Component {
     
     return (
       <div>
+      <div>
         {mainPage}
+      </div>
+      <div className="sb_d3_container">
+      <Chart />
+      </div>
       </div>
     )
   };
