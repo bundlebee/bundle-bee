@@ -16,7 +16,9 @@ const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
 const cmd = require('node-cmd');
-const resolvePath = require('resolve-path');
+
+const createWebpackConfig = require('./utils/webpack-template');
+const folderIndexer = require('./utils/get-files-from-root.js');
 prompt.start();
 
 const distDirPath = path.join(__dirname, '..', 'dist');
@@ -36,16 +38,15 @@ const deleteTemporaryFilesAndFolders = files => {
     });
   });
 };
+
 const getFiles = rootDir => {
   return new Promise((resolve, reject) => {
-    const folderIndexer = require('./utils/get-files-from-root.js');
     folderIndexer(rootDir, (err, res) => {
       if (err) reject(err);
       if (res) resolve(res);
     });
   });
 };
-const createWebpackConfig = require('./utils/webpack-template');
 
 // dev testing purposes only
 const scrumEntry = '../../../../week-5/reactscrumboard/src/index.js'; // $$ (BUILD:PROD)
@@ -76,10 +77,6 @@ const craWithWP = '../../../../playground/cra-bundler-config-comparison/cra-webp
 const craRootWithWP =
   '/Users/bren/Codesmith/zweek-7-PROJECT/playground/cra-bundler-config-comparison/cra-webpack/';
 
-function providedRootSameDirectoryAsPackageJSON(fileEntry, rootDir) {
-  return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
-}
-
 const createAndSaveWebpackConfig = (entryFile, extensions, outputPath, indexHtmlPath, rootDir) => {
   return new Promise((resolve, reject) => {
     const dynamicWebpackConfig = createWebpackConfig(
@@ -99,13 +96,15 @@ const createAndSaveWebpackConfig = (entryFile, extensions, outputPath, indexHtml
 };
 
 const getRequiredInfoFromFiles = (files, rootDir) => {
+  function packageJSONExistsInDir(fileEntry, rootDir) {
+    return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
+  }
   const webpackConfig = { exists: false, path: null, content: null };
   let entryIsInRoot;
   let indexHtmlPath;
   let filePaths = files.reduce((files, fileInfo) => {
     // check if entry file is in root of project
-    if (!entryIsInRoot && providedRootSameDirectoryAsPackageJSON(fileInfo, rootDir))
-      entryIsInRoot = true;
+    if (!entryIsInRoot && packageJSONExistsInDir(fileInfo, rootDir)) entryIsInRoot = true;
     const { name } = fileInfo;
     // TODO prompt if multiple webpack configs found
     // check for webpack config outside of node modules
@@ -133,35 +132,43 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
   };
 };
 
+const makePrompt = (
+  promptMessage = 'please enter a response: ',
+  required = true,
+  pattern,
+  invalidMessage,
+  defaultValue
+) => [
+  {
+    name: 'answer',
+    description: promptMessage,
+    type: 'string',
+    pattern: pattern || /^y(es)?$|^no?$/,
+    message: invalidMessage || `Answer must be 'yes', 'no', 'y', or 'n'`,
+    default: defaultValue || 'y',
+    required,
+  },
+];
+
 const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
 
 const rootDir = scrumRoot;
-getFiles(rootDir)
-  .then(files => {
-    const {
-      webpackConfig,
-      entryIsInRoot,
-      indexHtmlPath,
-      atSameLevelAsPackageJSON,
-      extensions,
-    } = getRequiredInfoFromFiles(files, rootDir);
+const executeFileThenDelete = new Promise((resolve, reject) => {
+  getFiles(rootDir)
+    .then(files => {
+      const {
+        webpackConfig,
+        entryIsInRoot,
+        indexHtmlPath,
+        atSameLevelAsPackageJSON,
+        extensions,
+      } = getRequiredInfoFromFiles(files, rootDir);
 
-    if (!entryIsInRoot) console.log('no package.json in provided directory'); // TODO prompt them to make sure this is the root folder
-    if (webpackConfig.exists) {
-      prompt.get(
-        [
-          {
-            name: 'answer',
-            description:
-              'It looks like you already have a webpack configuration file set up. Would you like us to use that?(y/n)',
-            type: 'string',
-            pattern: /^y(es)?$|^no?$/,
-            message: `Answer must be 'yes', 'no', 'y', or 'n'`,
-            default: 'y',
-            required: true,
-          },
-        ],
-        (err, { answer }) => {
+      if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+      if (webpackConfig.exists) {
+        const promptMessage =
+          'It looks like you already have a webpack configuration file set up. Would you like us to use that? (y/n)';
+        prompt.get(makePrompt(promptMessage), (err, { answer }) => {
           if (err) throw new Error(err);
           if (answer === 'n' || answer === 'no') {
             createAndSaveWebpackConfig(
@@ -182,37 +189,34 @@ getFiles(rootDir)
                     if (err) throw new Error(err);
                     console.log(res);
                     console.log('production and development builds successful');
-                    // setTimeout(() => {
-                    //   deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
-                    // }, 10000);
+                    resolve();
                   }
                 );
               });
             });
           } else if (answer === 'y' || answer === 'yes') {
-            console.log('running existing webpack.config.js');
-            // if not, run their config
-            try {
-              const pathBackFromRoot = path.relative(rootDir, __dirname);
-              const pathToTheirRoot = path.relative(__dirname, rootDir);
-              process.chdir(pathToTheirRoot);
-              console.log('New directory: ' + process.cwd());
-              cmd.get(`npm run env webpack`, (err, res) => {
-                if (err) throw new Error(err);
-                console.log(res);
-                console.log('production and development builds successful');
-                process.chdir(pathBackFromRoot);
-                console.log('directory after write', process.cwd());
-                setTimeout(() => {
-                  deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
-                }, 10000);
-              });
-            } catch (err) {
-              console.log('chdir: ' + err);
-            }
+            console.log('running existing webpack.config.js...');
+            const pathBackFromRoot = path.relative(rootDir, __dirname);
+            const pathToTheirRoot = path.relative(__dirname, rootDir);
+            process.chdir(pathToTheirRoot);
+            cmd.get(`npm run env webpack`, (err, res) => {
+              if (err) throw new Error(err);
+              console.log(res);
+              console.log('production and development builds successful');
+              process.chdir(pathBackFromRoot);
+              resolve();
+            });
           }
-        }
-      );
-    }
+        });
+      }
+    })
+    .catch(e => console.log('ERROR: ', e));
+})
+  .then(() => {
+    console.log('deleting temporary files...');
+    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
   })
-  .catch(e => console.log('ERROR: ', e));
+  .catch(e => {
+    console.log('deleting temporary files...');
+    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
+  });
