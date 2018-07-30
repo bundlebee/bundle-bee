@@ -7,11 +7,14 @@ import loadingReducer from './reducers/loadingReducer.js';
 import modalReducer from './reducers/modalReducer.js';
 
 export default () => {
-  const store = createStore(
-    combineReducers({ results: resultsReducer, loading: loadingReducer,
-    showModal: modalReducer }),
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+    const store = createStore(
+        combineReducers({
+            results: resultsReducer,
+            loading: loadingReducer,
+            showModal: modalReducer
+        }),
+        composeWithDevTools(applyMiddleware(thunk))
+    );
 
-  return store;
+    return store;
 };

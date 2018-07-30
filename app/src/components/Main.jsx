@@ -42,11 +42,10 @@ export class Main extends Component {
   }
 
   render() {
-    let mainPage;
-    if (!this.props.directoryLoaded) mainPage = this.dropZoneActive();
-    if (this.props.loading) mainPage = this.renderLoading();
-    if (this.props.modal) mainPage = this.renderModal();
-    if (this.props.directoryLoaded) mainPage = this.renderCards();
+    let mainPage = this.dropZoneActive();
+    if (this.props.state.loading) mainPage = this.renderLoading();
+    if (this.props.state.modal) mainPage = this.renderModal();
+    if (this.props.state.directoryLoaded) mainPage = this.renderCards();
 
     console.log(this.props)
 
