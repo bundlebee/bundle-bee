@@ -14,7 +14,7 @@ export class Main extends Component {
         </DropZone>
 
         <Chart />
-      </div>
+            </div>
     )
   }
 };

@@ -1,33 +1,72 @@
-
-const starBurstData = require('../../../build/data_source/d3_webpack_starburst.json');
-
+const starBurstData = require('../../../compilation-stats.json');
+// change starBurstData to it will read from the fresh webpack run
 import React from 'react';
 import * as d3 from 'd3';
+
+function Node(name, size = null, speed = null) {
+  this.name = name;
+  this.children = [];
+}
+  const rootData = { "name": "rootData", "children": [] };
+
 class D3StarBurstChart extends React.Component {
+
   componentDidMount() {
     this.instantiateStarburstChart();
   }
 
   componentDidUpdate() {
-    // d3.select(this.svg).selectAll("g").remove();
     this.instantiateStarburstChart();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // only re-render if the data will change
-  //   // return !lodash_isEqual(nextProps.data, this.props.data);
-  // }
+
 
   instantiateStarburstChart() {
-    /*
-      D3 code 
-    */
-  //  console.log('at renderer')
-   var border=1;
-   var bordercolor='black';
+
+
+  starBurstData.chunks[0].modules.forEach(element => {
+
+      let directoryAndName = element.name.replace(/[.\/]/, "");
+      let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
+
+      var currentNode = rootData;
+      for (var j = 0; j < parts.length; j++) {
+
+          
+        var children = currentNode["children"];
+        var nodeName = parts[j];
+        var childNode;
+        if (j + 1 < parts.length) {
+          // Not yet at the end of the sequence; move down the tree.
+          var foundChild = false;
+          for (var k = 0; k < children.length; k++) {
+            if (children[k]["name"] == nodeName) {
+              childNode = children[k];
+              foundChild = true;
+              break;
+            }
+          }
+          // If we don't already have a child node for this branch, create it.
+          if (!foundChild) {
+            childNode = { "name": nodeName, "children": [] };
+            children.push(childNode);
+          }
+          currentNode = childNode;
+        } else {
+          // Reached the end of the sequence; create a leaf node.
+          childNode = { "name": nodeName, "size": element.size };
+          children.push(childNode);
+        }
+      }
+
+ 
+
+
+});
 
 
    // Dimensions of sunburst
+   // TODO: should be dynamic
    var width = 900;
    var height = 900;
    var radius = Math.min(width, height) / 2;
@@ -42,12 +81,7 @@ class D3StarBurstChart extends React.Component {
        .attr('height', height)
        .append('g')
        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-       .attr("border",border);
-      //  console.log(g);
-      //  console.log('at d3 starburst');
 
-      
-  // console.log(g, "G")
 
        // Create our sunburst data structure and size it.
    var partition = d3.partition()
@@ -55,17 +89,15 @@ class D3StarBurstChart extends React.Component {
 
    // Get the data from our JSON file
    console.log("before data")
-  //  d3.json("http://clarizmariano.com/d3_webpack_starburst.json", function(error, nodeData) {
-  //   console.log(nodeData, "at Node Data");
-  //    console.log("after data")
+ 
   //   // d3.json("./json/stats.json", function(error, nodeData) {
   //       if (error) throw error;
 
-       // Find the root node of our data, and begin sizing process.
-       var global = d3.hierarchy(starBurstData)
-           .sum(function (d) { return d.size});
+       // Find the rootData node of our data, and begin sizing process.
+       var global = d3.hierarchy(rootData) // starBurstData imported file
+       .sum(function (d) { return 10});
+      //  .sum(function (d) { return d.size});
 
-    // console.log(nodeData[0].chunks[0].modules)
        // Calculate the sizes of each arc that we'll draw later.
        partition(global);
        var arc = d3.arc()
@@ -89,12 +121,9 @@ class D3StarBurstChart extends React.Component {
 
 
 
-
-// console.log("after json")
    function mouseover(d) {
-        // remove later
    
-          // Get total size of the tree = value of root node from partition.
+          // Get total size of the tree = value of rootData node from partition.
         //   totalSize = path.datum().value;
           const totalSize = 20000; // bullshit placeholder
           var percentage = (100 * d.value / totalSize).toPrecision(3);
@@ -121,8 +150,6 @@ class D3StarBurstChart extends React.Component {
     d3.select("#sb_d3_explanation")
       .style("visibility", "");
    }
-//    var d1 = document.getElementById('sample-1');
-//    d1.insertAdjacentHTML('beforeend', '<div id="two">two</div>');
 
 
   }
@@ -152,5 +179,4 @@ class D3StarBurstChart extends React.Component {
  
 
 }
-
 export default D3StarBurstChart;
