@@ -119,19 +119,20 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
   let filePaths = files.reduce((files, fileInfo) => {
     // check if entry file is in root of project
     if (!entryIsInRoot && packageJSONExistsInDir(fileInfo, rootDir)) entryIsInRoot = true;
-    const { name } = fileInfo;
+    const { name, fullPath } = fileInfo;
     // TODO prompt if multiple webpack configs found
     // check for webpack config outside of node modules
     if (
       name === 'webpack.config.js' &&
-      !fileInfo.fullPath.includes('/node_modules/') &&
+      !fullPath.includes('/node_modules/') &&
       !webpackConfig.exists
     ) {
       webpackConfig.exists = true;
-      webpackConfig.content = fs.readFileSync(fileInfo.fullPath, 'utf-8');
+      webpackConfig.content = fs.readFileSync(fullPath, 'utf-8');
       webpackConfig.info = fileInfo;
     }
-    if (name === 'index.html' && !indexHtmlPath) indexHtmlPath = fileInfo.fullPath;
+    if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
+      indexHtmlPath = fullPath;
     return files.concat(name);
   }, []);
   const extensions = files
@@ -164,22 +165,16 @@ const makePrompt = (
   },
 ];
 
-let parcelEntryPath;
-
 const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
 
 const rootDir = scrumRoot;
 const executeFileThenDelete = new Promise((resolve, reject) => {
   getFiles(rootDir)
     .then(files => {
-      const {
-        webpackConfig,
-        entryIsInRoot,
-        indexHtmlPath,
-        atSameLevelAsPackageJSON,
-        extensions,
-      } = getRequiredInfoFromFiles(files, rootDir);
-      if (indexHtmlPath) parcelEntryPath = indexHtmlPath; // TODO validate this, and advise user that (if html not found) we need to use js unless they give us the html file
+      const { webpackConfig, entryIsInRoot, indexHtmlPath, extensions } = getRequiredInfoFromFiles(
+        files,
+        rootDir
+      );
       if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
       if (webpackConfig.exists) {
         const promptMessage =
@@ -220,7 +215,7 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
               console.log(res);
               console.log('production and development builds successful');
               process.chdir(pathBackFromRoot);
-              resolve();
+              resolve({ indexHtmlPath, entryFileAbsolutePath });
             });
           }
         });
@@ -232,7 +227,7 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
 
         //     `;
         const promptMessage = `Please enter your entry file path`;
-        prompt.get(makePrompt(promptMessage, true, undefined), (err, { answer }) => {
+        prompt.get(makePrompt(promptMessage), (err, { answer }) => {
           createAndSaveWebpackConfig(
             entryFileAbsolutePath,
             extensions,
@@ -251,7 +246,7 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
                   if (err) throw new Error(err);
                   console.log(res);
                   console.log('production and development builds successful');
-                  resolve();
+                  resolve({ indexHtmlPath, entryFileAbsolutePath });
                 }
               );
             });
@@ -261,17 +256,52 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
     })
     .catch(e => console.log('ERROR: ', e));
 })
-  .then(() => {
-    console.log(`running parcel build on ${parcelEntryPath}...`);
-    cmd.get(`parcel build ${parcelEntryPath}`, (err, res) => {
-      return;
+  .then(({ indexHtmlPath, entryFileAbsolutePath }) => {
+    console.log('​entryFileAbsolutePath', entryFileAbsolutePath);
+    console.log('​indexHtmlPath', indexHtmlPath);
+    return new Promise((resolve, reject) => {
+      if (!indexHtmlPath) {
+        //TODO the prompt here only accepts y/n. should accept file paths
+        const promptMessage = `No index.html file found. Do you have an entry html file? If so, please enter it now. If not, we will use your javascript entry file to build with parcel`;
+        prompt.get(
+          makePrompt(
+            promptMessage,
+            true,
+            new RegExp(
+              /* '/Users/bren/Codesmith/week-5/reactscrumboard/public/dist/index-test.html' */ '/Users/bren/Codesmith/week-5/reactscrumboard/public/dist/index-test.html'
+            )
+          ),
+          (err, { answer }) => {
+            if (answer === 'n' || answer === 'no') {
+              resolve(entryFileAbsolutePath);
+            } else {
+              //TODO should validate this before just passing it in
+              resolve(answer);
+            }
+          }
+        );
+      } else {
+        resolve(indexHtmlPath);
+      }
     });
   })
-  .then(() => {
+  .then(parcelEntryFile => {
+    console.log(`running parcel build on ${parcelEntryFile}...`);
+    return new Promise((resolve, reject) => {
+      cmd.get(`parcel build ${parcelEntryFile}`, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
+    });
+  })
+  .then(res => {
+    console.log(res);
     console.log('deleting temporary files...');
     deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
   })
   .catch(e => {
+    console.log('there was an error: ', e);
+
     console.log('deleting temporary files...');
-    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
+    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
   });
