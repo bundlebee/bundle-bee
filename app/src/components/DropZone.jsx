@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './dropzone.sass';
 
+import { connect } from 'react-redux';
+import { showModal } from '../redux/actions/homeActions';
+
 class DropZone extends Component {
   constructor() {
     super();
     this.state = {
-      className: 'drop-zone-hide',
-      showModal: false,
+      className: 'drop-zone-hide'
     }
     this._onDragEnter = this._onDragEnter.bind(this);
     this._onDragLeave = this._onDragLeave.bind(this);
@@ -53,10 +55,11 @@ class DropZone extends Component {
 
   _onDrop(e) {
     e.preventDefault();
+    // Upload files
     let files = e.dataTransfer.files;
     console.log('Files dropped: ', files);
-    // Upload files
-    this.setState({ className: 'drop-zone-hide', showModal: true });
+    // this.setState({ className: 'drop-zone-hide', showModal: true });
+    this.props.showModal();
     return false;
   }
 
@@ -72,4 +75,14 @@ class DropZone extends Component {
   }
 };
 
-export default DropZone;
+
+const mapDispatchToProps = (dispatch) => (
+  { showModal: () => dispatch(showModal()) }
+);
+
+const mapStateToProps = (state) => (
+  { home: state.home }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropZone);
+
