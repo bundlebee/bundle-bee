@@ -2,13 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import resultsReducer from './reducers/resultsReducer.js';
+import homeReducer from './reducers/homeReducer.js';
 
 export default () => {
-  const store = createStore(
-    combineReducers({ results: resultsReducer }),
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+    const store = createStore(
+        combineReducers({
+            home: homeReducer
+        }),
+        composeWithDevTools(applyMiddleware(thunk))
+    );
 
-  return store;
+    return store;
 };

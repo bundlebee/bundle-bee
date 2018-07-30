@@ -1,64 +1,29 @@
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,900)
+.chart
+  position: absolute
 
-*
-  font-family: 'Roboto'
-  box-sizing: border-box
+.sb_d3_container 
+  position: absolute
+  top: 400px
+  height: 600px
+  width: 80%
+  display: flex  
+  flex-wrap: wrap
 
-html,
-body
-  width: 100%
-  height: 100%
-  margin: 0px
-  padding: 0px
 
-html
-  border: 15px solid #000
+.sb_d3_box 
+  border: 1px solid red
 
-h1
-  margin: 0px
-  padding: 10px
-  color: #333
-  font-size: 26px
-  background: #ddd
-  border-bottom: 1px solid #ccc
+#sb_d3_explanation 
+  position: absolute
+  top: 400px
+  left: 380px
+  width: 140px
+  text-align: center
 
-.drop-zone-hide
-  display: none
+#sb_d3_percentage 
+  font-size: 2.5em
 
-.drop-zone-show
-  position: fixed
-  display: flex
-  background: rgba(17, 109, 210, 0.5)
-  border: 15px solid #0c3158
-  width: 100%
-  height: 100%
-  zIndex: 2000
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  flex: 1
-  justify-content: center
-  align-items: center
-  textAlign: center
-  font-size: 30px
-  font-weight: 600
-  color: #fff
-  letterSpacing: 1px
-  margin: auto
-  font-family: 'Roboto'
-
-.card
-  margin: 2rem
-  height: 100px
-  background-color: purple
-  color: white
-
-.card-hide
-  display: none
-
-  .user-prompt
-    margin: 1rem
-    padding: 1rem
-    background-color: green
+#sb_d3_fileNames 
+ padding: 5px 100px 50px 100px
+ color: blue
