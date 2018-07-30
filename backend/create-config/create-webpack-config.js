@@ -12,29 +12,38 @@
 // TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
+
+//?? probably should get the entry point set up for auto find and if not let them enter it
+// ?? look into how to handle our creating a webpack if they use an array of chunks for their entry instead of a single file
+
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
 const cmd = require('node-cmd');
+const rimraf = require('rimraf');
+const fse = require('fs-extra');
 
 const createWebpackConfig = require('./utils/webpack-template');
 const folderIndexer = require('./utils/get-files-from-root.js');
 prompt.start();
 
 const distDirPath = path.join(__dirname, '..', 'dist');
-const filesToDeleteAfterRunning = [
-  path.join(__dirname, '..', 'dist', 'bundle.js'),
-  path.join(__dirname, '..', 'dist', 'index.html'),
+// ?? ODD. these files get recrearted by parcel even when i delete them, and i have to add them here for them to delete at all. if i add them later, the code block doesn't run
+const foldersToDeleteAfterRunning = [
+  path.join(__dirname, '.cache'),
+  path.join(__dirname, 'dist'),
+  path.join(__dirname, '..', 'dist'),
 ];
-
-const deleteTemporaryFilesAndFolders = files => {
+const filesToDeleteAfterRunning = [path.join(__dirname, '..', 'webpack.config.js')];
+const deleteTemporaryFilesAndFolders = (files = [], folders = []) => {
+  folders.forEach((path, i, arr) => {
+    fse.remove(path, (err, res) => {
+      if (i === arr.length - 1) console.log('last folder deleted');
+    });
+  });
   files.forEach((path, i, arr) => {
-    console.log(path);
     fs.unlink(path, (err, res) => {
-      if (i === arr.length - 1) {
-        console.log('last file deleted');
-        fs.rmdir(distDirPath, (err, res) => console.log('dist directory deleted'));
-      }
+      if (i === arr.length - 1) console.log('last file deleted');
     });
   });
 };
@@ -77,19 +86,24 @@ const craWithWP = '../../../../playground/cra-bundler-config-comparison/cra-webp
 const craRootWithWP =
   '/Users/bren/Codesmith/zweek-7-PROJECT/playground/cra-bundler-config-comparison/cra-webpack/';
 
-const createAndSaveWebpackConfig = (entryFile, extensions, outputPath, indexHtmlPath, rootDir) => {
+const createAndSaveWebpackConfig = (
+  entryFile,
+  extensions,
+  outputPath = path.join(__dirname, '..', 'dist'),
+  indexHtmlPath = path.join(__dirname, 'template.html'),
+  rootDir
+) => {
   return new Promise((resolve, reject) => {
     const dynamicWebpackConfig = createWebpackConfig(
       entryFile,
       extensions,
-      outputPath || path.join(__dirname, '..', 'dist'),
-      indexHtmlPath || path.join(__dirname, 'template.html'),
+      (outputPath = path.join(__dirname, '..', 'dist')),
+      (indexHtmlPath = path.join(__dirname, 'template.html')),
       rootDir
     );
     const webpackConfigSavePath = path.join(__dirname, '..', 'webpack.config.js');
     fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
       if (err) reject(err);
-      filesToDeleteAfterRunning.push(webpackConfigSavePath);
       resolve(webpackConfigSavePath);
     });
   });
@@ -150,6 +164,8 @@ const makePrompt = (
   },
 ];
 
+let parcelEntryPath;
+
 const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
 
 const rootDir = scrumRoot;
@@ -163,7 +179,7 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
         atSameLevelAsPackageJSON,
         extensions,
       } = getRequiredInfoFromFiles(files, rootDir);
-
+      if (indexHtmlPath) parcelEntryPath = indexHtmlPath; // TODO validate this, and advise user that (if html not found) we need to use js unless they give us the html file
       if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
       if (webpackConfig.exists) {
         const promptMessage =
@@ -208,13 +224,52 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
             });
           }
         });
+      } else {
+        //TODO should search for index.js or app.js, or maybe check their package json
+        // webpack entry defaults to ./src/index.js
+        // ask them for their entry file
+        // const promptMessage = `Is this file your entry point:
+
+        //     `;
+        const promptMessage = `Please enter your entry file path`;
+        prompt.get(makePrompt(promptMessage, true, undefined), (err, { answer }) => {
+          createAndSaveWebpackConfig(
+            entryFileAbsolutePath,
+            extensions,
+            null,
+            indexHtmlPath,
+            rootDir
+          ).then(webpackConfigSavePath => {
+            // build the production build
+            cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
+              if (err) throw new Error(err);
+              console.log(res);
+              // build the development build
+              cmd.get(
+                `webpack --config ${webpackConfigSavePath} --mode development`,
+                (err, res) => {
+                  if (err) throw new Error(err);
+                  console.log(res);
+                  console.log('production and development builds successful');
+                  resolve();
+                }
+              );
+            });
+          });
+        });
       }
     })
     .catch(e => console.log('ERROR: ', e));
 })
   .then(() => {
+    console.log(`running parcel build on ${parcelEntryPath}...`);
+    cmd.get(`parcel build ${parcelEntryPath}`, (err, res) => {
+      return;
+    });
+  })
+  .then(() => {
     console.log('deleting temporary files...');
-    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning);
+    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
   })
   .catch(e => {
     console.log('deleting temporary files...');
