@@ -1,3 +1,6 @@
+# electron project build
+app/build
+
 #
 *-lock.json
 

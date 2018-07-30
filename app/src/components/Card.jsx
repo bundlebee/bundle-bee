@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addResult } from '../redux/actions/resultsActions.js';
+// import { addResult } from '../redux/actions/homeActions.js';
 
 class Card extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Card extends Component {
   }
   handleAddResult() {
     console.log('dispatch fired. current props for reference: ', this.props);
-  this.props.addResult(/*normally you would use 'e' or something here*/);
+  // this.props.addResult(/*normally you would use 'e' or something here*/);
   }
   render() {
     return (
@@ -27,7 +27,7 @@ const mapStateToProps = ({ results }) => ({
 });
 const mapDispatchToProps = dispatch => ({
   // normally you would use e in both the anonymous function and the invocation of the addresult function
-  addResult: () => dispatch(addResult('add this to the results')),
+  // addResult: () => dispatch(addResult('add this to the results')),
 });
 
 export default connect(

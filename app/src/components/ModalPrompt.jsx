@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import { isLoading } from '../redux/actions/resultsActions';
+import { isLoading } from '../redux/actions/homeActions';
 import { connect } from 'react-redux';
 
 const customStyles = {
@@ -22,7 +22,7 @@ class ModalPrompt extends Component {
   constructor() {
     super();
     this.state = {
-      modalIsOpen: false,
+      modalIsOpen: true,
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -30,7 +30,7 @@ class ModalPrompt extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ modalIsOpen: nextProps.showModal });
+    this.setState({ modalIsOpen: true });
   }
 
   openModal() {
@@ -58,12 +58,12 @@ class ModalPrompt extends Component {
           <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
           <button onClick={(e) => {
             e.preventDefault();
-            this.props.dispatchLoading(true);
+            // this.props.dispatchLoading(true);
           }}
             className="user-prompt">Use Existing Webpack</button>
           <button onClick={(e) => {
             e.preventDefault();
-            this.props.dispatchLoading(false);
+            // this.props.dispatchLoading(false);
           }} className="user-prompt">Create New Webpack</button>
         </Modal>
       </div>
@@ -72,6 +72,6 @@ class ModalPrompt extends Component {
 };
 
 const mapDispatchToProps = (dispatch) => (
-  { dispatchLoading: (loaded) => dispatch(isLoading(loaded)) }
+  { /*dispatchLoading: (loaded) => dispatch(isLoading(loaded))*/ }
 );
 export default connect(null, mapDispatchToProps)(ModalPrompt);

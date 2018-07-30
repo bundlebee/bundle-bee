@@ -4,17 +4,23 @@ import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 
 import { connect } from 'react-redux';
-import { isLoading } from '../redux/actions/resultsActions';
-import { showModal } from '../redux/actions/resultsActions';
+import { isLoading } from '../redux/actions/homeActions';
+import { showModal } from '../redux/actions/homeActions';
+import * as home from '../redux/constants/homeConstants';
 
 export class Main extends Component {
-
-  renderLoading() {
+  renderLoadingModal() {
     return (
-      <div>{`isLoading: ${this.props.state.loading}`}</div>
+      <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>
     )
   };
-
+  
+  renderLoadingComplete() {
+    return (
+      <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>
+    )
+  };
+  
   dropZoneActive() {
     return (
       <DropZone>
@@ -27,7 +33,7 @@ export class Main extends Component {
 
   renderModal() {
     return (
-      <ModalPrompt showModal={this.state.showModal} />
+      <ModalPrompt />
     )
   }
 
@@ -42,13 +48,21 @@ export class Main extends Component {
   }
 
   render() {
-    let mainPage = this.dropZoneActive();
-    if (this.props.state.loading) mainPage = this.renderLoading();
-    if (this.props.state.modal) mainPage = this.renderModal();
-    if (this.props.state.directoryLoaded) mainPage = this.renderCards();
-
-    console.log(this.props)
-
+    // if (!this.props.state.directoryLoaded) let mainPage = this.dropZoneActive();
+    // if (this.props.state.loading) mainPage = this.renderLoading();
+    // if (this.props.state.modal) mainPage = this.renderModal();
+    // if (this.props.state.directoryLoaded) mainPage = this.renderCards();
+    // 
+    
+    console.log(this.props.home.screen);
+    
+    let mainPage = null;
+    if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
+    else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
+    else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
+    else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
+    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
+    
     return (
       <div>
         {mainPage}
@@ -58,11 +72,12 @@ export class Main extends Component {
 };
 
 const mapDispatchToProps = (dispatch) => (
-  { dispatchLoading: (shown) => dispatch(isLoading(loaded)) }
+  { /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/ }
 );
 
 const mapStateToProps = (state) => (
-  { state }
+  { home: state.home }
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
