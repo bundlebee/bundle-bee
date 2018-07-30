@@ -1,3 +1,6 @@
+# electron project build
+app/build
+
 #
 *-lock.json
 
@@ -38,3 +41,6 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+.vs/
+.vscode/
