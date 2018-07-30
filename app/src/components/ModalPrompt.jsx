@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { isLoading } from '../redux/actions/resultsActions';
+import { connect } from 'react-redux';
 
 const customStyles = {
   content: {
@@ -53,16 +55,23 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-
-          <h2 ref={subtitle => this.subtitle = subtitle}>I am a super model</h2>
-          <form className="user-prompt">
-            <button className="user-prompt">Use Existing</button>
-            <button>Create New</button>
-          </form>
+          <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
+          <button onClick={(e) => {
+            e.preventDefault();
+            this.props.dispatchLoading(true);
+          }}
+            className="user-prompt">Use Existing Webpack</button>
+          <button onClick={(e) => {
+            e.preventDefault();
+            this.props.dispatchLoading(false);
+          }} className="user-prompt">Create New Webpack</button>
         </Modal>
       </div>
     );
   }
 };
 
-export default ModalPrompt;
+const mapDispatchToProps = (dispatch) => (
+  { dispatchLoading: (loaded) => dispatch(isLoading(loaded)) }
+);
+export default connect(null, mapDispatchToProps)(ModalPrompt);
