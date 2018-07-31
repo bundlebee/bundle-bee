@@ -8,8 +8,7 @@ import Chart from './Chart.jsx';
 import { Paper, Typography, TextField } from '@material-ui/core'
 
 import { connect } from 'react-redux';
-import { isLoading } from '../redux/actions/homeActions';
-import { showModal } from '../redux/actions/homeActions';
+import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
 import Bee from './loaders/awesomeBee.jsx';
