@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { isLoading } from '../redux/actions/homeActions';
@@ -11,12 +12,12 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     padding: '.5rem',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#app')
+Modal.setAppElement('#app');
 
 class ModalPrompt extends Component {
   constructor() {
@@ -55,23 +56,39 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
-          <button onClick={(e) => {
-            e.preventDefault();
-            // this.props.dispatchLoading(true);
-          }}
-            className="user-prompt">Use Existing Webpack</button>
-          <button onClick={(e) => {
-            e.preventDefault();
-            // this.props.dispatchLoading(false);
-          }} className="user-prompt">Create New Webpack</button>
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>CLICK A BUTTON TO CONTINUE</h2>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              console.log('testing');
+              ipcRenderer.send('run-webpack', { createNewConfig: false });
+              // this.props.dispatchLoading(true);
+            }}
+            className="user-prompt"
+          >
+            Use Existing Webpack
+          </button>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              ipcRenderer.send('run-webpack', { createNewConfig: true });
+
+              // this.props.dispatchLoading(false);
+            }}
+            className="user-prompt"
+          >
+            Create New Webpack
+          </button>
         </Modal>
       </div>
     );
   }
-};
+}
 
-const mapDispatchToProps = (dispatch) => (
-  { /*dispatchLoading: (loaded) => dispatch(isLoading(loaded))*/ }
-);
-export default connect(null, mapDispatchToProps)(ModalPrompt);
+const mapDispatchToProps = dispatch => ({
+  /*dispatchLoading: (loaded) => dispatch(isLoading(loaded))*/
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(ModalPrompt);
