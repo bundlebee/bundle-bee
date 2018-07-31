@@ -6,10 +6,16 @@
  * Global CSS goes here, it requires to use :global before each style
  */
 
+ html{
+    padding: 20px;
+    margin: 30px;
+    line-height: 1.3em;
+    border: 2px dashed lightgrey;
+    border-radius: 10px;
+    box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2);
+ }
 :global html {
     height: 100%;
-    border: 15px solid #000;
-    background-color: cooler;
 }
 
 :global #app {
@@ -586,6 +592,14 @@
     background: darkgrey; 
 }
 
-.main_page{
-    width: 600px;
+div.header {
+    display: inline-block;
 }
+
+#wrapper{
+    display:inline-block;
+}
+.bee_logo_name {
+    display: inline-block;
+}
+

@@ -157,20 +157,19 @@ class D3StarBurstChart extends React.Component {
            .outerRadius(function (d) { return d.y1 });
 
 
+       // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
+       // variable calculations. Last, color the lines and the slices.
+       g.selectAll('g')
+           .data(global.descendants())
+           .enter().append('g').attr("class", "node").append('path')
+           .attr("display", function (d) { return d.depth ? null : "none"; })
+           .attr("d", arc)
+           .style('stroke', '#fff')
+           .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })
+           .on("mouseover", mouseover);
 
-      console.log(ctr++);
-      d3.select("#sb_d3_explanation")
-        .style("visibility", "");
 
-      d3.select("#sb_d3_percentage")
-        .text(percentageString);
-      //ADDED FILE NAME-
-      d3.select("#sb_d3_filename")
-        .text(d.data.name)
 
-      //ADDED FILE SIZE
-      d3.select("#sb_d3_filesize")
-        .text(d.value / 1000)
 
    
 
@@ -181,9 +180,9 @@ class D3StarBurstChart extends React.Component {
     return (
       <div>
         <div className="sb_d3_container">
-          STARBURST
+        STARBURST
           <div className="sb_d3_box">
-            <svg id="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
+            <svg id ="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
             </svg>
 
          <div id="sb_d3_explanation">
@@ -218,4 +217,3 @@ const mapStateToProps = (state) => (
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(D3StarBurstChart);
-

@@ -30,8 +30,8 @@ export class Main extends Component {
   dropZoneActive() {
     return (
       <DropZone>
-        <Paper>
-        <div className="main_page">
+        <Paper className="main_page">
+        <div >
           <Typography> Drop Your Root Directory To Get Started</Typography>
         </div>
         </Paper>
@@ -41,6 +41,12 @@ export class Main extends Component {
 
   renderModal() {
     return <ModalPrompt />;
+  }
+
+  renderBee() {
+    return (
+      <Bee />
+    )
   }
 
   renderCards() {
@@ -54,12 +60,6 @@ export class Main extends Component {
   }
 
   render() {
-    // if (!this.props.state.directoryLoaded) let mainPage = this.dropZoneActive();
-    // if (this.props.state.loading) mainPage = this.renderLoading();
-    // if (this.props.state.modal) mainPage = this.renderModal();
-    // if (this.props.state.directoryLoaded) mainPage = this.renderCards();
-    //
-
     console.log(this.props.home.screen);
 
     let mainPage = null;
@@ -69,11 +69,23 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
+
+    let loadingBee = null;
+    // if ()
+
     return (
       <div>
-        <Bee />
+        <div className='header'>
+        <Bee /> 
+        <img  className='bee_logo_name' src="./build/logo.png" />
+
+        </div>
+
         <div>
           {mainPage}
+        </div>
+        <div className="sb_d3_container">
+          {/* <Chart /> */}
         </div>
       </div>
     );
@@ -84,4 +96,9 @@ const mapDispatchToProps = dispatch => ({
   /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/
 });
 
+const mapStateToProps = state => (
+  {home: state.home}
+);
+
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
