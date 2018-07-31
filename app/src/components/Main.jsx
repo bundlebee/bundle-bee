@@ -75,6 +75,9 @@ export class Main extends Component {
         <div>
           {mainPage}
         </div>
+        <div>
+          <Chart />
+        </div>
       </div>
     );
   }
@@ -84,4 +87,9 @@ const mapDispatchToProps = dispatch => ({
   /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/
 });
 
+const mapStateToProps = state => (
+  {home: state.home}
+);
+
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
