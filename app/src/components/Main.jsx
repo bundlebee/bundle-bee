@@ -4,6 +4,8 @@ import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
+import { Paper, Typography, TextField } from '@material-ui/core'
+
 import { connect } from 'react-redux';
 import { isLoading } from '../redux/actions/homeActions';
 import { showModal } from '../redux/actions/homeActions';
@@ -25,9 +27,11 @@ export class Main extends Component {
   dropZoneActive() {
     return (
       <DropZone>
-        <div>
-          <h1>Drop Your Root Directory To Get Started</h1>
+        <Paper>
+        <div className="main_page">
+          <Typography> Drop Your Root Directory To Get Started</Typography>
         </div>
+        </Paper>
       </DropZone>
     )
   };
@@ -66,12 +70,7 @@ export class Main extends Component {
     
     return (
       <div>
-      <div>
         {mainPage}
-      </div>
-      <div className="sb_d3_container">
-      <Chart />
-      </div>
       </div>
     )
   };

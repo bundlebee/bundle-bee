@@ -7,7 +7,10 @@ function Node(name, size = null, speed = null) {
   this.name = name;
   this.children = [];
 }
-  const rootData = { "name": "rootData", "children": [] };
+
+const rootData = { "name": "rootData", "children": [] };
+
+
 
 class D3StarBurstChart extends React.Component {
 
@@ -22,17 +25,22 @@ class D3StarBurstChart extends React.Component {
 
 
   instantiateStarburstChart() {
+    // Basic setup of page elements.
+    // initializeBreadcrumbTrail();
 
-
-  starBurstData.chunks[0].modules.forEach(element => {
+    console.log(starBurstData.chunks[0].modules.map(e => e.profile));
+    d3.select("#sb_d3_explanation")
+      .style("visibility", "hidden");
+    let totalsize = 0;
+    starBurstData.chunks[0].modules.forEach(element => {
 
       let directoryAndName = element.name.replace(/[.\/]/, "");
-      let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
+      let parts = directoryAndName.replace(/[.\/]/, "").split("/");
 
       var currentNode = rootData;
       for (var j = 0; j < parts.length; j++) {
 
-          
+
         var children = currentNode["children"];
         var nodeName = parts[j];
         var childNode;
@@ -53,103 +61,138 @@ class D3StarBurstChart extends React.Component {
           }
           currentNode = childNode;
         } else {
-          // Reached the end of the sequence; create a leaf node.
+          // Reached the end of the sequence; create a leaf node. // , "factory_time": element.profile.factory
           childNode = { "name": nodeName, "size": element.size };
           children.push(childNode);
+          totalsize += element.size;
         }
       }
 
- 
+  // console.log(rootData);
 
 
-});
+    });
+    console.log(totalsize, "TOTAL SIZE")
+    rootData.children.forEach(e => {
+      console.log(e)
+    })
 
 
-   // Dimensions of sunburst
-   // TODO: should be dynamic
-   var width = 900;
-   var height = 900;
-   var radius = Math.min(width, height) / 2;
-   var color = d3.scaleOrdinal()
-   .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    // Dimensions of sunburst
+    // TODO: should be dynamic
+    var width = 1200;
+    var height = 1200;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal()
+      .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-   //d3.scaleOrdinal(); // d3.category10()
+    //d3.scaleOrdinal(); // d3.category10()
 
-   // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
-   var g = d3.select('#svgStarBurst')
-       .attr('width', width)
-       .attr('height', height)
-       .append('g')
-       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+    // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+    var b = {
+      w: 75, h: 30, s: 3, t: 10
+    };
 
-
-       // Create our sunburst data structure and size it.
-   var partition = d3.partition()
-       .size([2 * Math.PI, radius]);
-
-   // Get the data from our JSON file
-   console.log("before data")
- 
-  //   // d3.json("./json/stats.json", function(error, nodeData) {
-  //       if (error) throw error;
-
-       // Find the rootData node of our data, and begin sizing process.
-       var global = d3.hierarchy(rootData) // starBurstData imported file
-       .sum(function (d) { return 10});
-      //  .sum(function (d) { return d.size});
-
-       // Calculate the sizes of each arc that we'll draw later.
-       partition(global);
-       var arc = d3.arc()
-           .startAngle(function (d) { return d.x0 })
-           .endAngle(function (d) { return d.x1 })
-           .innerRadius(function (d) { return d.y0 })
-           .outerRadius(function (d) { return d.y1 });
+    // Mapping of step names to colors.
+    var colors = {
+      "home": "#5687d1",
+      "product": "#7b615c",
+      "search": "#de783b",
+      "account": "#6ab975",
+      "other": "#a173d1",
+      "end": "#bbbbbb"
+    };
 
 
-       // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
-       // variable calculations. Last, color the lines and the slices.
-       g.selectAll('g')
-           .data(global.descendants())
-           .enter().append('g').attr("class", "node").append('path')
-           .attr("display", function (d) { return d.depth ? null : "none"; })
-           .attr("d", arc)
-           .style('stroke', '#fff')
-           .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })
-           .on("mouseover", mouseover);
+    // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
+    var g = d3.select('#svgStarBurst')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr("id", "sunburstcontainer")
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
 
 
+    // Create our sunburst data structure and size it.
+    var partition = d3.partition()
+      .size([2 * Math.PI, radius]);
+
+    // Get the data from our JSON file
+    console.log("before data")
+
+    //   // d3.json("./json/stats.json", function(error, nodeData) {
+    //       if (error) throw error;
+
+    // Find the rootData node of our data, and begin sizing process.
+    var global = d3.hierarchy(rootData) // starBurstData imported file
+      .sum(function (d) { return 10 });
+    //  .sum(function (d) { return d.size});
+
+    // Calculate the sizes of each arc that we'll draw later.
+    partition(global);
+    var arc = d3.arc()
+      .startAngle(function (d) { return d.x0 })
+      .endAngle(function (d) { return d.x1 })
+      .innerRadius(function (d) { return d.y0 })
+      .outerRadius(function (d) { return d.y1 });
+
+      console.log(arc, "ARC")
+
+    // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
+    // variable calculations. Last, color the lines and the slices.
+    g.selectAll('g')
+      .data(global.descendants())
+      .enter().append('g').attr("class", "node").append('path')
+      .attr("display", function (d) { console.log(d.depth, "depth"); return d.depth ? null : "none"; })
+      .attr("d", arc)
+      .style('stroke', '#fff')
+      .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })
+      .on("mouseover", mouseover)
 
 
-   function mouseover(d) {
-   
-          // Get total size of the tree = value of rootData node from partition.
-        //   totalSize = path.datum().value;
-          const totalSize = 20000; // bullshit placeholder
-          var percentage = (100 * d.value / totalSize).toPrecision(3);
-          var percentageString = percentage + "%";
-          if (percentage < 0.1) {
-            percentageString = "< 0.1%";
-          }
+    // Add the mouseleave handler to the bounding circle.
+    d3.select("#sunburstcontainer").on("mouseleave", mouseleave);
+
+    let ctr = 0;
+    function mouseover(d) {
+
+      // Get total size of the tree = value of rootData node from partition.
+      //   totalSize = path.datum().value;
+      const totalSize = starBurstData.chunks[0].size; // bullshit placeholder
+      var percentage = (100 * d.value / totalSize).toPrecision(3);
+      var percentageString = percentage + "%";
+      if (percentage < 0.1) {
+        percentageString = "< 0.1%";
+      }
 
 
-    d3.select("#sb_d3_percentage")
-      .text(percentageString);
-    //ADDED FILE NAME-
-    d3.select("#sb_d3_filename")
-      .text(d.data.name)
+      console.log(ctr++);
+      d3.select("#sb_d3_explanation")
+        .style("visibility", "");
 
-    //ADDED FILE SIZE
-    d3.select("#sb_d3_filesize")
-      .text(d.value / 1000)
+      d3.select("#sb_d3_percentage")
+        .text(percentageString);
+      //ADDED FILE NAME-
+      d3.select("#sb_d3_filename")
+        .text(d.data.name)
+
+      //ADDED FILE SIZE
+      d3.select("#sb_d3_filesize")
+        .text(d.value / 1000)
 
       //ADDED SPEED
-    d3.select("#sb_d3_speed")
-      .text(d.data.speed)
+      d3.select("#sb_d3_speed")
+        .text(d.data.speed)
+    }
 
-    d3.select("#sb_d3_explanation")
-      .style("visibility", "");
-   }
+
+    function mouseleave(d) {
+
+
+      d3.select("#sb_d3_explanation")
+        .style("visibility", "hidden");
+
+    }
 
 
   }
@@ -158,17 +201,17 @@ class D3StarBurstChart extends React.Component {
     return (
       <div>
         <div className="sb_d3_container">
-        STARBURST
+          STARBURST
           <div className="sb_d3_box">
-            <svg id ="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
+            <svg id="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
             </svg>
 
-         <div id="sb_d3_explanation">
-          <span id="sb_d3_filename"></span><br />
-          speed:<span id="sb_d3_speed"></span> <br />
-          <span id="sb_d3_percentage"></span><br />
-          of your bundle
-            Size: <span id="sb_d3_filesize"></span> kb 
+            <div id="sb_d3_explanation">
+              <span id="sb_d3_filename"></span><br />
+              speed:<span id="sb_d3_speed"></span> <br />
+              <span id="sb_d3_percentage"></span><br />
+              of your bundle
+            Size: <span id="sb_d3_filesize"></span> kb
         </div>
           </div>
         </div>
@@ -176,7 +219,7 @@ class D3StarBurstChart extends React.Component {
     );
   }
 
- 
+
 
 }
 export default D3StarBurstChart;

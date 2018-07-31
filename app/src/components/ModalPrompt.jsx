@@ -3,6 +3,11 @@ import Modal from 'react-modal';
 import { isLoading } from '../redux/actions/homeActions';
 import { connect } from 'react-redux';
 
+import { Button, Typography, TextField, Paper } from '@material-ui/core'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import theme from './theme.js';
+
+
 const customStyles = {
   content: {
     top: '50%',
@@ -48,6 +53,7 @@ class ModalPrompt extends Component {
   render() {
     return (
       <div>
+        <Paper>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -55,17 +61,20 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
+        <Typography>
           <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
-          <button onClick={(e) => {
+          </Typography>
+          <Button onClick={(e) => {
             e.preventDefault();
             // this.props.dispatchLoading(true);
           }}
-            className="user-prompt">Use Existing Webpack</button>
-          <button onClick={(e) => {
+            className="user-prompt">Use Existing Webpack</Button>
+          <Button onClick={(e) => {
             e.preventDefault();
             // this.props.dispatchLoading(false);
-          }} className="user-prompt">Create New Webpack</button>
+          }} className="user-prompt">Create New Webpack</Button>
         </Modal>
+        </Paper>
       </div>
     );
   }
