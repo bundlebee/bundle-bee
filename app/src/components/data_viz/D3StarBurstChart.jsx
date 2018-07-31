@@ -1,4 +1,11 @@
-const starBurstData = require('../../../compilation-stats.json');
+import { connect } from 'react-redux';
+
+import * as chart from '../../redux/constants/chartProperties.js';
+import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
+
+const starBurstData = require('./compilation-stats.json');
+
+
 // change starBurstData to it will read from the fresh webpack run
 import React from 'react';
 import * as d3 from 'd3';
@@ -7,11 +14,17 @@ function Node(name, size = null, speed = null) {
   this.name = name;
   this.children = [];
 }
-  const rootData = { "name": "rootData", "children": [] };
+
+const rootData = { "name": "rootData", "children": [] };
 
 class D3StarBurstChart extends React.Component {
+  constructor(props) {
+    super(props);
+    
+  }
 
   componentDidMount() {
+    this.initStarburstChart();
     this.instantiateStarburstChart();
   }
 
@@ -19,51 +32,88 @@ class D3StarBurstChart extends React.Component {
     this.instantiateStarburstChart();
   }
 
-
+  initStarburstChart() {
+    this.total = {};
+    this.total.size = 0;
+    this.total.factory = 0;
+    this.total.building = 0;
+    
+    starBurstData.chunks[0].modules.forEach(element => {
+  
+        let directoryAndName = element.name.replace(/[.\/]/, "");
+        let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
+  
+        var currentNode = rootData;
+        for (var j = 0; j < parts.length; j++) {
+  
+            
+          var children = currentNode["children"];
+          var nodeName = parts[j];
+          var childNode;
+          if (j + 1 < parts.length) {
+            // Not yet at the end of the sequence; move down the tree.
+            var foundChild = false;
+            for (var k = 0; k < children.length; k++) {
+              if (children[k]["name"] == nodeName) {
+                childNode = children[k];
+                foundChild = true;
+                break;
+              }
+            }
+            // If we don't already have a child node for this branch, create it.
+            if (!foundChild) {
+              childNode = { "name": nodeName, "children": [] };
+              children.push(childNode);
+            }
+            currentNode = childNode;
+          } else {
+            // Reached the end of the sequence; create a leaf node.
+            const size = element.size || 0;
+            const factory = element.profile ? element.profile.factory : 0;
+            const building = element.profile ? element.profile.building : 0;
+            
+            this.total.size += Number(size);
+            this.total.factory += Number(factory);
+            this.total.building += Number(building);
+            childNode = { "name": nodeName, size, factory, building };
+            children.push(childNode);
+          }
+        }
+      });
+  }
 
   instantiateStarburstChart() {
 
-
-  starBurstData.chunks[0].modules.forEach(element => {
-
-      let directoryAndName = element.name.replace(/[.\/]/, "");
-      let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
-
-      var currentNode = rootData;
-      for (var j = 0; j < parts.length; j++) {
-
-          
-        var children = currentNode["children"];
-        var nodeName = parts[j];
-        var childNode;
-        if (j + 1 < parts.length) {
-          // Not yet at the end of the sequence; move down the tree.
-          var foundChild = false;
-          for (var k = 0; k < children.length; k++) {
-            if (children[k]["name"] == nodeName) {
-              childNode = children[k];
-              foundChild = true;
-              break;
-            }
-          }
-          // If we don't already have a child node for this branch, create it.
-          if (!foundChild) {
-            childNode = { "name": nodeName, "children": [] };
-            children.push(childNode);
-          }
-          currentNode = childNode;
-        } else {
-          // Reached the end of the sequence; create a leaf node.
-          childNode = { "name": nodeName, "size": element.size };
-          children.push(childNode);
-        }
-      }
-
- 
+  console.log('instantiating...');
+  
+  
+    
+  const mouseover = d => {
+  
+         // Get total size of the tree = value of rootData node from partition.
+       //   totalSize = path.datum().value;
+         var percentage = (100.0 * d.value / this.total[this.props.chart.screen]).toPrecision(3);
+         
+         var percentageString = percentage + "%";
+         if (percentage < 0.1) {
+           percentageString = "< 0.1%";
+         }
 
 
-});
+   d3.select("#sb_d3_percentage")
+     .text(percentageString);
+   //ADDED FILE NAME-
+   d3.select("#sb_d3_filename")
+     .text(d.data.name)
+  
+  console.log(d.value);
+   //ADDED FILE VALUE
+   d3.select("#sb_d3_filevalue")
+     .text(d.value / 1000) // units of kb or seconds
 
+   d3.select("#sb_d3_explanation")
+     .style("visibility", "");
+  }
 
    // Dimensions of sunburst
    // TODO: should be dynamic
@@ -95,8 +145,8 @@ class D3StarBurstChart extends React.Component {
 
        // Find the rootData node of our data, and begin sizing process.
        var global = d3.hierarchy(rootData) // starBurstData imported file
-       .sum(function (d) { return 10});
-      //  .sum(function (d) { return d.size});
+       .sum(d => { return d[this.props.chart.screen];});
+       // .sum(function (d) { return 10});
 
        // Calculate the sizes of each arc that we'll draw later.
        partition(global);
@@ -121,35 +171,7 @@ class D3StarBurstChart extends React.Component {
 
 
 
-   function mouseover(d) {
    
-          // Get total size of the tree = value of rootData node from partition.
-        //   totalSize = path.datum().value;
-          const totalSize = 20000; // bullshit placeholder
-          var percentage = (100 * d.value / totalSize).toPrecision(3);
-          var percentageString = percentage + "%";
-          if (percentage < 0.1) {
-            percentageString = "< 0.1%";
-          }
-
-
-    d3.select("#sb_d3_percentage")
-      .text(percentageString);
-    //ADDED FILE NAME-
-    d3.select("#sb_d3_filename")
-      .text(d.data.name)
-
-    //ADDED FILE SIZE
-    d3.select("#sb_d3_filesize")
-      .text(d.value / 1000)
-
-      //ADDED SPEED
-    d3.select("#sb_d3_speed")
-      .text(d.data.speed)
-
-    d3.select("#sb_d3_explanation")
-      .style("visibility", "");
-   }
 
 
   }
@@ -165,18 +187,34 @@ class D3StarBurstChart extends React.Component {
 
          <div id="sb_d3_explanation">
           <span id="sb_d3_filename"></span><br />
-          speed:<span id="sb_d3_speed"></span> <br />
           <span id="sb_d3_percentage"></span><br />
           of your bundle
-            Size: <span id="sb_d3_filesize"></span> kb 
+            {this.props.chart.screen === chart.SIZE ? <span>Size: <span id="sb_d3_filevalue"></span> kb</span>  : <span>Time: <span id="sb_d3_filevalue"></span> s</span>} 
         </div>
+          </div>
+          <div>
+            <button onClick={this.props.displaySizes}>{'Sizes'}</button>
+            <button onClick={this.props.displayFactoryTimes}>{'Factory Times'}</button>
+            <button onClick={this.props.displayBuildingTimes}>{'Building Times'}</button>
           </div>
         </div>
       </div>
     );
   }
 
- 
-
 }
-export default D3StarBurstChart;
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    displaySizes: () => dispatch(displaySizes()),
+    displayFactoryTimes: () => dispatch(displayFactoryTimes()),
+    displayBuildingTimes: () => dispatch(displayBuildingTimes()),
+  }
+);
+
+const mapStateToProps = (state) => (
+  { chart: state.chart }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(D3StarBurstChart);
+

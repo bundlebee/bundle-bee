@@ -167,6 +167,58 @@ module.exports = {
   const withRegularPathmultiple = `const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+<<<<<<< HEAD
+const rootDir = scrumRoot; // change rootDir for testing purposes
+const executeFileThenDelete = new Promise((resolve, reject) => {
+  getFiles(rootDir)
+    .then(files => {
+      const { webpackConfig, entryIsInRoot, indexHtmlPath, extensions } = getRequiredInfoFromFiles(
+        files,
+        rootDir
+      );
+      if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+      if (webpackConfig.exists) {
+        const promptMessage =
+          'It looks like you already have a webpack configuration file set up. Would you like us to use that? (y/n)';
+        prompt.get(makePrompt(promptMessage), (err, { answer }) => {
+          if (err) throw new Error(err);
+          if (answer === 'n' || answer === 'no') {
+            createAndSaveWebpackConfig(
+              entryFileAbsolutePath,
+              extensions,
+              null,
+              indexHtmlPath,
+              rootDir
+            ).then(webpackConfigSavePath => {
+              // build the production build
+              cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
+                if (err) throw new Error(err);
+                console.log(res);
+                // build the development build
+                cmd.get(
+                  `webpack --config ${webpackConfigSavePath} --mode development`,
+                  (err, res) => {
+                    if (err) throw new Error(err);
+                    console.log(res);
+                    console.log('production and development builds successful');
+                    resolve();
+                  }
+                );
+              });
+            });
+          } else if (answer === 'y' || answer === 'yes') {
+            console.log('running existing webpack.config.js...');
+            const pathBackFromRoot = path.relative(rootDir, __dirname);
+            const pathToTheirRoot = path.relative(__dirname, rootDir);
+            process.chdir(pathToTheirRoot);
+            cmd.get(`npm run env webpack`, (err, res) => {
+              if (err) throw new Error(err);
+              console.log(res);
+              console.log('production and development builds successful');
+              process.chdir(pathBackFromRoot);
+              resolve({ indexHtmlPath, entryFileAbsolutePath });
+            });
+=======
 module.exports = {
   entry: ['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
 };`;
@@ -198,6 +250,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
             output = path.parent.value.value;
           } else {
             entryValue += withRegularPath.slice(path.parent.value.start, path.parent.value.end);
+>>>>>>> c7a04e8a96b5bb682eadb1c83f8b033de590cf28
           }
         }
       },
