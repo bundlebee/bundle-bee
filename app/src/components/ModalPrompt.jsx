@@ -62,7 +62,6 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-<<<<<<< HEAD
         <Typography>
           <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
           </Typography>
@@ -75,7 +74,6 @@ class ModalPrompt extends Component {
             e.preventDefault();
             // this.props.dispatchLoading(false);
           }} className="user-prompt">Create New Webpack</Button>
-=======
           <h2 ref={subtitle => (this.subtitle = subtitle)}>CLICK A BUTTON TO CONTINUE</h2>
           <button
             onClick={e => {
@@ -99,7 +97,6 @@ class ModalPrompt extends Component {
           >
             Create New Webpack
           </button>
->>>>>>> c7a04e8a96b5bb682eadb1c83f8b033de590cf28
         </Modal>
         </Paper>
       </div>
