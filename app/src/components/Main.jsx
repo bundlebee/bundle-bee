@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import Card from './Card.jsx';
@@ -32,13 +33,11 @@ export class Main extends Component {
           <h1>Drop Your Root Directory To Get Started</h1>
         </div>
       </DropZone>
-    )
-  };
+    );
+  }
 
   renderModal() {
-    return (
-      <ModalPrompt />
-    )
+    return <ModalPrompt />;
   }
 
   renderBee() {
@@ -54,7 +53,7 @@ export class Main extends Component {
         <Card className={this.state.className} />
         <Card className={this.state.className} />
       </div>
-    )
+    );
   }
 
   render() {
@@ -78,16 +77,12 @@ export class Main extends Component {
           {mainPage}
         </div>
       </div>
-    )
-  };
-};
+    );
+  }
+}
 
-const mapDispatchToProps = (dispatch) => (
-  { /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/ }
-);
-
-const mapStateToProps = (state) => (
-  { home: state.home }
-)
+const mapDispatchToProps = dispatch => ({
+  /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
