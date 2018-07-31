@@ -10,14 +10,21 @@ import { isLoading } from '../redux/actions/homeActions';
 import { showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
+import Bee from './loaders/awesomeBee.jsx';
+
+
 export class Main extends Component {
   renderLoadingModal() {
-    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
-  }
+    return (
+      <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>
+    )
+  };
 
   renderLoadingComplete() {
-    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
-  }
+    return (
+      <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>
+    )
+  };
 
   dropZoneActive() {
     return (
@@ -61,9 +68,9 @@ export class Main extends Component {
 
     return (
       <div>
-        <div>{mainPage}</div>
-        <div className="sb_d3_container">
-          <Chart />
+        <Bee />
+        <div>
+          {mainPage}
         </div>
       </div>
     );
@@ -74,9 +81,4 @@ const mapDispatchToProps = dispatch => ({
   /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/
 });
 
-const mapStateToProps = state => ({ home: state.home });
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
