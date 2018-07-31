@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import homeReducer from './reducers/homeReducer.js';
+import chartReducer from './reducers/chartReducer.js';
 
 export default () => {
     const store = createStore(
         combineReducers({
-            home: homeReducer
+            home: homeReducer,
+            chart: chartReducer
         }),
         composeWithDevTools(applyMiddleware(thunk))
     );
