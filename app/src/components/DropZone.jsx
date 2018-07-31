@@ -75,7 +75,6 @@ class DropZone extends Component {
   }
 };
 
-
 const mapDispatchToProps = (dispatch) => (
   { showModal: () => dispatch(showModal()) }
 );
@@ -85,4 +84,3 @@ const mapStateToProps = (state) => (
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropZone);
-

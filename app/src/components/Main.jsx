@@ -41,6 +41,12 @@ export class Main extends Component {
     )
   }
 
+  renderBee() {
+    return (
+      <Bee />
+    )
+  }
+
   renderCards() {
     return (
       <div>
@@ -52,12 +58,6 @@ export class Main extends Component {
   }
 
   render() {
-    // if (!this.props.state.directoryLoaded) let mainPage = this.dropZoneActive();
-    // if (this.props.state.loading) mainPage = this.renderLoading();
-    // if (this.props.state.modal) mainPage = this.renderModal();
-    // if (this.props.state.directoryLoaded) mainPage = this.renderCards();
-    //
-
     console.log(this.props.home.screen);
 
     let mainPage = null;
@@ -66,6 +66,10 @@ export class Main extends Component {
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
+
+
+    let loadingBee = null;
+    // if ()
 
     return (
       <div>

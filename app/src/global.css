@@ -9,7 +9,6 @@
 :global html {
     height: 100%;
     border: 15px solid #000;
-    background-color: cooler;
 }
 
 :global #app {
@@ -61,5 +60,3 @@ h1 {
 .loading {
     font-size: 3rem;
 }
-
-/* Loading Bee */
