@@ -5,8 +5,7 @@ import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
 import { connect } from 'react-redux';
-import { isLoading } from '../redux/actions/homeActions';
-import { showModal } from '../redux/actions/homeActions';
+import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
 export class Main extends Component {
