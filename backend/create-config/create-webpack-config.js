@@ -167,7 +167,7 @@ const makePrompt = (
 
 const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
 
-const rootDir = scrumRoot;
+const rootDir = scrumRoot; // change rootDir for testing purposes
 const executeFileThenDelete = new Promise((resolve, reject) => {
   getFiles(rootDir)
     .then(files => {

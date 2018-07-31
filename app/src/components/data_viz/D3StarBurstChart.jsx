@@ -1,4 +1,6 @@
-const starBurstData = require('../../../compilation-stats.json');
+const starBurstData = require('./compilation-stats.json');
+import chartTypes from './chart_types.js';
+
 // change starBurstData to it will read from the fresh webpack run
 import React from 'react';
 import * as d3 from 'd3';
@@ -7,9 +9,15 @@ function Node(name, size = null, speed = null) {
   this.name = name;
   this.children = [];
 }
-  const rootData = { "name": "rootData", "children": [] };
+
+const rootData = { "name": "rootData", "children": [] };
 
 class D3StarBurstChart extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.totalSize = 0;
+  }
 
   componentDidMount() {
     this.instantiateStarburstChart();
@@ -23,7 +31,7 @@ class D3StarBurstChart extends React.Component {
 
   instantiateStarburstChart() {
 
-
+  console.log('hi');
   starBurstData.chunks[0].modules.forEach(element => {
 
       let directoryAndName = element.name.replace(/[.\/]/, "");
@@ -54,16 +62,47 @@ class D3StarBurstChart extends React.Component {
           currentNode = childNode;
         } else {
           // Reached the end of the sequence; create a leaf node.
-          childNode = { "name": nodeName, "size": element.size };
+          this.totalSize += Number(element.size);
+          childNode = { "name": nodeName, "size": (element.size || 0), "factory": (element.profile ? element.profile.factory : 0), "building": (element.profile ? element.profile.building : 0) };
           children.push(childNode);
         }
       }
+    });
+    
+  console.log(this.totalSize);
+  
+  const mouseover = d => {
+  
+         // Get total size of the tree = value of rootData node from partition.
+       //   totalSize = path.datum().value;
+         console.log('d.value: ' + d.value);
+         console.log('this.totalSize: ' + this.totalSize);
+         var percentage = (100.0 * d.value / this.totalSize).toPrecision(3);
+         console.log('percentage: ' + percentage);
+         
+         var percentageString = percentage + "%";
+         if (percentage < 0.1) {
+           percentageString = "< 0.1%";
+         }
 
- 
 
+   d3.select("#sb_d3_percentage")
+     .text(percentageString);
+   //ADDED FILE NAME-
+   d3.select("#sb_d3_filename")
+     .text(d.data.name)
 
-});
+   //ADDED FILE SIZE
+   d3.select("#sb_d3_filesize")
+     .text(d.value / 1000)
 
+     //ADDED SPEED
+   d3.select("#sb_d3_speed")
+     .text(d.data.speed)
+
+   d3.select("#sb_d3_explanation")
+     .style("visibility", "");
+  }
 
    // Dimensions of sunburst
    // TODO: should be dynamic
@@ -95,8 +134,8 @@ class D3StarBurstChart extends React.Component {
 
        // Find the rootData node of our data, and begin sizing process.
        var global = d3.hierarchy(rootData) // starBurstData imported file
-       .sum(function (d) { return 10});
-      //  .sum(function (d) { return d.size});
+       .sum(function (d) { return d.size;});
+       // .sum(function (d) { return 10});
 
        // Calculate the sizes of each arc that we'll draw later.
        partition(global);
@@ -121,35 +160,7 @@ class D3StarBurstChart extends React.Component {
 
 
 
-   function mouseover(d) {
    
-          // Get total size of the tree = value of rootData node from partition.
-        //   totalSize = path.datum().value;
-          const totalSize = 20000; // bullshit placeholder
-          var percentage = (100 * d.value / totalSize).toPrecision(3);
-          var percentageString = percentage + "%";
-          if (percentage < 0.1) {
-            percentageString = "< 0.1%";
-          }
-
-
-    d3.select("#sb_d3_percentage")
-      .text(percentageString);
-    //ADDED FILE NAME-
-    d3.select("#sb_d3_filename")
-      .text(d.data.name)
-
-    //ADDED FILE SIZE
-    d3.select("#sb_d3_filesize")
-      .text(d.value / 1000)
-
-      //ADDED SPEED
-    d3.select("#sb_d3_speed")
-      .text(d.data.speed)
-
-    d3.select("#sb_d3_explanation")
-      .style("visibility", "");
-   }
 
 
   }

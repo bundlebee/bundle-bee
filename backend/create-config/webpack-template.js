@@ -34,6 +34,7 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.scss','.sass','.less', '.js', '.css'],
   },
+  profile: true
   };`;
 
   return config;
