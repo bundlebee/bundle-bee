@@ -22,6 +22,9 @@ const prompt = require('prompt');
 const cmd = require('node-cmd');
 const rimraf = require('rimraf');
 const fse = require('fs-extra');
+const babylon = require('babylon');
+const traverse = require('babel-traverse').default;
+const babel = require('babel-core');
 
 const createWebpackConfig = require('./utils/webpack-template');
 const folderIndexer = require('./utils/get-files-from-root.js');
@@ -114,6 +117,7 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
     return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
   }
   const webpackConfig = { exists: false, path: null, content: null };
+  let entryFileAbsolutePath;
   let entryIsInRoot;
   let indexHtmlPath;
   let filePaths = files.reduce((files, fileInfo) => {
@@ -128,11 +132,16 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
       !webpackConfig.exists
     ) {
       webpackConfig.exists = true;
-      webpackConfig.content = fs.readFileSync(fullPath, 'utf-8');
+      (webpackConfig.fullPath = fullPath),
+        //might not need some of this stuff anymore. might just need to know if it exists. we'll see
+        (webpackConfig.content = fs.readFileSync(fullPath, 'utf-8'));
       webpackConfig.info = fileInfo;
     }
     if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
       indexHtmlPath = fullPath;
+    // make sure /src/ is in the root of the project (name should be src/index.js and when you remove src/index.js)
+    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir)
+      entryFileAbsolutePath = fullPath;
     return files.concat(name);
   }, []);
   const extensions = files
@@ -144,29 +153,21 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
     indexHtmlPath,
     extensions,
     filePaths,
+    entryFileAbsolutePath,
   };
 };
 
-const makePrompt = (
-  promptMessage = 'please enter a response: ',
-  required = true,
-  pattern,
-  invalidMessage,
-  defaultValue
-) => [
-  {
-    name: 'answer',
-    description: promptMessage,
-    type: 'string',
-    pattern: pattern || /^y(es)?$|^no?$/,
-    message: invalidMessage || `Answer must be 'yes', 'no', 'y', or 'n'`,
-    default: defaultValue || 'y',
-    required,
-  },
-];
+const parseConfigForOutput = (configFileStr, files) => {
+  const withRegularPath = `const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const entryFileAbsolutePath = '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js';
+module.exports = {
+  entry: require.resolve('src.index.js'),
+};`;
+  const withRegularPathmultiple = `const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+<<<<<<< HEAD
 const rootDir = scrumRoot; // change rootDir for testing purposes
 const executeFileThenDelete = new Promise((resolve, reject) => {
   getFiles(rootDir)
@@ -217,91 +218,225 @@ const executeFileThenDelete = new Promise((resolve, reject) => {
               process.chdir(pathBackFromRoot);
               resolve({ indexHtmlPath, entryFileAbsolutePath });
             });
+=======
+module.exports = {
+  entry: ['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
+};`;
+  const objectversion = `
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+  module.exports = {
+    entry : {
+      main: require.resolve('src/index.js')
+    }
+},`;
+  const objectversionmultiple = `
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+  module.exports = {
+    entry : {
+      main:['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
+      vendor: ['babel-polyfill', require.resolve('srcry.index.js'), require.resolve('apply.index.js')]
+    }
+},`;
+  let output;
+  const ast = babylon.parse(withRegularPath, { sourceType: 'module' });
+  let entryValue = '';
+  traverse(ast, {
+    Identifier: {
+      enter(path) {
+        if (path.node.name === 'entry') {
+          if (path.parent.value.type === 'StringLiteral') {
+            output = path.parent.value.value;
+          } else {
+            entryValue += withRegularPath.slice(path.parent.value.start, path.parent.value.end);
+>>>>>>> c7a04e8a96b5bb682eadb1c83f8b033de590cf28
+          }
+        }
+      },
+    },
+  });
+  if (!output) {
+    let temp;
+    try {
+      console.log(entryValue);
+      eval(`temp=${entryValue}`);
+    } catch (error) {
+      console.log(error);
+
+      console.log('error');
+    }
+    // require.resolve effs this up. maybe use replace with the cwd ? then search through all the files to see which ones end with the remaining name?
+    if (temp) {
+      if (typeof temp === 'string') {
+        console.log('take care of this string');
+      } else if (temp.constructor.name === 'Array') {
+        temp.forEach(arg => {
+          console.log(arg);
+
+          if (typeof arg === 'string' && arg.indexOf('.js') === arg.length - 3) {
+            output = arg.replace(process.cwd(), '');
           }
         });
-      } else {
-        //TODO should search for index.js or app.js, or maybe check their package json
-        // webpack entry defaults to ./src/index.js
-        // ask them for their entry file
-        // const promptMessage = `Is this file your entry point:
-
-        //     `;
-        const promptMessage = `Please enter your entry file path`;
-        prompt.get(makePrompt(promptMessage), (err, { answer }) => {
-          createAndSaveWebpackConfig(
-            entryFileAbsolutePath,
-            extensions,
-            null,
-            indexHtmlPath,
-            rootDir
-          ).then(webpackConfigSavePath => {
-            // build the production build
-            cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
-              if (err) throw new Error(err);
-              console.log(res);
-              // build the development build
-              cmd.get(
-                `webpack --config ${webpackConfigSavePath} --mode development`,
-                (err, res) => {
-                  if (err) throw new Error(err);
-                  console.log(res);
-                  console.log('production and development builds successful');
-                  resolve({ indexHtmlPath, entryFileAbsolutePath });
-                }
-              );
-            });
-          });
-        });
+      } else if (typeof temp === 'object') {
+        if (temp.main && typeof temp.main === 'string') {
+          output = temp.main.replace(process.cwd(), '');
+        }
       }
-    })
-    .catch(e => console.log('ERROR: ', e));
-})
-  .then(({ indexHtmlPath, entryFileAbsolutePath }) => {
-    console.log('​entryFileAbsolutePath', entryFileAbsolutePath);
-    console.log('​indexHtmlPath', indexHtmlPath);
-    return new Promise((resolve, reject) => {
-      if (!indexHtmlPath) {
-        //TODO the prompt here only accepts y/n. should accept file paths
-        const promptMessage = `No index.html file found. Do you have an entry html file? If so, please enter it now. If not, we will use your javascript entry file to build with parcel`;
-        prompt.get(
-          makePrompt(
-            promptMessage,
-            true,
-            new RegExp(
-              /* '/Users/bren/Codesmith/week-5/reactscrumboard/public/dist/index-test.html' */ '/Users/bren/Codesmith/week-5/reactscrumboard/public/dist/index-test.html'
-            )
-          ),
-          (err, { answer }) => {
-            if (answer === 'n' || answer === 'no') {
-              resolve(entryFileAbsolutePath);
-            } else {
-              //TODO should validate this before just passing it in
-              resolve(answer);
-            }
+    }
+  }
+  console.log('output: ', output);
+
+  return output;
+};
+
+const indexFilesFromRoot = rootDir => {
+  // in case they provide a file, just grab the directory's path. it's possibly using fs stats to test if file or directory is better, but that is a slower, synchronous function. i think this works in all cases
+  rootDir = path.extname(rootDir) ? path.dirname(rootDir) : rootDir;
+  return new Promise((resolve, reject) => {
+    getFiles(rootDir).then(files => {
+      let {
+        webpackConfig,
+        entryIsInRoot,
+        indexHtmlPath,
+        extensions,
+        entryFileAbsolutePath,
+      } = getRequiredInfoFromFiles(files, rootDir);
+      if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+      if (webpackConfig.exists)
+        entryFileAbsolutePath = parseConfigForOutput(webpackConfig.content, files);
+      const response = {
+        webpackConfig,
+        entryIsInRoot,
+        indexHtmlPath,
+        extensions,
+        rootDir,
+        entryFileAbsolutePath,
+      };
+      resolve(response);
+    });
+  });
+};
+
+const runWebpack = requestObject => {
+  return new Promise((resolve, reject) => {
+    const {
+      entryFileAbsolutePath,
+      extensions,
+      indexHtmlPath,
+      rootDir,
+      createNewConfig,
+    } = requestObject;
+    if (createNewConfig) {
+      console.log('******************************');
+      console.log('creating new webpack config...');
+      console.log('******************************');
+
+      createAndSaveWebpackConfig(
+        entryFileAbsolutePath,
+        extensions,
+        null,
+        indexHtmlPath,
+        rootDir
+      ).then(webpackConfigSavePath => {
+        const saveDestinationForStats = path.relative(
+          __dirname,
+          path.join(__dirname, 'backend', 'stats.json')
+        );
+        // build the production build
+        cmd.get(
+          `webpack --config ${webpackConfigSavePath} --mode production --profile --json > ${saveDestinationForStats}`,
+          (err, res) => {
+            if (err) reject(err);
+            console.log(res);
+            resolve(requestObject);
           }
         );
-      } else {
-        resolve(indexHtmlPath);
-      }
-    });
-  })
-  .then(parcelEntryFile => {
-    console.log(`running parcel build on ${parcelEntryFile}...`);
-    return new Promise((resolve, reject) => {
-      cmd.get(`parcel build ${parcelEntryFile}`, (err, res) => {
-        if (err) reject(err);
-        resolve(res);
       });
-    });
-  })
-  .then(res => {
-    console.log(res);
-    console.log('deleting temporary files...');
-    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
-  })
-  .catch(e => {
-    console.log('there was an error: ', e);
+    } else {
+      console.log('*************************************');
+      console.log('running existing webpack.config.js...');
+      console.log('*************************************');
 
-    console.log('deleting temporary files...');
-    deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
+      const pathToTheirRoot = path.relative(process.cwd(), rootDir);
+      const pathBackFromRoot = path.relative(rootDir, process.cwd());
+      const pathToWriteStatsFromTheirRoot = path.relative(
+        rootDir,
+        path.join(process.cwd(), 'backend', 'stats.json')
+      );
+      process.chdir(pathToTheirRoot);
+      console.log(entryFileAbsolutePath);
+
+      cmd.get(
+        `npm run env webpack --profile --json > ${pathToWriteStatsFromTheirRoot}`,
+        (err, res) => {
+          if (err) reject(err);
+          console.log(res);
+          console.log('production and development builds successful');
+          process.chdir(pathBackFromRoot);
+          resolve({ indexHtmlPath, entryFileAbsolutePath });
+        }
+      );
+    }
   });
+};
+
+module.exports = { indexFilesFromRoot, runWebpack };
+
+//         //TODO should search for index.js or app.js, or maybe check their package json
+//         // webpack entry defaults to ./src/index.js
+//         // ask them for their entry file
+//         // const promptMessage = `Is this file your entry point:
+
+//         //     `;
+//         const promptMessage = `Please enter your entry file path`;
+//         prompt.get(makePrompt(promptMessage), (err, { answer }) => {
+//           createAndSaveWebpackConfig(
+//             entryFileAbsolutePath,
+//             extensions,
+//             null,
+//             indexHtmlPath,
+//             rootDir
+//           ).then(webpackConfigSavePath => {
+//             // build the production build
+//             cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
+//               if (err) throw new Error(err);
+//               console.log(res);
+//               // build the development build
+//               cmd.get(
+//                 `webpack --config ${webpackConfigSavePath} --mode development`,
+//                 (err, res) => {
+//                   if (err) throw new Error(err);
+//                   console.log(res);
+//                   console.log('production and development builds successful');
+//                   resolve({ indexHtmlPath, entryFileAbsolutePath });
+//                 }
+//               );
+//             });
+//           });
+//         });
+//       }
+//     })
+//     .catch(e => console.log('ERROR: ', e));
+// })
+//   .then(({ indexHtmlPath, entryFileAbsolutePath }) => {
+//     const parcelEntryFile = indexHtmlPath || entryFileAbsolutePath;
+//     console.log(`running parcel build on ${parcelEntryFile}...`);
+//     return new Promise((resolve, reject) => {
+//       cmd.get(`parcel build ${parcelEntryFile}`, (err, res) => {
+//         if (err) reject(err);
+//         resolve(res);
+//       });
+//     });
+//   })
+//   .then(res => {
+//     console.log(res);
+//     console.log('deleting temporary files...');
+//     deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
+//   })
+//   .catch(e => {
+//     console.log('there was an error: ', e);
+
+//     console.log('deleting temporary files...');
+//     deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
+//   });
