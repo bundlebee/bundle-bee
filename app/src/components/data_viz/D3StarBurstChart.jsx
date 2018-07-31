@@ -84,7 +84,7 @@ class D3StarBurstChart extends React.Component {
 
   instantiateStarburstChart() {
 
-  console.log('instantiating...');
+  console.log('instantiating....');
   
   
     
@@ -114,7 +114,10 @@ class D3StarBurstChart extends React.Component {
    d3.select("#sb_d3_explanation")
      .style("visibility", "");
   }
-
+  
+  // remove <g> element from <svg>
+  d3.selectAll('g').remove();
+  
    // Dimensions of sunburst
    // TODO: should be dynamic
    var width = 900;
