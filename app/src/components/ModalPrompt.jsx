@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { isLoading } from '../redux/actions/homeActions';
 import { connect } from 'react-redux';
 
-import { Button, Typography, TextField, Paper } from '@material-ui/core'
+import { Button, Typography, Paper } from '@material-ui/core'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme.js';
 
@@ -62,20 +62,9 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-        <Typography>
-          <h2 ref={subtitle => this.subtitle = subtitle}>CLICK A BUTTON TO CONTINUE</h2>
-          </Typography>
-          <Button onClick={(e) => {
-            e.preventDefault();
-            // this.props.dispatchLoading(true);
-          }}
-            className="user-prompt">Use Existing Webpack</Button>
-          <Button onClick={(e) => {
-            e.preventDefault();
-            // this.props.dispatchLoading(false);
-          }} className="user-prompt">Create New Webpack</Button>
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>CLICK A BUTTON TO CONTINUE</h2>
-          <button
+
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>To start the build process, choose an option:</h2>
+          <Button
             onClick={e => {
               e.preventDefault();
               console.log('testing');
@@ -85,8 +74,8 @@ class ModalPrompt extends Component {
             className="user-prompt"
           >
             Use Existing Webpack
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={e => {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });
@@ -96,7 +85,7 @@ class ModalPrompt extends Component {
             className="user-prompt"
           >
             Create New Webpack
-          </button>
+          </Button>
         </Modal>
         </Paper>
       </div>

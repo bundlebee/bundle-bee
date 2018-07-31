@@ -30,11 +30,11 @@ export class Main extends Component {
   dropZoneActive() {
     return (
       <DropZone>
-        <Paper className="main_page">
-        <div >
-          <Typography> Drop Your Root Directory To Get Started</Typography>
+        <div   className="main_page">
+          <Typography>{`Drag & Drop Your Root Directory To Get Started`}</Typography>
+          <img  className='bee_logo_name' src="./build/cloud_upload.png" />
+
         </div>
-        </Paper>
       </DropZone>
     );
   }
@@ -77,7 +77,6 @@ export class Main extends Component {
       <div>
         <div className='header'>
         <Bee /> 
-        <img  className='bee_logo_name' src="./build/logo.png" />
 
         </div>
 

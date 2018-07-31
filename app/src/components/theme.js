@@ -8,3 +8,4 @@ export default createMuiTheme({
     secondary: grey
   }
 });
+
