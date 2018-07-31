@@ -12,7 +12,7 @@
 // TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
-
+// TODO when we create a config, (from their entry and without), we should save that to their local folder so we can just run their entry withour worrying about their node modules or changing their rel to absolute paths and then we can also save it directly there afterward
 //?? probably should get the entry point set up for auto find and if not let them enter it
 // ?? look into how to handle our creating a webpack if they use an array of chunks for their entry instead of a single file
 
@@ -117,7 +117,7 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
     return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
   }
   const webpackConfig = { exists: false, path: null, content: null };
-  let entryFileAbsolutePath;
+  let valueForWebpackConfigOutput;
   let entryIsInRoot;
   let indexHtmlPath;
   let filePaths = files.reduce((files, fileInfo) => {
@@ -141,7 +141,7 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
       indexHtmlPath = fullPath;
     // make sure /src/ is in the root of the project (name should be src/index.js and when you remove src/index.js)
     if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir)
-      entryFileAbsolutePath = fullPath;
+      valueForWebpackConfigOutput = fullPath;
     return files.concat(name);
   }, []);
   const extensions = files
@@ -153,90 +153,27 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
     indexHtmlPath,
     extensions,
     filePaths,
-    entryFileAbsolutePath,
+    valueForWebpackConfigOutput,
   };
 };
 
-const parseConfigForOutput = (configFileStr, files) => {
-  const withRegularPath = `const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  entry: require.resolve('src.index.js'),
-};`;
-  const withRegularPathmultiple = `const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  entry: ['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
-};`;
-  const objectversion = `
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-  module.exports = {
-    entry : {
-      main: require.resolve('src/index.js')
-    }
-},`;
-  const objectversionmultiple = `
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-  module.exports = {
-    entry : {
-      main:['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
-      vendor: ['babel-polyfill', require.resolve('srcry.index.js'), require.resolve('apply.index.js')]
-    }
-},`;
+const parseConfigForOutput = configFileStr => {
   let output;
-  const ast = babylon.parse(withRegularPath, { sourceType: 'module' });
-  let entryValue = '';
+  const ast = babylon.parse(configFileStr, { sourceType: 'module' });
   traverse(ast, {
     Identifier: {
       enter(path) {
         if (path.node.name === 'entry') {
-          if (path.parent.value.type === 'StringLiteral') {
-            output = path.parent.value.value;
-          } else {
-            entryValue += withRegularPath.slice(path.parent.value.start, path.parent.value.end);
-          }
+          let entryValue = withRegularPath.slice(path.parent.value.start, path.parent.value.end);
+          eval(`entryValue= ${entryValue}`);
+          output = entryValue;
         }
       },
     },
   });
-  if (!output) {
-    let temp;
-    try {
-      console.log(entryValue);
-      eval(`temp=${entryValue}`);
-    } catch (error) {
-      console.log(error);
-
-      console.log('error');
-    }
-    // require.resolve effs this up. maybe use replace with the cwd ? then search through all the files to see which ones end with the remaining name?
-    if (temp) {
-      if (typeof temp === 'string') {
-        console.log('take care of this string');
-      } else if (temp.constructor.name === 'Array') {
-        temp.forEach(arg => {
-          console.log(arg);
-
-          if (typeof arg === 'string' && arg.indexOf('.js') === arg.length - 3) {
-            output = arg.replace(process.cwd(), '');
-          }
-        });
-      } else if (typeof temp === 'object') {
-        if (temp.main && typeof temp.main === 'string') {
-          output = temp.main.replace(process.cwd(), '');
-        }
-      }
-    }
-  }
   console.log('output: ', output);
-
   return output;
 };
-
 const indexFilesFromRoot = rootDir => {
   // in case they provide a file, just grab the directory's path. it's possibly using fs stats to test if file or directory is better, but that is a slower, synchronous function. i think this works in all cases
   rootDir = path.extname(rootDir) ? path.dirname(rootDir) : rootDir;
@@ -247,18 +184,18 @@ const indexFilesFromRoot = rootDir => {
         entryIsInRoot,
         indexHtmlPath,
         extensions,
-        entryFileAbsolutePath,
+        valueForWebpackConfigOutput,
       } = getRequiredInfoFromFiles(files, rootDir);
       if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
       if (webpackConfig.exists)
-        entryFileAbsolutePath = parseConfigForOutput(webpackConfig.content, files);
+        valueForWebpackConfigOutput = parseConfigForOutput(webpackConfig.content);
       const response = {
         webpackConfig,
         entryIsInRoot,
         indexHtmlPath,
         extensions,
         rootDir,
-        entryFileAbsolutePath,
+        valueForWebpackConfigOutput,
       };
       resolve(response);
     });
@@ -268,7 +205,7 @@ const indexFilesFromRoot = rootDir => {
 const runWebpack = requestObject => {
   return new Promise((resolve, reject) => {
     const {
-      entryFileAbsolutePath,
+      valueForWebpackConfigOutput,
       extensions,
       indexHtmlPath,
       rootDir,
@@ -280,7 +217,7 @@ const runWebpack = requestObject => {
       console.log('******************************');
 
       createAndSaveWebpackConfig(
-        entryFileAbsolutePath,
+        valueForWebpackConfigOutput,
         extensions,
         null,
         indexHtmlPath,
@@ -312,7 +249,7 @@ const runWebpack = requestObject => {
         path.join(process.cwd(), 'backend', 'stats.json')
       );
       process.chdir(pathToTheirRoot);
-      console.log(entryFileAbsolutePath);
+      console.log(valueForWebpackConfigOutput);
 
       cmd.get(
         `npm run env webpack --profile --json > ${pathToWriteStatsFromTheirRoot}`,
@@ -321,7 +258,7 @@ const runWebpack = requestObject => {
           console.log(res);
           console.log('production and development builds successful');
           process.chdir(pathBackFromRoot);
-          resolve({ indexHtmlPath, entryFileAbsolutePath });
+          resolve({ indexHtmlPath, valueForWebpackConfigOutput });
         }
       );
     }
@@ -339,7 +276,7 @@ module.exports = { indexFilesFromRoot, runWebpack };
 //         const promptMessage = `Please enter your entry file path`;
 //         prompt.get(makePrompt(promptMessage), (err, { answer }) => {
 //           createAndSaveWebpackConfig(
-//             entryFileAbsolutePath,
+//             valueForWebpackConfigOutput,
 //             extensions,
 //             null,
 //             indexHtmlPath,
@@ -356,7 +293,7 @@ module.exports = { indexFilesFromRoot, runWebpack };
 //                   if (err) throw new Error(err);
 //                   console.log(res);
 //                   console.log('production and development builds successful');
-//                   resolve({ indexHtmlPath, entryFileAbsolutePath });
+//                   resolve({ indexHtmlPath, valueForWebpackConfigOutput });
 //                 }
 //               );
 //             });
@@ -366,8 +303,8 @@ module.exports = { indexFilesFromRoot, runWebpack };
 //     })
 //     .catch(e => console.log('ERROR: ', e));
 // })
-//   .then(({ indexHtmlPath, entryFileAbsolutePath }) => {
-//     const parcelEntryFile = indexHtmlPath || entryFileAbsolutePath;
+//   .then(({ indexHtmlPath, valueForWebpackConfigOutput }) => {
+//     const parcelEntryFile = indexHtmlPath || valueForWebpackConfigOutput;
 //     console.log(`running parcel build on ${parcelEntryFile}...`);
 //     return new Promise((resolve, reject) => {
 //       cmd.get(`parcel build ${parcelEntryFile}`, (err, res) => {
