@@ -13,14 +13,14 @@ class Card extends Component {
   }
   handleAddResult() {
     console.log('dispatch fired. current props for reference: ', this.props);
-  // this.props.addResult(/*normally you would use 'e' or something here*/);
+    // this.props.addResult(/*normally you would use 'e' or something here*/);
   }
   render() {
     return (
       <div className="card">
-        <Typography  variant="display2" gutterBottom  >Webpack</Typography>
-        <Button  variant="raised" color="primary" onClick={this.handleAddResult}>add result</Button>
-          <Chart />
+        <Typography variant="display2" gutterBottom>{"Webpack"}</Typography>
+        <Button variant="raised" color="primary" onClick={this.handleAddResult}>{'Add Result'}</Button>
+        <Chart />
       </div>
     );
   }

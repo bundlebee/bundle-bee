@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
-import '../global.css';
+// import '../global.css';
 
 import Bee from './loaders/awesomeBee.jsx';
 
