@@ -3,33 +3,35 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
-import Chart from './Chart.jsx';
+
+import { Paper, Typography, TextField } from '@material-ui/core'
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
-import Bee from './loaders/awesomeBee.jsx';
+// import '../global.css';
 
+import Bee from './loaders/awesomeBee.jsx';
 
 export class Main extends Component {
   renderLoadingModal() {
-    return (
-      <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>
-    )
-  };
+    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
+  }
 
   renderLoadingComplete() {
-    return (
-      <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>
-    )
-  };
+    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
+  }
 
   dropZoneActive() {
     return (
       <DropZone>
-        <div>
-          <h1>Drop Your Root Directory To Get Started</h1>
+        <div className="main_page">
+          <Typography variant="display1" gutterBottom className="header" >{`Drag & Drop Your Root Directory To Get Started`}
+          </Typography>
+          <br />
+          <img className='cloud_upload' src="./assets/cloud_upload.png" />
+
         </div>
       </DropZone>
     );
@@ -40,9 +42,7 @@ export class Main extends Component {
   }
 
   renderBee() {
-    return (
-      <Bee />
-    )
+    return <Bee />;
   }
 
   renderCards() {
@@ -65,31 +65,45 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
-
     let loadingBee = null;
-    // if ()
+    ipcRenderer.on('webpack-config-check', (event, res) => {
+      console.log(res);
+      console.log('this is in main.jsx');
 
+      if (res.webpackConfig.exists) {
+        this.props.showModal();
+      } else if (res.entryFileAbsolutePath) {
+        console.log('sending reun-webpack without webpack config');
+
+        ipcRenderer.send('run-webpack', {
+          createNewConfig: true,
+        });
+      }
+      // if no webpack, should ask for entry file here
+    });
     return (
       <div>
-        <Bee />
+        <div className='header'>
+          <Bee />
+        </div>
         <div>
           {mainPage}
         </div>
-        <div>
-          <Chart />
+        <div className="parent">
+          { /*Card shall be conditionally rendered from this.renderCards(). But here it remains for tezzting*/}
         </div>
+        <Card />
+
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  /*dispatchLoading: (shown) => dispatch(isLoading(loaded))*/
-});
+const mapDispatchToProps = dispatch => ({ showModal: () => dispatch(showModal()) });
 
-const mapStateToProps = state => (
-  {home: state.home}
-);
+const mapStateToProps = state => ({ home: state.home });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

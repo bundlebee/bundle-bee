@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, Typography } from '@material-ui/core'
+
+import Chart from './Chart.jsx';
 
 // import { addResult } from '../redux/actions/homeActions.js';
 
@@ -10,13 +13,14 @@ class Card extends Component {
   }
   handleAddResult() {
     console.log('dispatch fired. current props for reference: ', this.props);
-  // this.props.addResult(/*normally you would use 'e' or something here*/);
+    // this.props.addResult(/*normally you would use 'e' or something here*/);
   }
   render() {
     return (
       <div className="card">
-        <h1>Webpack</h1>
-        <button onClick={this.handleAddResult}>add result</button>
+        <Typography variant="display2" gutterBottom>{"Webpack"}</Typography>
+        <Button variant="raised" color="primary" onClick={this.handleAddResult}>{'Add Result'}</Button>
+        <Chart />
       </div>
     );
   }

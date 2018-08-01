@@ -22,6 +22,6 @@ render(
 ipcRenderer.on('webpack-stats-results-json', (event) => {
   console.log('webpack results event:');
   console.log(event);
-  dispatch(retrieveCompilationStats())
+  store.dispatch(retrieveCompilationStats());
 });
 
