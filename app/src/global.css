@@ -7,12 +7,12 @@
  */
 
  html{
-    padding: 20px;
+    /* padding: 20px;
     margin: 30px;
     line-height: 1.3em;
     border: 2px dashed lightgrey;
     border-radius: 10px;
-    box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2);
+    box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2); */
  }
 :global html {
     height: 100%;
@@ -41,9 +41,10 @@
 
 .card {
     margin: 2rem;
-    height: 100px;
+    min-width: 800px;
     background-color: purple;
     color: white;
+    display: block
 }
 
 .card-hide {
@@ -102,4 +103,9 @@ div.header {
     border: 2px dashed lightgrey;
     border-radius: 20px;
     box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2);
+}
+
+.modal {
+    min-width: 400px;
+    min-height: 600px;
 }

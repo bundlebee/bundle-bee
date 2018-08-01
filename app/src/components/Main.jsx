@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
-import Chart from './Chart.jsx';
 
 import { Paper, Typography, TextField } from '@material-ui/core'
 
@@ -87,8 +86,12 @@ export class Main extends Component {
         <div>
           {mainPage}
         </div>
-        <div className="sb_d3_container">
-          {/* <Chart /> */}
+        <div className="parent">
+        Card shall be conditionally rendered from this.renderCards(). But here it remains for tezzting
+        <br />
+        <br />
+        <Card  /> 
+
         </div>
       </div>
     );

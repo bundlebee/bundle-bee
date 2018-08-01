@@ -55,17 +55,22 @@ class ModalPrompt extends Component {
 
   render() {
     return (
-      <div  className="main_page">
-        <Paper>
-        <Modal
+      <div >
+        <Modal 
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>To start the build process, choose an option:</h2>
-          <Button
+        <div  className="modal">
+          <h2 ref={subtitle => (this.subtitle = subtitle)}></h2>
+          <Typography  variant="display1" gutterBottom  >
+          Choose an option to start the build process:
+          </Typography>
+          
+          
+          <Button variant="raised" color="primary"
             onClick={e => {
               e.preventDefault();
               console.log('testing');
@@ -76,7 +81,7 @@ class ModalPrompt extends Component {
           >
             Use Existing Webpack
           </Button>
-          <Button
+          <Button variant="raised" color="primary"
             onClick={e => {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });
@@ -87,8 +92,8 @@ class ModalPrompt extends Component {
           >
             Create New Webpack
           </Button>
+          </div>
         </Modal>
-        </Paper>
       </div>
     );
   }
