@@ -6,14 +6,6 @@
  * Global CSS goes here, it requires to use :global before each style
  */
 
-html {
-    /* padding: 20px;
-    margin: 30px;
-    line-height: 1.3em;
-    border: 2px dashed lightgrey;
-    border-radius: 10px;
-    box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2); */
-}
 
 :global html {
     height: 100%;
@@ -92,10 +84,6 @@ div.header {
     display: inline-block;
 }
 
-.bee_logo_name {
-    /* display: inline-block; */
-}
-
 .drop_div {
     min-width: 600px;
     min-height: 400px;
@@ -110,4 +98,88 @@ div.header {
 .modal {
     min-width: 400px;
     min-height: 600px;
+}
+
+
+.drop-zone-hide{
+    display: none;
+}
+
+.drop-zone-show{
+    position: fixed;
+    display: flex;
+    background: rgba(17, 109, 210, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+    
+.drop_here_txt{
+    color: #ffffff;
+}
+
+.sb_d3_container{
+    display: flex;
+}
+
+
+.sb_d3_box{
+    border: 1px solid red;
+}
+
+#sb_d3_explanation{
+    position: relative;
+    bottom: 500px;
+    left: 380px;
+    width: 140px;
+    text-align: center;
+}
+
+#sb_d3_percentage{
+    font-size: 2.5em;
+
+}
+
+#sb_d3_fileNames{
+    padding: 5px 100px 50px 100px;
+    color: blue;
+}
+
+.main_page{
+    min-width: 800px;
+    min-height: 700px;
+    padding: 20px;
+    margin: 10px;
+    border: 6px dashed lightgrey;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    justify-content: center;
+    align-items:center;
+    display: flex;
+    flex-direction: column;
+}
+
+.cloud_upload{
+    height: 30%;
+    width: 30%;
+    align-self: center;
+}
+
+.header{
+    display: block;
+    align-self: center;
+}
+
+.parent{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }

@@ -1,6 +1,5 @@
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
-import './dropzone.sass';
 
 import { Typography } from '@material-ui/core'
 
