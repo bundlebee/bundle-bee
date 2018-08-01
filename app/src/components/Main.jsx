@@ -12,6 +12,12 @@ import * as home from '../redux/constants/homeConstants';
 import Bee from './loaders/awesomeBee.jsx';
 
 export class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mainPageInstructions: 'Drop Your Root Directory To Get Started',
+    };
+  }
   renderLoadingModal() {
     return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
   }
@@ -24,7 +30,7 @@ export class Main extends Component {
     return (
       <DropZone>
         <div>
-          <h1>Drop Your Root Directory To Get Started</h1>
+          <h1>{this.state.mainPageInstructions}</h1>
         </div>
       </DropZone>
     );
@@ -71,8 +77,14 @@ export class Main extends Component {
         ipcRenderer.send('run-webpack', {
           createNewConfig: true,
         });
+      } else {
+        console.log('here we are');
+
+        this.setState({
+          mainPageInstructions:
+            'No previous configuration files found. Drop entry file to auto-generate configuration files',
+        });
       }
-      // if no webpack, should ask for entry file here
     });
     return (
       <div>

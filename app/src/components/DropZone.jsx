@@ -59,8 +59,6 @@ class DropZone extends Component {
     // Upload files
     let files = e.dataTransfer.files;
     const { path } = files[0];
-    // send root directory to backend and await response to 'webpack-config-check' down below
-    // should have a loading icon run between sending the file and the modal popping up (or during the build if it jumps straight to that)
     ipcRenderer.send('check-root-directory', path);
 
     this.setState({ className: 'drop-zone-hide', showModal: true });
