@@ -41,24 +41,14 @@ module.exports = function createMenuBar(mainWindow) {
             { type: 'separator' },
           ],
           accelerator: 'CmdOrCtrl+W',
-          click() {
-            console.log(submenu)
-            buildWebpack()  { console.log('rollup')};
-          }
         },
         {
           label: 'Parcel',
           accelerator: 'CmdOrCtrl+P',
-          click() {
-            buildParcel() { console.log('rollup')};
-          }
         },
         {
           label: 'Rollup',
           accelerator: 'CmdOrCtrl+R',
-          click() {
-            buildRollup() { console.log('rollup')};
-          }
         }
       ]
     },
@@ -74,18 +64,6 @@ module.exports = function createMenuBar(mainWindow) {
         { role: 'pasteandmatchstyle' },
         { role: 'delete' },
         { role: 'selectall' }
-      ]
-    },
-    {
-      label: 'View',
-      submenu: [
-        { role: 'reload' },
-        { role: 'forcereload' },
-        { role: 'toggledevtools' },
-        { type: 'separator' },
-        { role: 'resetzoom' },
-        { role: 'zoomin' },
-        { role: 'zoomout' }
       ]
     },
     {

@@ -16,7 +16,6 @@ app.on('ready', () => {
   const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
   Menu.setApplicationMenu(menu);
 
-
 });
 
 ipcMain.on('ondragstart', (event, filePath) => {

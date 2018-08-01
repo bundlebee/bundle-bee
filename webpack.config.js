@@ -19,11 +19,16 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
+                exclude: /node_modules/,
                 options: {
                     presets: ['react']
                 }
             },
-            { test: /\.s(c|a)ss/, exclude: /node_modules/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+            {
+                test: /\.s(c|a)ss/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            },
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
@@ -54,5 +59,4 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json', '.jsx']
     }
-
 }
