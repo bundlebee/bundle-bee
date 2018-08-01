@@ -10,7 +10,7 @@ require('electron-reload')(__dirname);
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow();
+  mainWindow = new BrowserWindow({width: 800, height: 800});
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
   const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));

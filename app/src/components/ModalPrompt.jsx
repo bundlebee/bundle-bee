@@ -8,6 +8,8 @@ import { Button, Typography, Paper } from '@material-ui/core'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme.js';
 
+import '../global.css';
+
 
 const customStyles = {
   content: {
@@ -53,7 +55,7 @@ class ModalPrompt extends Component {
 
   render() {
     return (
-      <div>
+      <div  className="main_page">
         <Paper>
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -62,7 +64,6 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-
           <h2 ref={subtitle => (this.subtitle = subtitle)}>To start the build process, choose an option:</h2>
           <Button
             onClick={e => {

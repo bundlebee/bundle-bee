@@ -2,6 +2,8 @@ import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import './dropzone.sass';
 
+import {  Typography } from '@material-ui/core'
+
 import { connect } from 'react-redux';
 import { showModal } from '../redux/actions/homeActions';
 
@@ -74,7 +76,7 @@ class DropZone extends Component {
       <div>
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
-          Drop Here to Upload
+        <Typography variant="display4" gutterBottom  className="drop_here_txt" > Drop Here to Upload</Typography>
         </div>
       </div>
     );
