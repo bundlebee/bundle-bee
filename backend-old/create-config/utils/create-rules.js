@@ -37,9 +37,9 @@ const LESS = {
     'less-loader' /*  // compiles Less to CSS */,
   ],
 };
-
 module.exports = extensions => {
   // create rules array of appropriate loaders
+
   const alreadyAdded = new Set();
   return extensions.reduce((acc, ext) => {
     if ((ext === '.js' || ext === '.jsx') && !alreadyAdded.has(ext)) {

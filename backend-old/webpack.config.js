@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: '/Users/bren/Codesmith/week-5/reactscrumboard/src/index.js',
+    entry: 'Users/bren/Codesmith/week-5/reactscrumboard/src/index.js',
     context: '/Users/bren/Codesmith/week-5/reactscrumboard',
     output: {
       path: '/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/backend/dist',

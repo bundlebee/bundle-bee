@@ -26,6 +26,8 @@ ipcMain.on('check-root-directory', (event, rootDirPath) => {
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
+      console.log('file index done. back in main_process');
+
       // set globally so other emitters in main can access it without always passing the object back and forth
       parsedFilesInfo = res;
       event.sender.send('webpack-config-check', res);

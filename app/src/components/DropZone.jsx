@@ -63,13 +63,10 @@ class DropZone extends Component {
     // should have a loading icon run between sending the file and the modal popping up (or during the build if it jumps straight to that)
     ipcRenderer.send('check-root-directory', path);
 
-    // this.setState({ className: 'drop-zone-hide', showModal: true });
+    this.setState({ className: 'drop-zone-hide', showModal: true });
     return false;
   }
   render() {
-    ipcRenderer.on('webpack-config-check', event => {
-      this.props.showModal();
-    });
     return (
       <div>
         {this.props.children}

@@ -4,8 +4,8 @@
 
 Hash: 084d482a11f771b2645f
 Version: webpack 4.15.1
-Time: 4364ms
-Built at: 2018-07-30 20:34:23
+Time: 4574ms
+Built at: 2018-07-31 13:45:25
      Asset       Size  Chunks                    Chunk Names
  bundle.js    329 KiB       0  [emitted]  [big]  main
 index.html  403 bytes          [emitted]         
