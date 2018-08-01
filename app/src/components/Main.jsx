@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
+import '../global.css';
+
 import Bee from './loaders/awesomeBee.jsx';
 
 
@@ -31,8 +33,10 @@ export class Main extends Component {
     return (
       <DropZone>
         <div   className="main_page">
-          <Typography>{`Drag & Drop Your Root Directory To Get Started`}</Typography>
-          <img  className='bee_logo_name' src="./build/cloud_upload.png" />
+          <Typography variant="display1" gutterBottom  className="header" >{`Drag & Drop Your Root Directory To Get Started`}
+          </Typography>
+          <br />
+          <img  className='cloud_upload' src="./src/assets/cloud_upload.png" />
 
         </div>
       </DropZone>
