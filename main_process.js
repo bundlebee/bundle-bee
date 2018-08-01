@@ -1,8 +1,15 @@
 // Basic init
-const electron = require('electron');
-const { ipcMain, ipcRenderer } = require('electron');
-const { app, BrowserWindow } = electron;
+
+//New Concise Import Statements
+const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
 const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
+const createMenuBar = require('./backend/menuBar.js');
+
+// Old Code
+// const electron = require('electron');
+// const { ipcMain, ipcRenderer } = require('electron');
+// const { app, BrowserWindow } = electron;
+// const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname);
 
@@ -12,6 +19,10 @@ let mainWindow;
 app.on('ready', () => {
   mainWindow = new BrowserWindow();
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+
+  //Adding Menu Bar
+  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
+  Menu.setApplicationMenu(menu);
 });
 
 ipcMain.on('ondragstart', (event, filePath) => {

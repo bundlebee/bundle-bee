@@ -8,7 +8,7 @@ export default () => {
     blink();
     fistBump();
     flyUp();
-    TweenLite.set(document.getElementsByClassName("smile"), { scale: 0.5, x: 20, y: 0, ease: 'easeInOut' });
+    TweenLite.set(document.getElementsByClassName("smile"), { scale: 0.5, x: 20, y: 0, ease: Power2.easeInOut });
     TweenLite.set(document.getElementsByClassName("eye-close"), { scale: 0.001, x: 0, y: -5, ease: 'easeInOut' });
     TweenLite.set(document.getElementsByClassName("eye-open"), { scale: 1, x: 0, y: 0, ease: 'easeInOut' });
   }
