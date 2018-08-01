@@ -1,10 +1,16 @@
 import React from 'react'
 import Main from './Main.jsx';
 
-export default () => {
+import { connect } from 'react-redux';
+import { ipcRenderer } from 'electron';
+
+const App = () => {
     return (
         <div className="testapp">
             <Main />
         </div>
     )
 };
+
+
+export default App;

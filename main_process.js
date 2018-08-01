@@ -38,7 +38,9 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
     .then(res => {
-      console.log('finished creating webpack config');
+      console.log('finished running webpack');
+      
+      event.sender.send('webpack-stats-results-json'); // send a message to the front end that the webpack compilation stats json is ready
     })
     .catch(e => console.log('this is the error:', e));
 });

@@ -140,12 +140,17 @@ class D3StarBurstChart extends React.Component {
    var partition = d3.partition()
        .size([2 * Math.PI, radius]);
 
-   // Get the data from our JSON file
+   // Attempt to get the data from our JSON file
    console.log("before data")
  
-  //   // d3.json("./json/stats.json", function(error, nodeData) {
-  //       if (error) throw error;
-
+   // d3.json("./src/components/data_viz/compilation-stats.json").then(function(data) {
+   d3.json("../backend/compilation-stats.json").then(function(data) {
+     console.log('data:');
+     console.log(data);
+   }).catch(function(error) {
+     console.log('error:');
+     console.log(error);
+   });
        // Find the rootData node of our data, and begin sizing process.
        var global = d3.hierarchy(rootData) // starBurstData imported file
        .sum(d => { return d[this.props.chart.screen];});
