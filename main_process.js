@@ -26,8 +26,6 @@ ipcMain.on('check-root-directory', (event, rootDirPath) => {
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
-      console.log('file index done. back in main_process');
-
       // set globally so other emitters in main can access it without always passing the object back and forth
       parsedFilesInfo = res;
       event.sender.send('webpack-config-check', res);
@@ -39,13 +37,9 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   parsedFilesInfo.createNewConfig = createNewConfig;
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
-    .then(res => {
+    .then(() => {
+      parsedFilesInfo = null;
       console.log('finished creating webpack config');
     })
-    .catch(e => console.log('this is the error:', e));
+    .catch(e => console.log('error:', e));
 });
-
-// ipcMain.on('synchronous-message', (event, arg) => {
-//   console.log(arg); // prints "ping"
-//   event.returnValue = 'pongiiiii';
-// });

@@ -59,12 +59,19 @@ export class Main extends Component {
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
     let loadingBee = null;
-    // if ()
     ipcRenderer.on('webpack-config-check', (event, res) => {
-      console.log(event, res);
+      console.log(res);
       console.log('this is in main.jsx');
 
-      if (res.webpackConfig.exists) this.props.showModal();
+      if (res.webpackConfig.exists) {
+        this.props.showModal();
+      } else if (res.entryFileAbsolutePath) {
+        console.log('sending reun-webpack without webpack config');
+
+        ipcRenderer.send('run-webpack', {
+          createNewConfig: true,
+        });
+      }
       // if no webpack, should ask for entry file here
     });
     return (

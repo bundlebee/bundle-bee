@@ -1,13 +1,9 @@
-//!!!!! it is possible our program will only work if they have the modules required for our webpack config (the html thing, webpack. etc.).
-//!!!!! This could be a problem with saving all that shit to their folder instead of running from our own
-
+// !! if webpack is not installed globally, we should tell them they need to install it
 // TODO the functions that get called after the various prompts should be refactored into a reusable function
 // TODO prompt params should probably be set outside of the prompt call (look at docs)
 // TODO dont use set timeout for the deletion of the files obs. make a callback or promise or something
 // TODO maybe peek to see if babelrc exists and use that
 // TODO add like all the presets normally so we don't error out
-// ! research for webpack, etc after prompting for root, and run the 'use their own webpack' function after abstracting it out
-// TODO get the recursive dist folder deletion again. otherwise, they could save other shit to our dist folder, which we dont want
 // TODO AND THEN GET EXPENSIFY AND MCMI WORKING
 // TODO use all bable plugins and presets
 // TODO, only the regular build runs when we use env webpack. check on using production and development
@@ -15,7 +11,7 @@
 // TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
-
+// !! delete config if it wasn't there initially
 //?? probably should get the entry point set up for auto find and if not let them enter it
 // ?? look into how to handle our creating a webpack if they use an array of chunks for their entry instead of a single file
 
@@ -67,7 +63,7 @@ const createAndSaveWebpackConfig = (
   entryFile,
   extensions,
   outputPath = path.join(__dirname, '..', 'dist'),
-  indexHtmlPath = path.join(__dirname, 'template.html'),
+  indexHtmlPath,
   rootDir
 ) => {
   return new Promise((resolve, reject) => {
@@ -76,7 +72,7 @@ const createAndSaveWebpackConfig = (
       entryFile,
       extensions,
       (outputPath = pathToOurDist),
-      (indexHtmlPath = path.join(__dirname, 'template.html')),
+      indexHtmlPath,
       rootDir
     );
     const webpackConfigSavePath = path.join(rootDir, 'webpack.config.js');
@@ -125,11 +121,14 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
         (webpackConfig.content = fs.readFileSync(fullPath, 'utf-8'));
       webpackConfig.info = fileInfo;
     }
-    if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
-      indexHtmlPath = fullPath;
+    {
+      if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
+        indexHtmlPath = fullPath;
+    }
     // make sure /src/ is in the root of the project (name should be src/index.js and when you remove src/index.js)
-    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir)
+    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir) {
       entryFileAbsolutePath = `'${fullPath}'`;
+    }
     return files.concat(name);
   }, []);
   const extensions = files
@@ -196,10 +195,18 @@ const indexFilesFromRoot = rootDir => {
           extensions,
           entryFileAbsolutePath,
         } = getRequiredInfoFromFiles(files, rootDir);
-        if (!entryIsInRoot)
+        if (!entryIsInRoot) {
           console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+        }
         if (webpackConfig.exists) {
-          entryFileAbsolutePath = parseConfigForOutput(webpackConfig.content);
+          const entryFromParsingWebpackConfig = parseConfigForOutput(webpackConfig.content);
+          if (
+            entryFromParsingWebpackConfig &&
+            entryFromParsingWebpackConfig !== 'null' &&
+            entryFromParsingWebpackConfig !== 'undefined'
+          ) {
+            entryFileAbsolutePath = entryFromParsingWebpackConfig;
+          }
         }
         const response = {
           webpackConfig,
@@ -215,8 +222,6 @@ const indexFilesFromRoot = rootDir => {
   });
 };
 const runWebpack = requestObject => {
-  console.log('this was called');
-
   return new Promise((resolve, reject) => {
     const {
       entryFileAbsolutePath,
@@ -225,6 +230,8 @@ const runWebpack = requestObject => {
       rootDir,
       createNewConfig,
     } = requestObject;
+    console.log('​indexHtmlPath', indexHtmlPath);
+
     if (createNewConfig) {
       console.log('******************************');
       console.log('creating new webpack config...');
@@ -233,10 +240,12 @@ const runWebpack = requestObject => {
         .then(({ rootDir, tempFileName }) => {
           runConfigFromTheirRoot(rootDir)
             .then(() => {
+              const configToDelete = path.join(rootDir, 'webpack.config.js');
               if (tempFileName) {
-                const oldName = path.join(rootDir, 'webpack.config.js');
-                fs.unlinkSync(oldName);
-                fs.renameSync(tempFileName, oldName);
+                fs.unlinkSync(configToDelete);
+                fs.renameSync(tempFileName, configToDelete);
+              } else {
+                fs.unlinkSync(configToDelete);
               }
             })
             .catch(e => console.log(e));
