@@ -60,7 +60,7 @@ class DropZone extends Component {
     let files = e.dataTransfer.files;
     const { path } = files[0];
     ipcRenderer.send('check-root-directory', path);
-
+    console.log('path: ', path);
     this.setState({ className: 'drop-zone-hide', showModal: true });
     return false;
   }

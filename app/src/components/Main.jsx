@@ -72,8 +72,7 @@ export class Main extends Component {
       if (res.webpackConfig.exists) {
         this.props.showModal();
       } else if (res.entryFileAbsolutePath) {
-        console.log('sending reun-webpack without webpack config');
-
+        console.log('sending run-webpack without webpack config');
         ipcRenderer.send('run-webpack', {
           createNewConfig: true,
         });

@@ -23,11 +23,16 @@ ipcMain.on('ondragstart', (event, filePath) => {
 
 let parsedFilesInfo;
 ipcMain.on('check-root-directory', (event, rootDirPath) => {
+  console.log('​rootDirPath', rootDirPath);
+
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
       // set globally so other emitters in main can access it without always passing the object back and forth
       parsedFilesInfo = res;
+      if (!parsedFilesInfo.entryFileAbsolutePath) {
+        console.log('no entry file found');
+      }
       event.sender.send('webpack-config-check', res);
     })
     .catch(e => console.log(e));
@@ -38,7 +43,7 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
     .then(() => {
-      parsedFilesInfo = null;
+      parsedFilesInfo = {};
       console.log('finished creating webpack config');
     })
     .catch(e => console.log('error:', e));

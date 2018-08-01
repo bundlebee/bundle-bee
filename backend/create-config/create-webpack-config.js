@@ -85,13 +85,13 @@ const createAndSaveWebpackConfig = (
     }
     fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
       if (err) reject(err);
-      resolve({ rootDir, tempFileName });
-    });
-    // also write to our dist folder so we can grab it again later if they want to use ours
-    const waveConfigToOurDistPath = path.join(pathToOurDist, 'webpack.config.js');
-    fs.writeFile(waveConfigToOurDistPath, dynamicWebpackConfig, (err, res) => {
-      if (err) reject(err);
-      console.log('webpack config saved to dist for later use');
+      // also write to our dist folder so we can grab it again later if they want to use ours
+      const writeConfigToOurDistPath = path.join(pathToOurDist, 'webpack.config.js');
+      fs.writeFile(writeConfigToOurDistPath, dynamicWebpackConfig, (err, res) => {
+        if (err) reject(err);
+        console.log('webpack config saved to dist for later use');
+        resolve({ rootDir, tempFileName });
+      });
     });
   });
 };
@@ -247,6 +247,7 @@ const runWebpack = requestObject => {
               } else {
                 fs.unlinkSync(configToDelete);
               }
+              resolve();
             })
             .catch(e => console.log(e));
         })
@@ -256,7 +257,9 @@ const runWebpack = requestObject => {
       console.log('running existing webpack.config.js...');
       console.log('*************************************');
       runConfigFromTheirRoot(rootDir)
-        .then(() => {})
+        .then(() => {
+          resolve();
+        })
         .catch(e => console.log(e));
     }
   });
