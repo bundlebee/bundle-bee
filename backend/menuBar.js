@@ -43,21 +43,21 @@ module.exports = function createMenuBar(mainWindow) {
           accelerator: 'CmdOrCtrl+W',
           click() {
             console.log(submenu)
-            buildWebpack();
+            buildWebpack()  { console.log('rollup')};
           }
         },
         {
           label: 'Parcel',
           accelerator: 'CmdOrCtrl+P',
           click() {
-            buildParcel();
+            buildParcel() { console.log('rollup')};
           }
         },
         {
           label: 'Rollup',
           accelerator: 'CmdOrCtrl+R',
           click() {
-            buildRollup();
+            buildRollup() { console.log('rollup')};
           }
         }
       ]
