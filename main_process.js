@@ -41,13 +41,9 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   parsedFilesInfo.createNewConfig = createNewConfig;
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
-    .then(res => {
+    .then(() => {
+      parsedFilesInfo = null;
       console.log('finished creating webpack config');
     })
-    .catch(e => console.log('this is the error:', e));
+    .catch(e => console.log('error:', e));
 });
-
-// ipcMain.on('synchronous-message', (event, arg) => {
-//   console.log(arg); // prints "ping"
-//   event.returnValue = 'pongiiiii';
-// });

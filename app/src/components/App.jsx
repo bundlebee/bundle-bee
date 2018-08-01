@@ -1,6 +1,6 @@
 import React from 'react'
 import Main from './Main.jsx';
-import '../global.css';
+// import '../global.css';
 
 export default () => {
     return (

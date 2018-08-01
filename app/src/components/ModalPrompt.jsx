@@ -8,7 +8,7 @@ import { Button, Typography, Paper } from '@material-ui/core'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme.js';
 
-import '../global.css';
+// import '../global.css';
 
 
 const customStyles = {
@@ -56,41 +56,41 @@ class ModalPrompt extends Component {
   render() {
     return (
       <div >
-        <Modal 
+        <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal"
         >
-        <div  className="modal">
-          <h2 ref={subtitle => (this.subtitle = subtitle)}></h2>
-          <Typography  variant="display1" gutterBottom  >
-          Choose an option to start the build process:
+          <div className="modal">
+            <h2 ref={subtitle => (this.subtitle = subtitle)}></h2>
+            <Typography variant="display1" gutterBottom  >
+              Choose an option to start the build process:
           </Typography>
-          
-          
-          <Button variant="raised" color="primary"
-            onClick={e => {
-              e.preventDefault();
-              console.log('testing');
-              ipcRenderer.send('run-webpack', { createNewConfig: false });
-              // this.props.dispatchLoading(true);
-            }}
-            className="user-prompt"
-          >
-            Use Existing Webpack
-          </Button>
-          <Button variant="raised" color="primary"
-            onClick={e => {
-              e.preventDefault();
-              ipcRenderer.send('run-webpack', { createNewConfig: true });
 
-              // this.props.dispatchLoading(false);
-            }}
-            className="user-prompt"
-          >
-            Create New Webpack
+
+            <Button variant="raised" color="primary"
+              onClick={e => {
+                e.preventDefault();
+                console.log('testing');
+                ipcRenderer.send('run-webpack', { createNewConfig: false });
+                // this.props.dispatchLoading(true);
+              }}
+              className="user-prompt"
+            >
+              Use Existing Webpack
+          </Button>
+            <Button variant="raised" color="primary"
+              onClick={e => {
+                e.preventDefault();
+                ipcRenderer.send('run-webpack', { createNewConfig: true });
+
+                // this.props.dispatchLoading(false);
+              }}
+              className="user-prompt"
+            >
+              Create New Webpack
           </Button>
           </div>
         </Modal>

@@ -8,7 +8,7 @@ export default () => {
     blink();
     fistBump();
     flyUp();
-    TweenLite.set(document.getElementsByClassName("smile"), { scale: 0.5, x: 20, y: 0, ease: 'easeInOut' });
+    TweenLite.set(document.getElementsByClassName("smile"), { scale: 0.5, x: 20, y: 0, ease: Power2.easeInOut });
     TweenLite.set(document.getElementsByClassName("eye-close"), { scale: 0.001, x: 0, y: -5, ease: 'easeInOut' });
     TweenLite.set(document.getElementsByClassName("eye-open"), { scale: 1, x: 0, y: 0, ease: 'easeInOut' });
   }
@@ -45,7 +45,7 @@ export default () => {
 
   return (
     <div id="wrapper">
-      <svg id="bee-happy" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="150px" height="120px">
+      <svg id="bee-happy" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="300px" height="240px">
         <defs>
           <radialGradient id="gradient1" cx="50.0004%" cy="50%" r="39.5751%">
             <stop stopColor="#f4b01a" stopOpacity="0" offset="1%" />

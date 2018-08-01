@@ -1,10 +1,9 @@
+// !! if webpack is not installed globally, we should tell them they need to install it
 // TODO the functions that get called after the various prompts should be refactored into a reusable function
 // TODO prompt params should probably be set outside of the prompt call (look at docs)
 // TODO dont use set timeout for the deletion of the files obs. make a callback or promise or something
 // TODO maybe peek to see if babelrc exists and use that
 // TODO add like all the presets normally so we don't error out
-// ! research for webpack, etc after prompting for root, and run the 'use their own webpack' function after abstracting it out
-// TODO get the recursive dist folder deletion again. otherwise, they could save other shit to our dist folder, which we dont want
 // TODO AND THEN GET EXPENSIFY AND MCMI WORKING
 // TODO use all bable plugins and presets
 // TODO, only the regular build runs when we use env webpack. check on using production and development
@@ -12,7 +11,7 @@
 // TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
-
+// !! delete config if it wasn't there initially
 //?? probably should get the entry point set up for auto find and if not let them enter it
 // ?? look into how to handle our creating a webpack if they use an array of chunks for their entry instead of a single file
 
@@ -60,54 +59,39 @@ const getFiles = rootDir => {
   });
 };
 
-// dev testing purposes only
-const scrumEntry = '../../../../week-5/reactscrumboard/src/index.js'; // $$ (BUILD:PROD)
-const scrumRoot = '/Users/bren/Codesmith/week-5/reactscrumboard'; //$$  (env webpack)
-
-const indecisionEntry = '../../../../../React/1-indecisionApp/src/app.js'; //$$ (env webpack)
-const indecisionRoot = '/Users/bren/React/1-indecisionApp'; // $$ (env webpack)
-
-const expensifyEntry = '../../../../../React/2-expensify/src/app.js'; //$$ (env webpack)
-const expensifyRoot = '/Users/bren/React/2-expensify'; // $$ (env webpack)
-
-const MCMIEntry = '../../../../../MCMI/ReactMCMI/src/components/App.jsx'; // $$ (env webpack)
-const MCMIRoot = '/Users/bren/MCMI/ReactMCMI'; // $$ (env webpack)
-
-const FORMIKEntry = '../../../../../React/Formik/src/app.js'; // $$ (env webpack)
-const FORMIKRoot = '/Users/bren/React/Formik'; // $$ (env webpack)
-
-const boiler1entry = '../../../../../React/React_Boilerplate-v1/src/app.js'; // $$ (npm run env production)
-const boiler1root = '/Users/bren/React/React_Boilerplate-v1'; // $$ (npm run env production)
-
-const boiler2entry = '../../../../../React/React_Boilerplate-v2/src/app.js'; // $$  (env webpack)
-const boiler2root = '/Users/bren/React/React_Boilerplate-v2'; // $$  (env webpack)
-
-const cra = '../../../../playground/example-cra/test/src/App.js';
-const craRoot = '/Users/bren/Codesmith/zweek-7-PROJECT/playground/example-cra/test/';
-
-const craWithWP = '../../../../playground/cra-bundler-config-comparison/cra-webpack/src/App.js';
-const craRootWithWP =
-  '/Users/bren/Codesmith/zweek-7-PROJECT/playground/cra-bundler-config-comparison/cra-webpack/';
-
 const createAndSaveWebpackConfig = (
   entryFile,
   extensions,
   outputPath = path.join(__dirname, '..', 'dist'),
-  indexHtmlPath = path.join(__dirname, 'template.html'),
+  indexHtmlPath,
   rootDir
 ) => {
   return new Promise((resolve, reject) => {
+    const pathToOurDist = path.join(__dirname, '..', 'dist');
     const dynamicWebpackConfig = createWebpackConfig(
       entryFile,
       extensions,
-      (outputPath = path.join(__dirname, '..', 'dist')),
-      (indexHtmlPath = path.join(__dirname, 'template.html')),
+      (outputPath = pathToOurDist),
+      indexHtmlPath,
       rootDir
     );
-    const webpackConfigSavePath = path.join(__dirname, '..', 'webpack.config.js');
+    const webpackConfigSavePath = path.join(rootDir, 'webpack.config.js');
+    // if they have an existing webpack, we want to temproarily rename that to something else, and then rename it back after we run ours and save ours to our dist flder
+    let tempFileName;
+    if (fs.existsSync(webpackConfigSavePath)) {
+      tempFileName = path.join(rootDir, 'temp-store-current-webpack.config.js');
+      console.log(`renaming ${webpackConfigSavePath} to ${tempFileName}`);
+      fs.renameSync(webpackConfigSavePath, tempFileName);
+    }
     fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
       if (err) reject(err);
-      resolve(webpackConfigSavePath);
+      resolve({ rootDir, tempFileName });
+    });
+    // also write to our dist folder so we can grab it again later if they want to use ours
+    const waveConfigToOurDistPath = path.join(pathToOurDist, 'webpack.config.js');
+    fs.writeFile(waveConfigToOurDistPath, dynamicWebpackConfig, (err, res) => {
+      if (err) reject(err);
+      console.log('webpack config saved to dist for later use');
     });
   });
 };
@@ -137,11 +121,14 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
         (webpackConfig.content = fs.readFileSync(fullPath, 'utf-8'));
       webpackConfig.info = fileInfo;
     }
-    if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
-      indexHtmlPath = fullPath;
+    {
+      if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
+        indexHtmlPath = fullPath;
+    }
     // make sure /src/ is in the root of the project (name should be src/index.js and when you remove src/index.js)
-    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir)
-      entryFileAbsolutePath = fullPath;
+    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir) {
+      entryFileAbsolutePath = `'${fullPath}'`;
+    }
     return files.concat(name);
   }, []);
   const extensions = files
@@ -157,114 +144,83 @@ const getRequiredInfoFromFiles = (files, rootDir) => {
   };
 };
 
-const parseConfigForOutput = (configFileStr, files) => {
-  const withRegularPath = `const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  entry: require.resolve('src.index.js'),
-};`;
-  const withRegularPathmultiple = `const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  entry: ['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
-};`;
-  const objectversion = `
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-  module.exports = {
-    entry : {
-      main: require.resolve('src/index.js')
-    }
-},`;
-  const objectversionmultiple = `
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-  module.exports = {
-    entry : {
-      main:['babel-polyfill', require.resolve('src.index.js'), require.resolve('app.index.js')],
-      vendor: ['babel-polyfill', require.resolve('srcry.index.js'), require.resolve('apply.index.js')]
-    }
-},`;
-  let output;
-  const ast = babylon.parse(withRegularPath, { sourceType: 'module' });
-  let entryValue = '';
-  traverse(ast, {
-    Identifier: {
-      enter(path) {
-        if (path.node.name === 'entry') {
-          if (path.parent.value.type === 'StringLiteral') {
-            output = path.parent.value.value;
-          } else {
-            entryValue += withRegularPath.slice(path.parent.value.start, path.parent.value.end);
+const parseConfigForOutput = configFileStr => {
+  try {
+    let output;
+    const ast = babylon.parse(configFileStr, { sourceType: 'module' });
+    traverse(ast, {
+      Identifier: {
+        enter(path) {
+          if (path.node.name === 'entry') {
+            let entryValue = configFileStr.slice(path.parent.value.start, path.parent.value.end);
+            output = entryValue;
           }
-        }
+        },
       },
-    },
-  });
-  if (!output) {
-    let temp;
-    try {
-      console.log(entryValue);
-      eval(`temp=${entryValue}`);
-    } catch (error) {
-      console.log(error);
-
-      console.log('error');
-    }
-    // require.resolve effs this up. maybe use replace with the cwd ? then search through all the files to see which ones end with the remaining name?
-    if (temp) {
-      if (typeof temp === 'string') {
-        console.log('take care of this string');
-      } else if (temp.constructor.name === 'Array') {
-        temp.forEach(arg => {
-          console.log(arg);
-
-          if (typeof arg === 'string' && arg.indexOf('.js') === arg.length - 3) {
-            output = arg.replace(process.cwd(), '');
-          }
-        });
-      } else if (typeof temp === 'object') {
-        if (temp.main && typeof temp.main === 'string') {
-          output = temp.main.replace(process.cwd(), '');
-        }
-      }
-    }
+    });
+    return output;
+  } catch (error) {
+    return null;
   }
-  console.log('output: ', output);
-
-  return output;
 };
 
+const runConfigFromTheirRoot = rootDir => {
+  return new Promise((resolve, reject) => {
+    const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
+    const pathToTheirRoot = path.relative(process.cwd(), rootDir);
+    const pathBackFromRoot = path.relative(rootDir, process.cwd());
+    process.chdir(pathToTheirRoot);
+    console.log('current directory: ', process.cwd());
+
+    cmd.get(`webpack --profile --json > ${statsWritePath}`, (err, res) => {
+      if (err) reject(err);
+      console.log(res);
+      console.log('production and development builds successful');
+      process.chdir(pathBackFromRoot);
+      resolve();
+    });
+  });
+};
+// ************** BELOW ARE FUNCTIONS THAT ARE EXPORTED (ABOVE ARE ALL HELPER FUNCTIONS FOR THE EXPORT FUNCTIONS) ***************************
 const indexFilesFromRoot = rootDir => {
   // in case they provide a file, just grab the directory's path. it's possibly using fs stats to test if file or directory is better, but that is a slower, synchronous function. i think this works in all cases
   rootDir = path.extname(rootDir) ? path.dirname(rootDir) : rootDir;
   return new Promise((resolve, reject) => {
-    getFiles(rootDir).then(files => {
-      let {
-        webpackConfig,
-        entryIsInRoot,
-        indexHtmlPath,
-        extensions,
-        entryFileAbsolutePath,
-      } = getRequiredInfoFromFiles(files, rootDir);
-      if (!entryIsInRoot) console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
-      if (webpackConfig.exists)
-        entryFileAbsolutePath = parseConfigForOutput(webpackConfig.content, files);
-      const response = {
-        webpackConfig,
-        entryIsInRoot,
-        indexHtmlPath,
-        extensions,
-        rootDir,
-        entryFileAbsolutePath,
-      };
-      resolve(response);
-    });
+    getFiles(rootDir)
+      .then(files => {
+        let {
+          webpackConfig,
+          entryIsInRoot,
+          indexHtmlPath,
+          extensions,
+          entryFileAbsolutePath,
+        } = getRequiredInfoFromFiles(files, rootDir);
+        if (!entryIsInRoot) {
+          console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+        }
+        if (webpackConfig.exists) {
+          const entryFromParsingWebpackConfig = parseConfigForOutput(webpackConfig.content);
+          if (
+            entryFromParsingWebpackConfig &&
+            entryFromParsingWebpackConfig !== 'null' &&
+            entryFromParsingWebpackConfig !== 'undefined'
+          ) {
+            entryFileAbsolutePath = entryFromParsingWebpackConfig;
+          }
+        }
+        const response = {
+          webpackConfig,
+          entryIsInRoot,
+          indexHtmlPath,
+          extensions,
+          rootDir,
+          entryFileAbsolutePath,
+        };
+        resolve(response);
+      })
+      .catch(e => console.log(e));
   });
 };
-
 const runWebpack = requestObject => {
   return new Promise((resolve, reject) => {
     const {
@@ -274,116 +230,36 @@ const runWebpack = requestObject => {
       rootDir,
       createNewConfig,
     } = requestObject;
+    console.log('​indexHtmlPath', indexHtmlPath);
+
     if (createNewConfig) {
       console.log('******************************');
       console.log('creating new webpack config...');
       console.log('******************************');
-
-      createAndSaveWebpackConfig(
-        entryFileAbsolutePath,
-        extensions,
-        null,
-        indexHtmlPath,
-        rootDir
-      ).then(webpackConfigSavePath => {
-        const saveDestinationForStats = path.relative(
-          __dirname,
-          path.join(__dirname, 'backend', 'stats.json')
-        );
-        // build the production build
-        cmd.get(
-          `webpack --config ${webpackConfigSavePath} --mode production --profile --json > ${saveDestinationForStats}`,
-          (err, res) => {
-            if (err) reject(err);
-            console.log(res);
-            resolve(requestObject);
-          }
-        );
-      });
+      createAndSaveWebpackConfig(entryFileAbsolutePath, extensions, null, indexHtmlPath, rootDir)
+        .then(({ rootDir, tempFileName }) => {
+          runConfigFromTheirRoot(rootDir)
+            .then(() => {
+              const configToDelete = path.join(rootDir, 'webpack.config.js');
+              if (tempFileName) {
+                fs.unlinkSync(configToDelete);
+                fs.renameSync(tempFileName, configToDelete);
+              } else {
+                fs.unlinkSync(configToDelete);
+              }
+            })
+            .catch(e => console.log(e));
+        })
+        .catch(e => console.log(e));
     } else {
       console.log('*************************************');
       console.log('running existing webpack.config.js...');
       console.log('*************************************');
-
-      const pathToTheirRoot = path.relative(process.cwd(), rootDir);
-      const pathBackFromRoot = path.relative(rootDir, process.cwd());
-      const pathToWriteStatsFromTheirRoot = path.relative(
-        rootDir,
-        path.join(process.cwd(), 'backend', 'stats.json')
-      );
-      process.chdir(pathToTheirRoot);
-      console.log(entryFileAbsolutePath);
-
-      cmd.get(
-        `npm run env webpack --profile --json > ${pathToWriteStatsFromTheirRoot}`,
-        (err, res) => {
-          if (err) reject(err);
-          console.log(res);
-          console.log('production and development builds successful');
-          process.chdir(pathBackFromRoot);
-          resolve({ indexHtmlPath, entryFileAbsolutePath });
-        }
-      );
+      runConfigFromTheirRoot(rootDir)
+        .then(() => {})
+        .catch(e => console.log(e));
     }
   });
 };
 
 module.exports = { indexFilesFromRoot, runWebpack };
-
-//         //TODO should search for index.js or app.js, or maybe check their package json
-//         // webpack entry defaults to ./src/index.js
-//         // ask them for their entry file
-//         // const promptMessage = `Is this file your entry point:
-
-//         //     `;
-//         const promptMessage = `Please enter your entry file path`;
-//         prompt.get(makePrompt(promptMessage), (err, { answer }) => {
-//           createAndSaveWebpackConfig(
-//             entryFileAbsolutePath,
-//             extensions,
-//             null,
-//             indexHtmlPath,
-//             rootDir
-//           ).then(webpackConfigSavePath => {
-//             // build the production build
-//             cmd.get(`webpack --config ${webpackConfigSavePath} --mode production`, (err, res) => {
-//               if (err) throw new Error(err);
-//               console.log(res);
-//               // build the development build
-//               cmd.get(
-//                 `webpack --config ${webpackConfigSavePath} --mode development`,
-//                 (err, res) => {
-//                   if (err) throw new Error(err);
-//                   console.log(res);
-//                   console.log('production and development builds successful');
-//                   resolve({ indexHtmlPath, entryFileAbsolutePath });
-//                 }
-//               );
-//             });
-//           });
-//         });
-//       }
-//     })
-//     .catch(e => console.log('ERROR: ', e));
-// })
-//   .then(({ indexHtmlPath, entryFileAbsolutePath }) => {
-//     const parcelEntryFile = indexHtmlPath || entryFileAbsolutePath;
-//     console.log(`running parcel build on ${parcelEntryFile}...`);
-//     return new Promise((resolve, reject) => {
-//       cmd.get(`parcel build ${parcelEntryFile}`, (err, res) => {
-//         if (err) reject(err);
-//         resolve(res);
-//       });
-//     });
-//   })
-//   .then(res => {
-//     console.log(res);
-//     console.log('deleting temporary files...');
-//     deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
-//   })
-//   .catch(e => {
-//     console.log('there was an error: ', e);
-
-//     console.log('deleting temporary files...');
-//     deleteTemporaryFilesAndFolders(filesToDeleteAfterRunning, foldersToDeleteAfterRunning);
-//   });
