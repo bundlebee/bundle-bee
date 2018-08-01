@@ -36,7 +36,7 @@ export class Main extends Component {
           <Typography variant="display1" gutterBottom  className="header" >{`Drag & Drop Your Root Directory To Get Started`}
           </Typography>
           <br />
-          <img  className='cloud_upload' src="./src/assets/cloud_upload.png" />
+          <img  className='cloud_upload' src="./assets/cloud_upload.png" />
 
         </div>
       </DropZone>
