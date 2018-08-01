@@ -85,7 +85,7 @@ export class Main extends Component {
       <div>
         <div className='header'>
           <Bee />
-        </div> 
+        </div>
         <div>
           {mainPage}
         </div>
@@ -93,9 +93,7 @@ export class Main extends Component {
           { /*Card shall be conditionally rendered from this.renderCards(). But here it remains for tezzting*/}
         </div>
         <Card />
-        <div>
-          <Chart />
-        </div>
+
       </div>
     );
   }
