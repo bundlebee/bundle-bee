@@ -113,14 +113,6 @@ module.exports = function createMenuBar(mainWindow) {
       ]
     });
 
-    // Edit menu
-    menuBar[2].submenu.push(
-      { type: 'separator' },
-      {
-        label: 'Speech',
-        submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }]
-      }
-    );
 
     // Window menu
     menuBar[4].submenu = [
