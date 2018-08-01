@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import './dropzone.sass';
 
-import {  Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 import { connect } from 'react-redux';
 import { showModal } from '../redux/actions/homeActions';
@@ -65,18 +65,22 @@ class DropZone extends Component {
     // should have a loading icon run between sending the file and the modal popping up (or during the build if it jumps straight to that)
     ipcRenderer.send('check-root-directory', path);
 
-    // this.setState({ className: 'drop-zone-hide', showModal: true });
+    this.setState({ className: 'drop-zone-hide', showModal: true });
     return false;
   }
   render() {
+
+    /*
+    // Adam: I am not sure if this is still needed, but was deleted in latest pull request:
     ipcRenderer.on('webpack-config-check', event => {
       this.props.showModal();
-    });
+    }); */
+
     return (
       <div>
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
-        <Typography variant="display4" gutterBottom  className="drop_here_txt" > Drop Here to Upload</Typography>
+          <Typography variant="display4" gutterBottom className="drop_here_txt" > Drop Here to Upload</Typography>
         </div>
       </div>
     );
