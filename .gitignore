@@ -44,9 +44,3 @@ jspm_packages
 
 .vs/
 .vscode/
-
-
-# files created during our build tests
-backend/dist/
-backend/create-config/dist/
-backend/create-config/.cache/
