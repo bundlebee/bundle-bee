@@ -1,23 +1,16 @@
 // Basic init
 
-//New Concise Import Statements
 const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
 const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
 const createMenuBar = require('./backend/menuBar.js');
 
-// Old Code
-// const electron = require('electron');
-// const { ipcMain, ipcRenderer } = require('electron');
-// const { app, BrowserWindow } = electron;
-// const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
-// Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname);
 
 // To avoid being garbage collected
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 1024, height: 765});
+  mainWindow = new BrowserWindow({ width: 1024, height: 765 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
   //Adding Menu Bar
@@ -57,7 +50,6 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
     .then(res => {
       parsedFilesInfo = {};
       console.log('finished running webpack');
-
       event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready
     })
     .catch(e => console.log('error:', e));
