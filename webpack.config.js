@@ -1,52 +1,60 @@
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CSSExtract = new ExtractTextPlugin('bundle.css');
 
 module.exports = {
+  watch: true,
 
-    watch: true,
+  target: 'electron-renderer',
 
-    target: 'electron-renderer',
+  entry: './app/src/index.js',
 
-    entry: './app/src/index.js',
+  output: {
+    path: __dirname + '/app/build',
+    publicPath: 'build/',
+    filename: 'bundle.js',
+  },
 
-    output: {
-        path: __dirname + '/app/build',
-        publicPath: 'build/',
-        filename: 'bundle.js'
-    },
-
-    module: {
-        rules: [
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['react'],
+        },
+      },
+      {
+        test: /\.s?(c|a)ss$/,
+        use: CSSExtract.extract({
+          use: [
             {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                options: {
-                    presets: ['react']
-                }
-            },
-            {
-                test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
               },
-            {
-                test: /\.s(c|a)ss/,
-                exclude: /node_modules/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
             },
-           
             {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                query: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }
-        ]
-    },
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]?[hash]',
+        },
+      },
+    ],
+  },
 
- 
+  plugins: [CSSExtract],
 
-    resolve: {
-        extensions: ['.js', '.json', '.jsx']
-    }
-}
+  resolve: {
+    extensions: ['.js', '.json', '.jsx'],
+  },
+};
