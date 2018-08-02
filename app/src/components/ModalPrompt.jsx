@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import { isLoading } from '../redux/actions/homeActions';
+import { loadBundle } from '../redux/actions/homeActions';
 import { connect } from 'react-redux';
 
 const customStyles = {
@@ -62,7 +62,8 @@ class ModalPrompt extends Component {
               e.preventDefault();
               console.log('testing');
               ipcRenderer.send('run-webpack', { createNewConfig: false });
-              // this.props.dispatchLoading(true);
+              
+              this.props.loadBundle();
             }}
             className="user-prompt"
           >
@@ -73,7 +74,7 @@ class ModalPrompt extends Component {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });
 
-              // this.props.dispatchLoading(false);
+              this.props.loadBundle();
             }}
             className="user-prompt"
           >
@@ -86,7 +87,7 @@ class ModalPrompt extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  /*dispatchLoading: (loaded) => dispatch(isLoading(loaded))*/
+  loadBundle: (loaded) => dispatch(loadBundle(loaded))
 });
 export default connect(
   null,
