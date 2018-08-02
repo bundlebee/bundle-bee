@@ -58,8 +58,6 @@ export class Main extends Component {
   }
 
   render() {
-    console.log(this.props.home.screen);
-
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
@@ -68,6 +66,11 @@ export class Main extends Component {
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
     let loadingBee = null;
+    // ipcRenderer.on('asdf', (event, payload) => {
+    //   console.log('asdf');
+    //   alert('hi');
+    // });
+    // 
     ipcRenderer.on('webpack-config-check', (event, res) => {
       console.log(res);
       console.log('this is in main.jsx');
@@ -89,15 +92,11 @@ export class Main extends Component {
       }
     });
     
-    ipcRenderer.on('asdf', (event) => {
-      console.log('asdf');
-    });
-    
     // run store.dispatch() upon electron event
     ipcRenderer.on('webpack-stats-results-json', (event) => {
       console.log('webpack results event:');
       console.log(event);
-      retrieveCompilationStats();
+      this.props.retrieveCompilationStats();
     });
     
 

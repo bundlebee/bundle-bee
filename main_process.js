@@ -27,8 +27,6 @@ ipcMain.on('ondragstart', (event, filePath) => {
 
 let parsedFilesInfo;
 ipcMain.on('check-root-directory', (event, rootDirPath) => {
-  console.log('​rootDirPath', rootDirPath);
-
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
