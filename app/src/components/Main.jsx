@@ -11,7 +11,7 @@ import * as home from '../redux/constants/homeConstants';
 
 import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
-import ConfigLoader from './loaders/ConfigLoader.jsx';
+import CodeLoader from './loaders/CodeLoader.jsx';
 
 
 export class Main extends Component {
@@ -95,6 +95,7 @@ export class Main extends Component {
       <div>
         <Bee />
         <ImportLoader />
+        <CodeLoader />
         <div>{mainPage}</div>
         <div>
           <Chart />
