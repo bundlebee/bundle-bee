@@ -1,26 +1,21 @@
-.chart{
-  position: absolute;
-}
+
 .sb_d3_container {
-  position: absolute;
-  top: 400px;
-  height: 600px;
-  width: 80%;
+  justify-content: center;
   display: flex;
-  flex-wrap: wrap;
 }
 
-
-.sb_d3_box {
-  border: 1px solid red;
+.sb_d3_container button {
+  margin: 0 1rem;
+  width: 12rem;
+  background-color: rgb(11, 67, 124);
 }
 
 #sb_d3_explanation {
-  position: absolute;
-  top: 400px;
-  left: 380px;
-  width: 140px;
-  text-align: center;
+ border: 1px solid purple;
+ margin-top: 1rem;
+//  top: 75px;
+ width: 100%;
+ text-align: center;
 }
 
 #sb_d3_percentage {
@@ -30,5 +25,7 @@
 #sb_d3_fileNames {
   padding: 5px 100px 50px 100px;
   color: blue;
+}
 
+.sb_d3_box svg {
 }
