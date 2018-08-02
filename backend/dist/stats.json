@@ -5,10 +5,10 @@
   ],
   "version": "4.16.3",
   "hash": "b8a432b3897866d6c34a",
-  "time": 1975,
-  "builtAt": 1533161753133,
+  "time": 2342,
+  "builtAt": 1533168911744,
   "publicPath": "",
-  "outputPath": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/backend/dist",
+  "outputPath": "/Users/bren/React/1-indecisionApp/public/dist",
   "assetsByChunkName": {
     "main": "bundle.js"
   },
@@ -99,14 +99,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             }
           ],
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           },
           "failed": false,
@@ -245,8 +245,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -254,8 +254,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
               "name": "./node_modules/react/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -264,14 +264,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
               "name": "./node_modules/react/cjs/react.production.min.js",
               "profile": {
-                "factory": 45,
-                "building": 53
+                "factory": 42,
+                "building": 48
               }
             }
           ],
           "profile": {
-            "factory": 205,
-            "building": 15
+            "factory": 209,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -346,8 +346,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -355,8 +355,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
               "name": "./node_modules/react/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -365,14 +365,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
               "name": "./node_modules/react/cjs/react.production.min.js",
               "profile": {
-                "factory": 45,
-                "building": 53
+                "factory": 42,
+                "building": 48
               }
             }
           ],
           "profile": {
-            "factory": 205,
-            "building": 15
+            "factory": 209,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -438,8 +438,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -447,8 +447,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
               "name": "./node_modules/react/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -457,14 +457,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
               "name": "./node_modules/react/cjs/react.production.min.js",
               "profile": {
-                "factory": 45,
-                "building": 53
+                "factory": 42,
+                "building": 48
               }
             }
           ],
           "profile": {
-            "factory": 205,
-            "building": 15
+            "factory": 209,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -521,8 +521,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -530,8 +530,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
               "name": "./node_modules/react/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -540,14 +540,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
               "name": "./node_modules/react/cjs/react.production.min.js",
               "profile": {
-                "factory": 45,
-                "building": 53
+                "factory": 42,
+                "building": 48
               }
             }
           ],
           "profile": {
-            "factory": 205,
-            "building": 15
+            "factory": 209,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -604,14 +604,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             }
           ],
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           },
           "failed": false,
@@ -669,8 +669,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -678,8 +678,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -689,7 +689,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -698,8 +698,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -708,15 +708,15 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             }
           ],
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           },
           "failed": false,
           "errors": 0,
@@ -773,8 +773,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -782,8 +782,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -793,7 +793,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -802,8 +802,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -812,8 +812,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -821,9 +821,9 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
               "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             },
             {
@@ -831,15 +831,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/helpers/focusManager.js",
               "name": "./node_modules/react-modal/lib/helpers/focusManager.js",
               "profile": {
-                "factory": 26,
-                "building": 7,
-                "dependencies": 3
+                "factory": 31,
+                "building": 6,
+                "dependencies": 4
               }
             }
           ],
           "profile": {
             "factory": 5,
-            "building": 2
+            "building": 4
           },
           "failed": false,
           "errors": 0,
@@ -896,8 +896,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -905,8 +905,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -916,7 +916,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -925,8 +925,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -935,15 +935,15 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             }
           ],
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           },
           "failed": false,
           "errors": 0,
@@ -1000,8 +1000,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1009,8 +1009,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1020,7 +1020,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -1029,8 +1029,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -1039,8 +1039,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -1048,16 +1048,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
               "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 26,
-            "building": 7,
-            "dependencies": 3
+            "factory": 31,
+            "building": 6,
+            "dependencies": 4
           },
           "failed": false,
           "errors": 0,
@@ -1114,8 +1114,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1123,8 +1123,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1134,7 +1134,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -1143,8 +1143,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -1153,15 +1153,15 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             }
           ],
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           },
           "failed": false,
           "errors": 0,
@@ -1218,8 +1218,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1227,15 +1227,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/normalize.css/normalize.css",
               "name": "./node_modules/normalize.css/normalize.css",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
-            "factory": 10,
-            "building": 210
+            "factory": 23,
+            "building": 192
           },
           "failed": false,
           "errors": 0,
@@ -1288,8 +1288,8 @@
           "issuerName": null,
           "issuerPath": null,
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           },
           "failed": false,
           "errors": 0,
@@ -1337,8 +1337,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1346,15 +1346,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
               "name": "./node_modules/react/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
-            "factory": 45,
-            "building": 53
+            "factory": 42,
+            "building": 48
           },
           "failed": false,
           "errors": 0,
@@ -1402,8 +1402,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1411,16 +1411,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           },
           "failed": false,
           "errors": 0,
@@ -1468,8 +1468,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1477,8 +1477,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1488,15 +1488,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1544,8 +1544,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1553,8 +1553,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1564,15 +1564,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1620,8 +1620,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1629,8 +1629,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1640,15 +1640,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1696,8 +1696,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1705,8 +1705,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1716,15 +1716,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1772,8 +1772,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1781,8 +1781,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1792,8 +1792,8 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             },
             {
@@ -1801,15 +1801,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/containsNode.js",
               "name": "./node_modules/fbjs/lib/containsNode.js",
               "profile": {
-                "factory": 71,
-                "building": 15,
-                "dependencies": 1
+                "factory": 73,
+                "building": 5,
+                "dependencies": 0
               }
             }
           ],
           "profile": {
-            "factory": 11,
-            "building": 4
+            "factory": 9,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -1857,8 +1857,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1866,8 +1866,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1877,8 +1877,8 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             },
             {
@@ -1886,9 +1886,9 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/containsNode.js",
               "name": "./node_modules/fbjs/lib/containsNode.js",
               "profile": {
-                "factory": 71,
-                "building": 15,
-                "dependencies": 1
+                "factory": 73,
+                "building": 5,
+                "dependencies": 0
               }
             },
             {
@@ -1896,14 +1896,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/isTextNode.js",
               "name": "./node_modules/fbjs/lib/isTextNode.js",
               "profile": {
-                "factory": 11,
-                "building": 4
+                "factory": 9,
+                "building": 5
               }
             }
           ],
           "profile": {
-            "factory": 17,
-            "building": 4
+            "factory": 9,
+            "building": 15
           },
           "failed": false,
           "errors": 0,
@@ -1951,8 +1951,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -1960,8 +1960,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -1971,15 +1971,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -2027,8 +2027,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2036,8 +2036,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
               "name": "./node_modules/react-dom/index.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2047,15 +2047,15 @@
               "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
               "profile": {
                 "factory": 43,
-                "building": 187,
-                "dependencies": 71
+                "building": 184,
+                "dependencies": 73
               }
             }
           ],
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -2103,14 +2103,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             }
           ],
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           },
           "failed": false,
@@ -2159,8 +2159,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2168,15 +2168,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           },
           "failed": false,
@@ -2225,8 +2225,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2234,15 +2234,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           },
           "failed": false,
@@ -2291,8 +2291,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2300,15 +2300,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           },
           "failed": false,
@@ -2357,8 +2357,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2366,8 +2366,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2377,15 +2377,15 @@
               "name": "./src/components/Options.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             }
           ],
           "profile": {
-            "factory": 359,
-            "building": 47,
-            "dependencies": 0
+            "factory": 126,
+            "building": 37,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -2433,8 +2433,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2442,15 +2442,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           },
           "failed": false,
@@ -2499,8 +2499,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2508,15 +2508,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           },
           "failed": false,
@@ -2565,8 +2565,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2574,8 +2574,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2585,14 +2585,14 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             }
           ],
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           },
           "failed": false,
           "errors": 0,
@@ -2640,8 +2640,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2649,8 +2649,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2660,7 +2660,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -2669,15 +2669,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             }
           ],
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           },
           "failed": false,
           "errors": 0,
@@ -2725,8 +2725,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2734,8 +2734,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2745,7 +2745,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -2754,8 +2754,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -2764,8 +2764,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -2773,16 +2773,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/index.js",
               "name": "./node_modules/prop-types/index.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 1,
-            "building": 2,
-            "dependencies": 15
+            "factory": 5,
+            "building": 1,
+            "dependencies": 5
           },
           "failed": false,
           "errors": 0,
@@ -2830,8 +2830,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2839,8 +2839,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2850,7 +2850,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -2859,8 +2859,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -2869,8 +2869,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -2878,9 +2878,9 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/index.js",
               "name": "./node_modules/prop-types/index.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             },
             {
@@ -2888,14 +2888,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/factoryWithThrowingShims.js",
               "name": "./node_modules/prop-types/factoryWithThrowingShims.js",
               "profile": {
-                "factory": 1,
-                "building": 2,
-                "dependencies": 15
+                "factory": 5,
+                "building": 1,
+                "dependencies": 5
               }
             }
           ],
           "profile": {
-            "factory": 15,
+            "factory": 5,
             "building": 0
           },
           "failed": false,
@@ -2944,8 +2944,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -2953,8 +2953,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -2964,7 +2964,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -2973,8 +2973,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -2983,15 +2983,15 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             }
           ],
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           },
           "failed": false,
           "errors": 0,
@@ -3039,8 +3039,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3048,8 +3048,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -3059,7 +3059,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -3068,8 +3068,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -3078,8 +3078,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -3087,16 +3087,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
               "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 26,
-            "building": 7,
-            "dependencies": 3
+            "factory": 31,
+            "building": 6,
+            "dependencies": 4
           },
           "failed": false,
           "errors": 0,
@@ -3144,8 +3144,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3153,8 +3153,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -3164,7 +3164,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -3173,8 +3173,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -3183,8 +3183,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -3192,16 +3192,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
               "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 26,
-            "building": 7,
-            "dependencies": 3
+            "factory": 31,
+            "building": 6,
+            "dependencies": 4
           },
           "failed": false,
           "errors": 0,
@@ -3249,8 +3249,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3258,8 +3258,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -3269,7 +3269,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -3278,8 +3278,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -3288,8 +3288,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -3297,16 +3297,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
               "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 26,
-            "building": 7,
-            "dependencies": 3
+            "factory": 31,
+            "building": 6,
+            "dependencies": 4
           },
           "failed": false,
           "errors": 0,
@@ -3354,8 +3354,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3363,8 +3363,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
               "name": "./src/components/IndecisionApp.js",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -3374,7 +3374,7 @@
               "name": "./src/components/OptionModal.js",
               "profile": {
                 "factory": 39,
-                "building": 382,
+                "building": 529,
                 "dependencies": 1
               }
             },
@@ -3383,8 +3383,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
               "name": "./node_modules/react-modal/lib/index.js",
               "profile": {
-                "factory": 521,
-                "building": 15
+                "factory": 277,
+                "building": 11
               }
             },
             {
@@ -3393,8 +3393,8 @@
               "name": "./node_modules/react-modal/lib/components/Modal.js",
               "profile": {
                 "factory": 6,
-                "building": 13,
-                "dependencies": 2
+                "building": 17,
+                "dependencies": 3
               }
             },
             {
@@ -3402,15 +3402,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/helpers/safeHTMLElement.js",
               "name": "./node_modules/react-modal/lib/helpers/safeHTMLElement.js",
               "profile": {
-                "factory": 43,
-                "building": 7,
-                "dependencies": 26
+                "factory": 46,
+                "building": 6,
+                "dependencies": 31
               }
             }
           ],
           "profile": {
-            "factory": 30,
-            "building": 13
+            "factory": 29,
+            "building": 4
           },
           "failed": false,
           "errors": 0,
@@ -3458,14 +3458,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             }
           ],
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           },
           "failed": false,
@@ -3514,14 +3514,14 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             }
           ],
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           },
           "failed": false,
@@ -3570,8 +3570,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3579,16 +3579,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
               "name": "./src/styles/styles.scss",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
-            "factory": 232,
-            "building": 375,
-            "dependencies": 0
+            "factory": 502,
+            "building": 411,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -3636,8 +3636,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3645,16 +3645,16 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
               "name": "./src/styles/styles.scss",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             }
           ],
           "profile": {
-            "factory": 232,
-            "building": 375,
-            "dependencies": 0
+            "factory": 502,
+            "building": 411,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -3702,8 +3702,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
               "name": "./src/index.js",
               "profile": {
-                "factory": 110,
-                "building": 382
+                "factory": 111,
+                "building": 856
               }
             },
             {
@@ -3711,8 +3711,8 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
               "name": "./src/styles/styles.scss",
               "profile": {
-                "factory": 796,
-                "building": 231,
+                "factory": 382,
+                "building": 501,
                 "dependencies": 39
               }
             },
@@ -3721,15 +3721,15 @@
               "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/lib/addStyles.js",
               "name": "./node_modules/style-loader/lib/addStyles.js",
               "profile": {
-                "factory": 232,
-                "building": 375,
-                "dependencies": 0
+                "factory": 502,
+                "building": 411,
+                "dependencies": 1
               }
             }
           ],
           "profile": {
-            "factory": 194,
-            "building": 17
+            "factory": 195,
+            "building": 15
           },
           "failed": false,
           "errors": 0,
@@ -3792,14 +3792,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         }
       ],
       "profile": {
-        "factory": 796,
-        "building": 231,
+        "factory": 382,
+        "building": 501,
         "dependencies": 39
       },
       "failed": false,
@@ -3938,8 +3938,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -3947,8 +3947,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
           "name": "./node_modules/react/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -3957,14 +3957,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
           "name": "./node_modules/react/cjs/react.production.min.js",
           "profile": {
-            "factory": 45,
-            "building": 53
+            "factory": 42,
+            "building": 48
           }
         }
       ],
       "profile": {
-        "factory": 205,
-        "building": 15
+        "factory": 209,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -4039,8 +4039,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4048,8 +4048,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
           "name": "./node_modules/react/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4058,14 +4058,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
           "name": "./node_modules/react/cjs/react.production.min.js",
           "profile": {
-            "factory": 45,
-            "building": 53
+            "factory": 42,
+            "building": 48
           }
         }
       ],
       "profile": {
-        "factory": 205,
-        "building": 15
+        "factory": 209,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -4131,8 +4131,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4140,8 +4140,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
           "name": "./node_modules/react/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4150,14 +4150,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
           "name": "./node_modules/react/cjs/react.production.min.js",
           "profile": {
-            "factory": 45,
-            "building": 53
+            "factory": 42,
+            "building": 48
           }
         }
       ],
       "profile": {
-        "factory": 205,
-        "building": 15
+        "factory": 209,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -4214,8 +4214,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4223,8 +4223,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
           "name": "./node_modules/react/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4233,14 +4233,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/cjs/react.production.min.js",
           "name": "./node_modules/react/cjs/react.production.min.js",
           "profile": {
-            "factory": 45,
-            "building": 53
+            "factory": 42,
+            "building": 48
           }
         }
       ],
       "profile": {
-        "factory": 205,
-        "building": 15
+        "factory": 209,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -4297,14 +4297,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         }
       ],
       "profile": {
-        "factory": 796,
-        "building": 231,
+        "factory": 382,
+        "building": 501,
         "dependencies": 39
       },
       "failed": false,
@@ -4362,8 +4362,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4371,8 +4371,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4382,7 +4382,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -4391,8 +4391,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -4401,15 +4401,15 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         }
       ],
       "profile": {
-        "factory": 43,
-        "building": 7,
-        "dependencies": 26
+        "factory": 46,
+        "building": 6,
+        "dependencies": 31
       },
       "failed": false,
       "errors": 0,
@@ -4466,8 +4466,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4475,8 +4475,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4486,7 +4486,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -4495,8 +4495,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -4505,8 +4505,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -4514,9 +4514,9 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
           "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         },
         {
@@ -4524,15 +4524,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/helpers/focusManager.js",
           "name": "./node_modules/react-modal/lib/helpers/focusManager.js",
           "profile": {
-            "factory": 26,
-            "building": 7,
-            "dependencies": 3
+            "factory": 31,
+            "building": 6,
+            "dependencies": 4
           }
         }
       ],
       "profile": {
         "factory": 5,
-        "building": 2
+        "building": 4
       },
       "failed": false,
       "errors": 0,
@@ -4589,8 +4589,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4598,8 +4598,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4609,7 +4609,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -4618,8 +4618,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -4628,15 +4628,15 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         }
       ],
       "profile": {
-        "factory": 43,
-        "building": 7,
-        "dependencies": 26
+        "factory": 46,
+        "building": 6,
+        "dependencies": 31
       },
       "failed": false,
       "errors": 0,
@@ -4693,8 +4693,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4702,8 +4702,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4713,7 +4713,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -4722,8 +4722,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -4732,8 +4732,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -4741,16 +4741,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
           "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 26,
-        "building": 7,
-        "dependencies": 3
+        "factory": 31,
+        "building": 6,
+        "dependencies": 4
       },
       "failed": false,
       "errors": 0,
@@ -4807,8 +4807,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4816,8 +4816,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -4827,7 +4827,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -4836,8 +4836,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -4846,15 +4846,15 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         }
       ],
       "profile": {
-        "factory": 43,
-        "building": 7,
-        "dependencies": 26
+        "factory": 46,
+        "building": 6,
+        "dependencies": 31
       },
       "failed": false,
       "errors": 0,
@@ -4911,8 +4911,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -4920,15 +4920,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/normalize.css/normalize.css",
           "name": "./node_modules/normalize.css/normalize.css",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
-        "factory": 10,
-        "building": 210
+        "factory": 23,
+        "building": 192
       },
       "failed": false,
       "errors": 0,
@@ -4981,8 +4981,8 @@
       "issuerName": null,
       "issuerPath": null,
       "profile": {
-        "factory": 110,
-        "building": 382
+        "factory": 111,
+        "building": 856
       },
       "failed": false,
       "errors": 0,
@@ -5030,8 +5030,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5039,15 +5039,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react/index.js",
           "name": "./node_modules/react/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
-        "factory": 45,
-        "building": 53
+        "factory": 42,
+        "building": 48
       },
       "failed": false,
       "errors": 0,
@@ -5095,8 +5095,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5104,16 +5104,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 43,
-        "building": 187,
-        "dependencies": 71
+        "building": 184,
+        "dependencies": 73
       },
       "failed": false,
       "errors": 0,
@@ -5161,8 +5161,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5170,8 +5170,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5181,15 +5181,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5237,8 +5237,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5246,8 +5246,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5257,15 +5257,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5313,8 +5313,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5322,8 +5322,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5333,15 +5333,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5389,8 +5389,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5398,8 +5398,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5409,15 +5409,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5465,8 +5465,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5474,8 +5474,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5485,8 +5485,8 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         },
         {
@@ -5494,15 +5494,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/containsNode.js",
           "name": "./node_modules/fbjs/lib/containsNode.js",
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           }
         }
       ],
       "profile": {
-        "factory": 11,
-        "building": 4
+        "factory": 9,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -5550,8 +5550,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5559,8 +5559,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5570,8 +5570,8 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         },
         {
@@ -5579,9 +5579,9 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/containsNode.js",
           "name": "./node_modules/fbjs/lib/containsNode.js",
           "profile": {
-            "factory": 71,
-            "building": 15,
-            "dependencies": 1
+            "factory": 73,
+            "building": 5,
+            "dependencies": 0
           }
         },
         {
@@ -5589,14 +5589,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/fbjs/lib/isTextNode.js",
           "name": "./node_modules/fbjs/lib/isTextNode.js",
           "profile": {
-            "factory": 11,
-            "building": 4
+            "factory": 9,
+            "building": 5
           }
         }
       ],
       "profile": {
-        "factory": 17,
-        "building": 4
+        "factory": 9,
+        "building": 15
       },
       "failed": false,
       "errors": 0,
@@ -5644,8 +5644,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5653,8 +5653,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5664,15 +5664,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5720,8 +5720,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5729,8 +5729,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-dom/index.js",
           "name": "./node_modules/react-dom/index.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -5740,15 +5740,15 @@
           "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
           "profile": {
             "factory": 43,
-            "building": 187,
-            "dependencies": 71
+            "building": 184,
+            "dependencies": 73
           }
         }
       ],
       "profile": {
-        "factory": 71,
-        "building": 15,
-        "dependencies": 1
+        "factory": 73,
+        "building": 5,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -5796,14 +5796,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         }
       ],
       "profile": {
-        "factory": 796,
-        "building": 231,
+        "factory": 382,
+        "building": 501,
         "dependencies": 39
       },
       "failed": false,
@@ -5852,8 +5852,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5861,15 +5861,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 39,
-        "building": 382,
+        "building": 529,
         "dependencies": 1
       },
       "failed": false,
@@ -5918,8 +5918,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5927,15 +5927,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 39,
-        "building": 382,
+        "building": 529,
         "dependencies": 1
       },
       "failed": false,
@@ -5984,8 +5984,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -5993,15 +5993,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 39,
-        "building": 382,
+        "building": 529,
         "dependencies": 1
       },
       "failed": false,
@@ -6050,8 +6050,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6059,8 +6059,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6070,15 +6070,15 @@
           "name": "./src/components/Options.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         }
       ],
       "profile": {
-        "factory": 359,
-        "building": 47,
-        "dependencies": 0
+        "factory": 126,
+        "building": 37,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -6126,8 +6126,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6135,15 +6135,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 39,
-        "building": 382,
+        "building": 529,
         "dependencies": 1
       },
       "failed": false,
@@ -6192,8 +6192,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6201,15 +6201,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
         "factory": 39,
-        "building": 382,
+        "building": 529,
         "dependencies": 1
       },
       "failed": false,
@@ -6258,8 +6258,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6267,8 +6267,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6278,14 +6278,14 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         }
       ],
       "profile": {
-        "factory": 521,
-        "building": 15
+        "factory": 277,
+        "building": 11
       },
       "failed": false,
       "errors": 0,
@@ -6333,8 +6333,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6342,8 +6342,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6353,7 +6353,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6362,15 +6362,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         }
       ],
       "profile": {
         "factory": 6,
-        "building": 13,
-        "dependencies": 2
+        "building": 17,
+        "dependencies": 3
       },
       "failed": false,
       "errors": 0,
@@ -6418,8 +6418,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6427,8 +6427,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6438,7 +6438,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6447,8 +6447,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6457,8 +6457,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -6466,16 +6466,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/index.js",
           "name": "./node_modules/prop-types/index.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 1,
-        "building": 2,
-        "dependencies": 15
+        "factory": 5,
+        "building": 1,
+        "dependencies": 5
       },
       "failed": false,
       "errors": 0,
@@ -6523,8 +6523,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6532,8 +6532,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6543,7 +6543,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6552,8 +6552,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6562,8 +6562,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -6571,9 +6571,9 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/index.js",
           "name": "./node_modules/prop-types/index.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         },
         {
@@ -6581,14 +6581,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/prop-types/factoryWithThrowingShims.js",
           "name": "./node_modules/prop-types/factoryWithThrowingShims.js",
           "profile": {
-            "factory": 1,
-            "building": 2,
-            "dependencies": 15
+            "factory": 5,
+            "building": 1,
+            "dependencies": 5
           }
         }
       ],
       "profile": {
-        "factory": 15,
+        "factory": 5,
         "building": 0
       },
       "failed": false,
@@ -6637,8 +6637,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6646,8 +6646,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6657,7 +6657,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6666,8 +6666,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6676,15 +6676,15 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         }
       ],
       "profile": {
-        "factory": 43,
-        "building": 7,
-        "dependencies": 26
+        "factory": 46,
+        "building": 6,
+        "dependencies": 31
       },
       "failed": false,
       "errors": 0,
@@ -6732,8 +6732,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6741,8 +6741,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6752,7 +6752,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6761,8 +6761,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6771,8 +6771,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -6780,16 +6780,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
           "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 26,
-        "building": 7,
-        "dependencies": 3
+        "factory": 31,
+        "building": 6,
+        "dependencies": 4
       },
       "failed": false,
       "errors": 0,
@@ -6837,8 +6837,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6846,8 +6846,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6857,7 +6857,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6866,8 +6866,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6876,8 +6876,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -6885,16 +6885,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
           "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 26,
-        "building": 7,
-        "dependencies": 3
+        "factory": 31,
+        "building": 6,
+        "dependencies": 4
       },
       "failed": false,
       "errors": 0,
@@ -6942,8 +6942,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -6951,8 +6951,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -6962,7 +6962,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -6971,8 +6971,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -6981,8 +6981,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -6990,16 +6990,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/components/ModalPortal.js",
           "name": "./node_modules/react-modal/lib/components/ModalPortal.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 26,
-        "building": 7,
-        "dependencies": 3
+        "factory": 31,
+        "building": 6,
+        "dependencies": 4
       },
       "failed": false,
       "errors": 0,
@@ -7047,8 +7047,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -7056,8 +7056,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/components/IndecisionApp.js",
           "name": "./src/components/IndecisionApp.js",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -7067,7 +7067,7 @@
           "name": "./src/components/OptionModal.js",
           "profile": {
             "factory": 39,
-            "building": 382,
+            "building": 529,
             "dependencies": 1
           }
         },
@@ -7076,8 +7076,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/index.js",
           "name": "./node_modules/react-modal/lib/index.js",
           "profile": {
-            "factory": 521,
-            "building": 15
+            "factory": 277,
+            "building": 11
           }
         },
         {
@@ -7086,8 +7086,8 @@
           "name": "./node_modules/react-modal/lib/components/Modal.js",
           "profile": {
             "factory": 6,
-            "building": 13,
-            "dependencies": 2
+            "building": 17,
+            "dependencies": 3
           }
         },
         {
@@ -7095,15 +7095,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/react-modal/lib/helpers/safeHTMLElement.js",
           "name": "./node_modules/react-modal/lib/helpers/safeHTMLElement.js",
           "profile": {
-            "factory": 43,
-            "building": 7,
-            "dependencies": 26
+            "factory": 46,
+            "building": 6,
+            "dependencies": 31
           }
         }
       ],
       "profile": {
-        "factory": 30,
-        "building": 13
+        "factory": 29,
+        "building": 4
       },
       "failed": false,
       "errors": 0,
@@ -7151,14 +7151,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         }
       ],
       "profile": {
-        "factory": 796,
-        "building": 231,
+        "factory": 382,
+        "building": 501,
         "dependencies": 39
       },
       "failed": false,
@@ -7207,14 +7207,14 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         }
       ],
       "profile": {
-        "factory": 796,
-        "building": 231,
+        "factory": 382,
+        "building": 501,
         "dependencies": 39
       },
       "failed": false,
@@ -7263,8 +7263,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -7272,16 +7272,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
           "name": "./src/styles/styles.scss",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
-        "factory": 232,
-        "building": 375,
-        "dependencies": 0
+        "factory": 502,
+        "building": 411,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -7329,8 +7329,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -7338,16 +7338,16 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
           "name": "./src/styles/styles.scss",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         }
       ],
       "profile": {
-        "factory": 232,
-        "building": 375,
-        "dependencies": 0
+        "factory": 502,
+        "building": 411,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -7395,8 +7395,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/babel-loader/lib/index.js??ref--4!/Users/bren/React/1-indecisionApp/src/index.js",
           "name": "./src/index.js",
           "profile": {
-            "factory": 110,
-            "building": 382
+            "factory": 111,
+            "building": 856
           }
         },
         {
@@ -7404,8 +7404,8 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/css-loader/index.js!/Users/bren/React/1-indecisionApp/node_modules/sass-loader/lib/loader.js!/Users/bren/React/1-indecisionApp/src/styles/styles.scss",
           "name": "./src/styles/styles.scss",
           "profile": {
-            "factory": 796,
-            "building": 231,
+            "factory": 382,
+            "building": 501,
             "dependencies": 39
           }
         },
@@ -7414,15 +7414,15 @@
           "identifier": "/Users/bren/React/1-indecisionApp/node_modules/style-loader/lib/addStyles.js",
           "name": "./node_modules/style-loader/lib/addStyles.js",
           "profile": {
-            "factory": 232,
-            "building": 375,
-            "dependencies": 0
+            "factory": 502,
+            "building": 411,
+            "dependencies": 1
           }
         }
       ],
       "profile": {
-        "factory": 194,
-        "building": 17
+        "factory": 195,
+        "building": 15
       },
       "failed": false,
       "errors": 0,
@@ -7454,7 +7454,7 @@
       "errors": [],
       "warnings": [],
       "publicPath": "",
-      "outputPath": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/backend/dist",
+      "outputPath": "/Users/bren/React/1-indecisionApp/public/dist",
       "assetsByChunkName": {},
       "assets": [
         {
@@ -7527,8 +7527,8 @@
               "issuerName": null,
               "issuerPath": null,
               "profile": {
-                "factory": 85,
-                "building": 25
+                "factory": 83,
+                "building": 30
               },
               "failed": false,
               "errors": 0,
@@ -7575,14 +7575,14 @@
                   "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
                   "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
                   "profile": {
-                    "factory": 85,
-                    "building": 25
+                    "factory": 83,
+                    "building": 30
                   }
                 }
               ],
               "profile": {
-                "factory": 6,
-                "building": 674
+                "factory": 4,
+                "building": 653
               },
               "failed": false,
               "errors": 0,
@@ -7630,8 +7630,8 @@
                   "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
                   "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
                   "profile": {
-                    "factory": 85,
-                    "building": 25
+                    "factory": 83,
+                    "building": 30
                   }
                 },
                 {
@@ -7639,14 +7639,14 @@
                   "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
                   "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
                   "profile": {
-                    "factory": 6,
-                    "building": 674
+                    "factory": 4,
+                    "building": 653
                   }
                 }
               ],
               "profile": {
-                "factory": 57,
-                "building": 229
+                "factory": 263,
+                "building": 230
               },
               "failed": false,
               "errors": 0,
@@ -7694,8 +7694,8 @@
                   "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
                   "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
                   "profile": {
-                    "factory": 85,
-                    "building": 25
+                    "factory": 83,
+                    "building": 30
                   }
                 },
                 {
@@ -7703,14 +7703,14 @@
                   "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
                   "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
                   "profile": {
-                    "factory": 6,
-                    "building": 674
+                    "factory": 4,
+                    "building": 653
                   }
                 }
               ],
               "profile": {
-                "factory": 57,
-                "building": 229
+                "factory": 263,
+                "building": 230
               },
               "failed": false,
               "errors": 0,
@@ -7769,8 +7769,8 @@
           "issuerName": null,
           "issuerPath": null,
           "profile": {
-            "factory": 85,
-            "building": 25
+            "factory": 83,
+            "building": 30
           },
           "failed": false,
           "errors": 0,
@@ -7817,14 +7817,14 @@
               "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
               "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
               "profile": {
-                "factory": 85,
-                "building": 25
+                "factory": 83,
+                "building": 30
               }
             }
           ],
           "profile": {
-            "factory": 6,
-            "building": 674
+            "factory": 4,
+            "building": 653
           },
           "failed": false,
           "errors": 0,
@@ -7872,8 +7872,8 @@
               "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
               "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
               "profile": {
-                "factory": 85,
-                "building": 25
+                "factory": 83,
+                "building": 30
               }
             },
             {
@@ -7881,14 +7881,14 @@
               "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
               "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
               "profile": {
-                "factory": 6,
-                "building": 674
+                "factory": 4,
+                "building": 653
               }
             }
           ],
           "profile": {
-            "factory": 57,
-            "building": 229
+            "factory": 263,
+            "building": 230
           },
           "failed": false,
           "errors": 0,
@@ -7936,8 +7936,8 @@
               "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!/Users/bren/React/1-indecisionApp/public/index.html",
               "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/html-webpack-plugin/lib/loader.js!./public/index.html",
               "profile": {
-                "factory": 85,
-                "building": 25
+                "factory": 83,
+                "building": 30
               }
             },
             {
@@ -7945,14 +7945,14 @@
               "identifier": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
               "name": "/Users/bren/Codesmith/zweek-7-PROJECT/initial-webpack-config-test-with-adam/bundle-bee/node_modules/lodash/lodash.js",
               "profile": {
-                "factory": 6,
-                "building": 674
+                "factory": 4,
+                "building": 653
               }
             }
           ],
           "profile": {
-            "factory": 57,
-            "building": 229
+            "factory": 263,
+            "building": 230
           },
           "failed": false,
           "errors": 0,
