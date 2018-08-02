@@ -34,8 +34,6 @@ ipcMain.on('ondragstart', (event, filePath) => {
 
 let parsedFilesInfo;
 ipcMain.on('check-root-directory', (event, rootDirPath) => {
-  console.log('​rootDirPath', rootDirPath);
-
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
@@ -56,6 +54,8 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
     .then(() => {
       parsedFilesInfo = {};
       console.log('finished creating webpack config');
+      event.sender.send('asdf', 'u');
+      console.log('u');
     })
     .catch(e => console.log('error:', e));
 });
