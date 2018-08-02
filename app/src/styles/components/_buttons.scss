@@ -6,8 +6,8 @@
 
 button {
   color: #FFF;
-  background-color: $btn_lightBlue;
-  &:hover { background-color: lighten($btn_lightBlue, 8%); }
+  background-color: teal;
+  &:hover { background-color: lighten(teal, 8%); }
 
   height: 48px;
   line-height: 48px;
@@ -97,6 +97,3 @@ button {
   }
 }
 
-.tooltip_box {
-  background-color: lightblue;
-}
