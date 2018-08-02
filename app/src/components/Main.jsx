@@ -65,6 +65,9 @@ export class Main extends Component {
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
     let loadingBee = null;
+    ipcRenderer.on('asdf', (event, payload) => {
+      alert('hi');
+    });
     ipcRenderer.on('webpack-config-check', (event, res) => {
       console.log(res);
       console.log('this is in main.jsx');

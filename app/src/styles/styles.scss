@@ -1,0 +1,5 @@
+// import all of your partials here. they will be combined at compile time to a single file to import in your app's index page
+// scss/sass partials import names do not include the underscore. just the name starting after the _
+@import './base/settings';
+@import './base/base';
+@import './components/buttons';
