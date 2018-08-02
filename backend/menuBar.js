@@ -112,8 +112,6 @@ module.exports = function createMenuBar(mainWindow) {
         { role: 'quit' }
       ]
     });
-
-
     // Window menu
     menuBar[4].submenu = [
       { role: 'close' },
