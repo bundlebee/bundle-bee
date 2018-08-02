@@ -15,6 +15,9 @@ import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
+import ReactTooltip from 'react-tooltip'
+
+
 export class Main extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +26,11 @@ export class Main extends Component {
     };
   }
   renderLoadingModal() {
-    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
+    return <ImportLoader />;
   }
 
-  renderLoadingComplete() {
-    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
+  renderLoadingBundle() {
+    return <CodeLoader />;
   }
 
   dropZoneActive() {
@@ -102,10 +105,8 @@ export class Main extends Component {
     return (
       <div className="main">
         <div className='header'>
-          <Bee />
-        </div>
-        {/* <ImportLoader />
-        <CodeLoader /> */}
+        <Bee />
+		    </div>
         <div>{mainPage}</div>
 
       </div>
