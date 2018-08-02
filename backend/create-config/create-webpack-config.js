@@ -166,19 +166,20 @@ const parseConfigForOutput = configFileStr => {
 
 const runConfigFromTheirRoot = rootDir => {
   return new Promise((resolve, reject) => {
-    const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
-    const pathToTheirRoot = path.relative(process.cwd(), rootDir);
-    const pathBackFromRoot = path.relative(rootDir, process.cwd());
-    process.chdir(pathToTheirRoot);
-    console.log('current directory: ', process.cwd());
-
-    cmd.get(`webpack --profile --json > ${statsWritePath}`, (err, res) => {
-      if (err) reject(err);
-      console.log(res);
-      console.log('production and development builds successful');
-      process.chdir(pathBackFromRoot);
-      resolve();
-    });
+    resolve();
+    // const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
+    // const pathToTheirRoot = path.relative(process.cwd(), rootDir);
+    // const pathBackFromRoot = path.relative(rootDir, process.cwd());
+    // process.chdir(pathToTheirRoot);
+    // console.log('current directory: ', process.cwd());
+    // 
+    // cmd.get(`webpack --profile --json > ${statsWritePath}`, (err, res) => {
+    //   if (err) reject(err);
+    //   console.log(res);
+    //   console.log('production and development builds successful');
+    //   process.chdir(pathBackFromRoot);
+    //   resolve();
+    // });
   });
 };
 // ************** BELOW ARE FUNCTIONS THAT ARE EXPORTED (ABOVE ARE ALL HELPER FUNCTIONS FOR THE EXPORT FUNCTIONS) ***************************

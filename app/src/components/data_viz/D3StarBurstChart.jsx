@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
 
-const starBurstData = require('./compilation-stats.json');
 
 
 // change starBurstData to it will read from the fresh webpack run
@@ -38,7 +37,8 @@ class D3StarBurstChart extends React.Component {
     this.total.factory = 0;
     this.total.building = 0;
     
-    starBurstData.chunks[0].modules.forEach(element => {
+    console.log('using redux starburst mock data');
+    this.props.data.starBurstData.chunks[0].modules.forEach(element => {
   
         let directoryAndName = element.name.replace(/[.\/]/, "");
         let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
@@ -114,7 +114,10 @@ class D3StarBurstChart extends React.Component {
    d3.select("#sb_d3_explanation")
      .style("visibility", "");
   }
-
+  
+  // remove <g> element from <svg>
+  d3.selectAll('.starburstgroup').remove();
+  
    // Dimensions of sunburst
    // TODO: should be dynamic
    var width = 900;
@@ -130,19 +133,17 @@ class D3StarBurstChart extends React.Component {
        .attr('width', width)
        .attr('height', height)
        .append('g')
-       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+       .attr('class', 'starburstgroup')
+       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
 
        // Create our sunburst data structure and size it.
    var partition = d3.partition()
        .size([2 * Math.PI, radius]);
 
-   // Get the data from our JSON file
+   // Attempt to get the data from our JSON file
    console.log("before data")
  
-  //   // d3.json("./json/stats.json", function(error, nodeData) {
-  //       if (error) throw error;
-
        // Find the rootData node of our data, and begin sizing process.
        var global = d3.hierarchy(rootData) // starBurstData imported file
        .sum(d => { return d[this.props.chart.screen];});
@@ -213,7 +214,7 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 const mapStateToProps = (state) => (
-  { chart: state.chart }
+  { chart: state.chart, data: state.data }
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(D3StarBurstChart);

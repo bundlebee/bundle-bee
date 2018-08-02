@@ -30,6 +30,9 @@ ipcMain.on('ondragstart', (event, filePath) => {
     file: filePath,
     icon: '/path/to/icon.png',
   });
+
+  console.log('asdf drag');
+  event.sender.send('asdf', null);
 });
 
 let parsedFilesInfo;
@@ -51,11 +54,11 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   parsedFilesInfo.createNewConfig = createNewConfig;
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
-    .then(() => {
+    .then(res => {
       parsedFilesInfo = {};
-      console.log('finished creating webpack config');
-      event.sender.send('asdf', 'u');
-      console.log('u');
+      console.log('finished running webpack');
+
+      event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready
     })
     .catch(e => console.log('error:', e));
 });

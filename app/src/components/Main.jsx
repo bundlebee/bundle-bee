@@ -5,6 +5,11 @@ import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
+
+import { retrieveCompilationStats } from '../redux/actions/dataActions';
+
+
+
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
@@ -50,16 +55,12 @@ export class Main extends Component {
   renderCards() {
     return (
       <div>
-        <Card className={this.state.className} />
-        <Card className={this.state.className} />
-        <Card className={this.state.className} />
+        <Chart />
       </div>
     );
   }
 
   render() {
-    console.log(this.props.home.screen);
-
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
@@ -68,9 +69,11 @@ export class Main extends Component {
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
     let loadingBee = null;
-    ipcRenderer.on('asdf', (event, payload) => {
-      alert('hi');
-    });
+    // ipcRenderer.on('asdf', (event, payload) => {
+    //   console.log('asdf');
+    //   alert('hi');
+    // });
+    // 
     ipcRenderer.on('webpack-config-check', (event, res) => {
       console.log(res);
       console.log('this is in main.jsx');
@@ -91,21 +94,32 @@ export class Main extends Component {
         });
       }
     });
+    
+    // run store.dispatch() upon electron event
+    ipcRenderer.on('webpack-stats-results-json', (event) => {
+      console.log('webpack results event:');
+      console.log(event);
+      this.props.retrieveCompilationStats();
+    });
+    
+
+    
     return (
       <div>
         <Bee />
         <ImportLoader />
         <CodeLoader />
         <div>{mainPage}</div>
-        <div>
-          <Chart />
-        </div>
+        
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({ showModal: () => dispatch(showModal()) });
+const mapDispatchToProps = dispatch => ({ 
+  showModal: () => dispatch(showModal()), 
+  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()) 
+});
 
 const mapStateToProps = state => ({ home: state.home });
 

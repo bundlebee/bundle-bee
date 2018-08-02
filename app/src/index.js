@@ -8,9 +8,13 @@ import './styles/styles.scss';
 // import './global.css';
 
 const store = configureStore();
+
+
+
 render(
   <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('app')
 );
+
