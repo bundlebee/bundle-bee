@@ -5,9 +5,7 @@ import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-
 import { retrieveCompilationStats } from '../redux/actions/dataActions';
-
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -75,7 +73,7 @@ export class Main extends Component {
     //   console.log('asdf');
     //   alert('hi');
     // });
-    // 
+    //
     ipcRenderer.on('webpack-config-check', (event, res) => {
       console.log(res);
       console.log('this is in main.jsx');
@@ -96,31 +94,29 @@ export class Main extends Component {
         });
       }
     });
-    
+
     // run store.dispatch() upon electron event
     ipcRenderer.on('webpack-stats-results-json', (event) => {
       console.log('webpack results event:');
       console.log(event);
       this.props.retrieveCompilationStats();
     });
-    
 
-    
     return (
       <div className="main">
         <div className='header'>
         <Bee />
 		    </div>
         <div>{mainPage}</div>
-        
+
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  showModal: () => dispatch(showModal()), 
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()) 
+const mapDispatchToProps = dispatch => ({
+  showModal: () => dispatch(showModal()),
+  retrieveCompilationStats: () => dispatch(retrieveCompilationStats())
 });
 
 const mapStateToProps = state => ({ home: state.home });
