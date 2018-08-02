@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
 
-import stats from '../../../../backend/dist/stats.json'
+import stats from '../../../../backend/dist/stats.json';
 
 const rootData = { "name": "rootData", "children": [] };
 
@@ -160,7 +160,7 @@ class D3StarBurstChart extends Component {
 
   render() {
     return (
-      <div>
+      <div className="d3">
         <div className="sb_d3_container">
           <button onClick={this.props.displaySizes}>{'Sizes'}</button>
           <button onClick={this.props.displayFactoryTimes}>{'Factory Times'}</button>
@@ -173,7 +173,7 @@ class D3StarBurstChart extends Component {
         {this.props.chart.screen === chart.SIZE ? <span>Size: <span id="sb_d3_filevalue"></span> kb</span> : <span>Time: <span id="sb_d3_filevalue"></span> s</span>}
         </div>
         <div className="sb_d3_box">
-          <svg id="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
+          <svg id="svgStarBurst" className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
           </svg>
         </div>
       </div>

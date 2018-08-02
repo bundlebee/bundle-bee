@@ -76,7 +76,7 @@ class ModalPrompt extends Component {
               ipcRenderer.send('run-webpack', { createNewConfig: false });
               this.props.loadBundle();
             }}
-          >Use Existing Webpack <a className="tooltip_box" data-tip="Bundle Bee will use your project's existing webpack.config.js file.">🛈</a>
+          >Use Existing Webpack <a className="tooltip_box" data-tip="Bundle Bee will use your project's existing webpack.config.js file.">🐝</a>
           </button>
           <br />
           <button
@@ -86,7 +86,7 @@ class ModalPrompt extends Component {
               this.props.loadBundle();
             }}
           >
-            Create New Webpack <a className="tooltip_box" data-tip="Bundle Bee will create a new webpack.config.js file for your project.">🛈</a>
+            Create New Webpack <a className="tooltip_box" data-tip="Bundle Bee will create a new webpack.config.js file for your project.">🐝</a>
           </button>
           <ReactTooltip place="bottom" type="warning" effect="solid" />
         </Modal>
