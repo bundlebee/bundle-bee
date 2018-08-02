@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import { isLoading } from '../redux/actions/homeActions';
+import { loadBundle } from '../redux/actions/homeActions';
 import { connect } from 'react-redux';
 
 import ReactTooltip from 'react-tooltip'
@@ -74,7 +74,8 @@ class ModalPrompt extends Component {
               e.preventDefault();
               console.log('testing');
               ipcRenderer.send('run-webpack', { createNewConfig: false });
-              // this.props.dispatchLoading(true);
+              
+              this.props.loadBundle();
             }}
           >Use Existing Webpack <a className="tooltip_box" data-tip="Bundle Bee will use your project's existing webpack.config.js file.">🛈</a>
           </button>
@@ -84,7 +85,7 @@ class ModalPrompt extends Component {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });
 
-              // this.props.dispatchLoading(false);
+              this.props.loadBundle();
             }}
           >
                       
@@ -100,7 +101,7 @@ class ModalPrompt extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  /*dispatchLoading: (loaded) => dispatch(isLoading(loaded))*/
+  loadBundle: (loaded) => dispatch(loadBundle(loaded))
 });
 export default connect(
   null,

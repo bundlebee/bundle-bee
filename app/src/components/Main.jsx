@@ -9,7 +9,6 @@ import Chart from './Chart.jsx';
 import { retrieveCompilationStats } from '../redux/actions/dataActions';
 
 
-
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
@@ -29,11 +28,11 @@ export class Main extends Component {
     };
   }
   renderLoadingModal() {
-    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
+    return <ImportLoader />;
   }
 
-  renderLoadingComplete() {
-    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
+  renderLoadingBundle() {
+    return <CodeLoader />;
   }
 
   dropZoneActive() {
@@ -112,8 +111,6 @@ export class Main extends Component {
         <div className='header'>
         <Bee />
 		    </div>
-        {/* <ImportLoader />
-        <CodeLoader /> */}
         <div>{mainPage}</div>
         
       </div>
