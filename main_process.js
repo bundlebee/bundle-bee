@@ -17,7 +17,7 @@ require('electron-reload')(__dirname);
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow();
+  mainWindow = new BrowserWindow({width: 1024, height: 765});
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
   //Adding Menu Bar
