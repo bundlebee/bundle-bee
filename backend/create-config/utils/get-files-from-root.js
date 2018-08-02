@@ -1,6 +1,6 @@
 const path = require('path');
 const readdirp = require('readdirp');
-const results = [];
+let results = [];
 
 module.exports = (root, callback) => {
   const settings = {
@@ -21,6 +21,7 @@ module.exports = (root, callback) => {
       callback(err, results);
     })
     .on('end', function() {
-      return callback(null, results);
+      callback(null, results);
+      results = [];
     });
 };

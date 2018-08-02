@@ -1,5 +1,5 @@
-const mockStarBurstData = require('../../components/data_viz/compilation-stats.json');
-const initialState = {starBurstData: mockStarBurstData};
+// const mockStarBurstData = require('../../components/data_viz/compilation-stats.json');
+const initialState = {starBurstData: null};
 
 import * as types from '../actions/actionConstants.js';
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
 
-import { Button, Typography } from '@material-ui/core'
 
 
 // change starBurstData to it will read from the fresh webpack run
@@ -85,7 +84,7 @@ class D3StarBurstChart extends React.Component {
 
   instantiateStarburstChart() {
 
-  console.log('instantiating....');
+  console.log('instantiating...');
   
   
     
@@ -182,23 +181,22 @@ class D3StarBurstChart extends React.Component {
     return (
       <div>
         <div className="sb_d3_container">
+        STARBURST
           <div className="sb_d3_box">
-          <div>
-            <Button  variant="raised" color="primary" onClick={this.props.displaySizes}>{'Sizes'}</Button>
-            <Button  variant="raised" color="primary" onClick={this.props.displayFactoryTimes}>{'Factory Times'}</Button>
-            <Button  variant="raised" color="primary" onClick={this.props.displayBuildingTimes}>{'Building Times'}</Button>
-          </div>
-            <svg id ="svgStarBurst" width={1200} height={1200} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
+            <svg id ="svgStarBurst" width={630} height={500} className="d3_starburst" ref={(elem) => { this.svg = elem; }}>
             </svg>
 
          <div id="sb_d3_explanation">
-         <Typography>
           <span id="sb_d3_filename"></span><br />
           <span id="sb_d3_percentage"></span><br />
           of your bundle
             {this.props.chart.screen === chart.SIZE ? <span>Size: <span id="sb_d3_filevalue"></span> kb</span>  : <span>Time: <span id="sb_d3_filevalue"></span> s</span>} 
-            </Typography>
         </div>
+          </div>
+          <div>
+            <button onClick={this.props.displaySizes}>{'Sizes'}</button>
+            <button onClick={this.props.displayFactoryTimes}>{'Factory Times'}</button>
+            <button onClick={this.props.displayBuildingTimes}>{'Building Times'}</button>
           </div>
         </div>
       </div>
@@ -220,3 +218,4 @@ const mapStateToProps = (state) => (
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(D3StarBurstChart);
+

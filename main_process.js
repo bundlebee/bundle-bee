@@ -1,8 +1,8 @@
 // Basic init
-const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
+const electron = require('electron');
+const { ipcMain, ipcRenderer } = require('electron');
+const { app, BrowserWindow } = electron;
 const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
-const createMenuBar = require('./backend/menuBar.js');
-
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname);
 
@@ -10,12 +10,9 @@ require('electron-reload')(__dirname);
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 800, height: 800});
+  mainWindow = new BrowserWindow();
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-
-  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
-  Menu.setApplicationMenu(menu);
-
+  
 });
 
 ipcMain.on('ondragstart', (event, filePath) => {
@@ -23,15 +20,23 @@ ipcMain.on('ondragstart', (event, filePath) => {
     file: filePath,
     icon: '/path/to/icon.png',
   });
+  
+  console.log('asdf drag');
+  event.sender.send('asdf', null);
 });
 
 let parsedFilesInfo;
 ipcMain.on('check-root-directory', (event, rootDirPath) => {
+  console.log('​rootDirPath', rootDirPath);
+
   bundlerProcesses
     .indexFilesFromRoot(rootDirPath)
     .then(res => {
       // set globally so other emitters in main can access it without always passing the object back and forth
       parsedFilesInfo = res;
+      if (!parsedFilesInfo.entryFileAbsolutePath) {
+        console.log('no entry file found');
+      }
       event.sender.send('webpack-config-check', res);
     })
     .catch(e => console.log(e));
@@ -42,7 +47,7 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   bundlerProcesses
     .runWebpack(parsedFilesInfo)
     .then(res => {
-      parsedFilesInfo = null;
+      parsedFilesInfo = {};
       console.log('finished running webpack');
       
       event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready

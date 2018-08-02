@@ -1,6 +1,6 @@
-const stats = require('./compilation-stats.json');
+// const stats = require('./compilation-stats.json');
 
-  const statsx =[            {
+  const stats =[            {
     "id": 194,
     "identifier": "/Users/bren/Codesmith/mockbuster/node_modules/urlencode/lib/urlencode.js",
     "name": "./node_modules/urlencode/lib/urlencode.js",
@@ -63,14 +63,14 @@ const stats = require('./compilation-stats.json');
 
   let objToTranslate = new Node("root")
 //   objToTranslate.children.push(new Node(6, 7, 8))
-  // console.log(objToTranslate);
-  // console.log(Object.values(objToTranslate.children), "OBJECT KEYS OF CHILDREN");
+  console.log(objToTranslate);
+  console.log(Object.values(objToTranslate.children), "OBJECT KEYS OF CHILDREN");
 
 // REAL FILE
-  stats.chunks[0].modules.forEach(element => {
-    // stats.forEach(element => {
+//   stats.chunks[0].modules.forEach(element => {
+    stats.forEach(element => {
 
-    console.log( element.size, ',',  element.name);
+//     // console.log(element.id, element.size, ' kb ' , element.name, element.assets);
 
 //     // only include files that do not have the string "(ignored)"
 var root = { "name": "root", "children": [] };
@@ -79,7 +79,7 @@ var root = { "name": "root", "children": [] };
         let directoryAndName = element.name.replace(/[.\/]/, "");
         let parts  = directoryAndName.replace(/[.\/]/, "").split("/");
         // console.log(directoryAndName, directoryAndName.length);
-    }
+
         // let location = objToTranslate; //.children;
         // console.log(location, "loc");
         // for (let x = 0; x < directoryAndName.length - 1; x++){
@@ -96,38 +96,38 @@ var root = { "name": "root", "children": [] };
         //  }
           
         //   console.log(objToTranslate.children, "children") //.children[objToTranslate.children.length-1].name)
-    //     var currentNode = root;
-    //     for (var j = 0; j < parts.length; j++) {
+        var currentNode = root;
+        for (var j = 0; j < parts.length; j++) {
 
             
-    //       var children = currentNode["children"];
-    //       var nodeName = parts[j];
-    //       var childNode;
-    //       if (j + 1 < parts.length) {
-    //         // Not yet at the end of the sequence; move down the tree.
-    //         var foundChild = false;
-    //         for (var k = 0; k < children.length; k++) {
-    //           if (children[k]["name"] == nodeName) {
-    //             childNode = children[k];
-    //             foundChild = true;
-    //             break;
-    //           }
-    //         }
-    //         // If we don't already have a child node for this branch, create it.
-    //         if (!foundChild) {
-    //           childNode = { "name": nodeName, "children": [] };
-    //           children.push(childNode);
-    //         }
-    //         currentNode = childNode;
-    //       } else {
-    //         // Reached the end of the sequence; create a leaf node.
-    //         childNode = { "name": nodeName, "size": 123456 };
-    //         children.push(childNode);
-    //       }
-    //     }
+          var children = currentNode["children"];
+          var nodeName = parts[j];
+          var childNode;
+          if (j + 1 < parts.length) {
+            // Not yet at the end of the sequence; move down the tree.
+            var foundChild = false;
+            for (var k = 0; k < children.length; k++) {
+              if (children[k]["name"] == nodeName) {
+                childNode = children[k];
+                foundChild = true;
+                break;
+              }
+            }
+            // If we don't already have a child node for this branch, create it.
+            if (!foundChild) {
+              childNode = { "name": nodeName, "children": [] };
+              children.push(childNode);
+            }
+            currentNode = childNode;
+          } else {
+            // Reached the end of the sequence; create a leaf node.
+            childNode = { "name": nodeName, "size": 123456 };
+            children.push(childNode);
+          }
+        }
  
-    // };
-    // console.log(root)
+    };
+    console.log(root)
 
     
 
