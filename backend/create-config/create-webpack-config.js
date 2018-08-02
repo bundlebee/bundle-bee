@@ -7,8 +7,6 @@
 // TODO AND THEN GET EXPENSIFY AND MCMI WORKING
 // TODO use all bable plugins and presets
 // TODO, only the regular build runs when we use env webpack. check on using production and development
-// TODO get the scripts we need to use
-// TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
 // !! delete config if it wasn't there initially
@@ -67,7 +65,8 @@ const createAndSaveWebpackConfig = (
   rootDir
 ) => {
   return new Promise((resolve, reject) => {
-    const pathToOurDist = path.join(__dirname, '..', 'dist');
+    // const pathToOurDist = path.join(__dirname, '..', 'dist');
+    const pathToOurDist = path.join('/Users/bren/Desktop', 'dist');
     const dynamicWebpackConfig = createWebpackConfig(
       entryFile,
       extensions,
