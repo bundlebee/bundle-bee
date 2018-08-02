@@ -10,7 +10,9 @@ import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
 
 import Bee from './loaders/awesomeBee.jsx';
-import Loading from './loaders/awesomeLoader.jsx';
+import ImportLoader from './loaders/ImportLoader.jsx';
+import ConfigLoader from './loaders/ConfigLoader.jsx';
+
 
 export class Main extends Component {
   constructor(props) {
@@ -92,7 +94,7 @@ export class Main extends Component {
     return (
       <div>
         <Bee />
-        <Loading />
+        <ImportLoader />
         <div>{mainPage}</div>
         <div>
           <Chart />
