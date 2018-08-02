@@ -34,19 +34,6 @@ const foldersToDeleteAfterRunning = [
   path.join(__dirname, 'dist'),
   path.join(__dirname, '..', 'dist'),
 ];
-const filesToDeleteAfterRunning = [path.join(__dirname, '..', 'webpack.config.js')];
-const deleteTemporaryFilesAndFolders = (files = [], folders = []) => {
-  folders.forEach((path, i, arr) => {
-    fse.remove(path, (err, res) => {
-      if (i === arr.length - 1) console.log('last folder deleted');
-    });
-  });
-  files.forEach((path, i, arr) => {
-    fs.unlink(path, (err, res) => {
-      if (i === arr.length - 1) console.log('last file deleted');
-    });
-  });
-};
 
 const getFiles = rootDir => {
   return new Promise((resolve, reject) => {
@@ -62,7 +49,8 @@ const createAndSaveWebpackConfig = (
   extensions,
   outputPath = path.join(__dirname, '..', 'dist'),
   indexHtmlPath,
-  rootDir
+  rootDir,
+  webpackConfig
 ) => {
   return new Promise((resolve, reject) => {
     // const pathToOurDist = path.join(__dirname, '..', 'dist');
@@ -75,23 +63,31 @@ const createAndSaveWebpackConfig = (
       rootDir
     );
     const webpackConfigSavePath = path.join(rootDir, 'webpack.config.js');
-    // if they have an existing webpack, we want to temproarily rename that to something else, and then rename it back after we run ours and save ours to our dist flder
-    let tempFileName;
-    if (fs.existsSync(webpackConfigSavePath)) {
-      tempFileName = path.join(rootDir, 'temp-store-current-webpack.config.js');
-      console.log(`renaming ${webpackConfigSavePath} to ${tempFileName}`);
-      fs.renameSync(webpackConfigSavePath, tempFileName);
-    }
-    fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
-      if (err) reject(err);
-      // also write to our dist folder so we can grab it again later if they want to use ours
-      const writeConfigToOurDistPath = path.join(pathToOurDist, 'webpack.config.js');
-      fs.writeFile(writeConfigToOurDistPath, dynamicWebpackConfig, (err, res) => {
+    if (webpackConfig.exists) {
+      // if they have an existing webpack, we want to temproarily rename that to something else, and then rename it back after we run ours and save ours to our dist flder
+      let tempFileName;
+      if (fs.existsSync(webpackConfigSavePath)) {
+        tempFileName = path.join(rootDir, 'temp-store-current-webpack.config.js');
+        console.log(`renaming ${webpackConfigSavePath} to ${tempFileName}`);
+        fs.renameSync(webpackConfigSavePath, tempFileName);
+      }
+      fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
         if (err) reject(err);
-        console.log('webpack config saved to dist for later use');
         resolve({ rootDir, tempFileName });
       });
-    });
+    } else {
+      console.log('no webpack exists. writing with impunity');
+      fs.writeFile(webpackConfigSavePath, dynamicWebpackConfig, (err, res) => {
+        if (err) reject(err);
+        // also write to our dist folder so we can grab it again later if they want to use ours
+        const writeConfigToOurDistPath = path.join(pathToOurDist, 'webpack.config.js');
+        fs.writeFile(writeConfigToOurDistPath, dynamicWebpackConfig, (err, res) => {
+          if (err) reject(err);
+          console.log('webpack config saved to dist for later use');
+          resolve({ rootDir, tempFileName: false });
+        });
+      });
+    }
   });
 };
 
@@ -228,20 +224,28 @@ const indexFilesFromRoot = rootDir => {
 };
 const runWebpack = requestObject => {
   return new Promise((resolve, reject) => {
+    console.log(requestObject.webpackConfig);
+
     const {
+      webpackConfig,
       entryFileAbsolutePath,
       extensions,
       indexHtmlPath,
       rootDir,
       createNewConfig,
     } = requestObject;
-    console.log('​indexHtmlPath', indexHtmlPath);
-
     if (createNewConfig) {
       console.log('******************************');
       console.log('creating new webpack config...');
       console.log('******************************');
-      createAndSaveWebpackConfig(entryFileAbsolutePath, extensions, null, indexHtmlPath, rootDir)
+      createAndSaveWebpackConfig(
+        entryFileAbsolutePath,
+        extensions,
+        null,
+        indexHtmlPath,
+        rootDir,
+        webpackConfig
+      )
         .then(({ rootDir, tempFileName }) => {
           runConfigFromTheirRoot(rootDir)
             .then(() => {
@@ -249,8 +253,6 @@ const runWebpack = requestObject => {
               if (tempFileName) {
                 fs.unlinkSync(configToDelete);
                 fs.renameSync(tempFileName, configToDelete);
-              } else {
-                fs.unlinkSync(configToDelete);
               }
               resolve();
             })
