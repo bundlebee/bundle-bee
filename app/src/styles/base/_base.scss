@@ -3,9 +3,6 @@
 * {
   box-sizing: border-box;
   }
-
-
-
   @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
       @content;
@@ -26,30 +23,31 @@
   // Column generator
   @mixin colmk($numRows, $margin) {
     width: ((100% - (($numRows - 1) * $margin)) / $numRows);
-  
+
     &:nth-child(n) {
       margin-right: $margin;
       margin-bottom: $margin;
     }
-  
+
     &:nth-child(#{$numRows}n) {
       margin-right: 0;
       margin-bottom: 0;
     }
   }
-  
+
   /* -----------------------------------------------------
     Body
   -------------------------------------------------------- */
   body {
+    height: 100vh;
     margin: 0;
     padding: 0;
-    color: #646360;
+    color: #000000;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
-    background-color: #eee;
+    background-color: rgb(236, 235, 235);
   }
-  
+
   *, *::after, *::before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -57,7 +55,7 @@
     -o-box-sizing: border-box;
     box-sizing: border-box;
   }
-  
+
   h1 {
     font-size: $l-size;
     color: white;
@@ -70,10 +68,10 @@
     color: white;
     outline: none;
     text-decoration: none;
-  
+
     &:hover { text-decoration: underline; }
   }
-  
+
   /* -----------------------------------------------------
       Main
   -------------------------------------------------------- */
@@ -81,28 +79,28 @@
     width: 100%;
     max-width: 940px;
     margin: 1.4rem auto;
-  
+
     section {
       display: block;
       margin-bottom: 1.4rem;
       padding: 1.2rem;
       background-color: #fff;
       box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.157);
-  
+
       &:last-child { margin-bottom: 0; }
-  
+
       .heading {
         margin: 0;
         padding: 0;
         font-size: 1.2rem;
       }
-  
+
       .wrap {
         overflow: hidden;
         display: block;
         margin: 1rem 0 0.8rem;
         text-align: center;
-  
+
         .holder {
           float: left;
           //display: inline-block;
@@ -110,9 +108,9 @@
           //margin-bottom: 8px;
           text-align: center;
           background-color: #f2f2f2;
-  
+
           &:last-child { margin-right: 0; }
-  
+
           &.col-3 {
             //width: calc(100% / 3 - 8px);
             @include colmk(3, 1%);
@@ -122,7 +120,7 @@
             //&:nth-child(4n) { margin-right: 0; }
             @include colmk(4, 1%);
           }
-  
+
           .demo {
             min-height: 120px;
             padding: 2em 0;
@@ -130,7 +128,7 @@
             justify-content: center;
             align-content: center;
           }
-  
+
           .captions {
             padding: 8px;
             color: rgba(0,0,0,0.5);
@@ -138,33 +136,33 @@
             font-weight: bold;
             border-top: 1px solid rgba(0,0,0,0.1);
           }
-  
+
           @media only screen and (max-width: 860px) {
             &.col-4 {
               @include colmk(3, 1%);
             }
           }
-  
+
           @media only screen and (max-width: 640px) {
             float: none;
-  
+
             &.col-3,
             &.col-4 {
               display: block;
               width: 100%;
-  
+
               &:nth-child(n) { margin: 0; margin-bottom: 14px; }
             }
           }
         }
       }
     }
-  
+
     @media only screen and (max-width: 960px) {
       padding: 0 1.5%;
     }
   }
-  
+
   /* -----------------------------------------------------
      Header
   -------------------------------------------------------- */
@@ -175,7 +173,7 @@
     text-align: center;
     background-color: #FFF;
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  
+
     h2 {
       margin: 0;
       padding: 25px 0;
@@ -185,11 +183,11 @@
       color: black;
     }
   }
-  
 
-  
- 
-  
+
+
+
+
   /* :root {
     --primary-color: #42b983;
 } */
@@ -221,13 +219,7 @@
 .card-hide {
   display: none;
 }
-
-.user-prompt {
-  margin: 1rem;
-  padding: 1rem;
-  background-color: green;
-}
-
+ 
 .loading {
   font-size: 3rem;
 }
@@ -300,7 +292,7 @@ div.header {
   align-items: center;
   text-align: center;
 }
-  
+
 .drop_here_txt{
   color: #ffffff;
 }
