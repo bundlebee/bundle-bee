@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
-import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
@@ -15,8 +14,7 @@ import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
-import ReactTooltip from 'react-tooltip'
-
+import ReactTooltip from 'react-tooltip';
 
 export class Main extends Component {
   constructor(props) {
@@ -52,7 +50,7 @@ export class Main extends Component {
     return <Bee />;
   }
 
-  renderCards() {
+  renderChart() {
     return (
       <div>
         <Chart />
@@ -66,17 +64,10 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
+    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
 
-    let loadingBee = null;
-    // ipcRenderer.on('asdf', (event, payload) => {
-    //   console.log('asdf');
-    //   alert('hi');
-    // });
-    //
     ipcRenderer.on('webpack-config-check', (event, res) => {
-      console.log(res);
-      console.log('this is in main.jsx');
+      console.log('this is in main.jsx', res);
 
       if (res.webpackConfig.exists) {
         this.props.showModal();
@@ -86,8 +77,6 @@ export class Main extends Component {
           createNewConfig: true,
         });
       } else {
-        console.log('here we are');
-
         this.setState({
           mainPageInstructions:
             'No previous configuration files found. \n Drop entry file to auto-generate configuration files',
@@ -97,18 +86,16 @@ export class Main extends Component {
 
     // run store.dispatch() upon electron event
     ipcRenderer.on('webpack-stats-results-json', (event) => {
-      console.log('webpack results event:');
-      console.log(event);
+      console.log('webpack results event: ', event);
       this.props.retrieveCompilationStats();
     });
 
     return (
       <div className="main">
         <div className='header'>
-        <Bee />
-		    </div>
+          <Bee />
+        </div>
         <div>{mainPage}</div>
-
       </div>
     );
   }

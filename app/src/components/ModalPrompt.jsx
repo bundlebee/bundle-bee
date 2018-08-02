@@ -20,8 +20,8 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
     justifyContent: 'center',
-    backgroundColor:'rgba(255,255,255,0.0)',
-    alignItems:'center',
+    backgroundColor: 'rgba(255,255,255,0.0)',
+    alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
     color: 'black',
@@ -74,26 +74,21 @@ class ModalPrompt extends Component {
               e.preventDefault();
               console.log('testing');
               ipcRenderer.send('run-webpack', { createNewConfig: false });
-              
               this.props.loadBundle();
             }}
           >Use Existing Webpack <a className="tooltip_box" data-tip="Bundle Bee will use your project's existing webpack.config.js file.">🛈</a>
           </button>
           <br />
           <button
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });
-
               this.props.loadBundle();
             }}
           >
-                      
-
             Create New Webpack <a className="tooltip_box" data-tip="Bundle Bee will create a new webpack.config.js file for your project.">🛈</a>
           </button>
-
-          <ReactTooltip place="bottom" type="warning" effect="solid"/>
+          <ReactTooltip place="bottom" type="warning" effect="solid" />
         </Modal>
       </div>
     );
