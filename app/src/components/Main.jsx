@@ -5,10 +5,7 @@ import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-
 import { retrieveCompilationStats } from '../redux/actions/dataActions';
-
-
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -17,6 +14,8 @@ import * as home from '../redux/constants/homeConstants';
 import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
+
+import ReactTooltip from 'react-tooltip'
 
 
 export class Main extends Component {
@@ -27,18 +26,19 @@ export class Main extends Component {
     };
   }
   renderLoadingModal() {
-    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
+    return <ImportLoader />;
   }
 
-  renderLoadingComplete() {
-    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
+  renderLoadingBundle() {
+    return <CodeLoader />;
   }
 
   dropZoneActive() {
     return (
       <DropZone>
-        <div>
-          <h1>{this.state.mainPageInstructions}</h1>
+        <div className="drag_div">
+          <img className='cloud_upload' src="./assets/cloud_upload.png" />
+          <h2>{this.state.mainPageInstructions}</h2>
         </div>
       </DropZone>
     );
@@ -73,7 +73,7 @@ export class Main extends Component {
     //   console.log('asdf');
     //   alert('hi');
     // });
-    // 
+    //
     ipcRenderer.on('webpack-config-check', (event, res) => {
       console.log(res);
       console.log('this is in main.jsx');
@@ -90,35 +90,33 @@ export class Main extends Component {
 
         this.setState({
           mainPageInstructions:
-            'No previous configuration files found. Drop entry file to auto-generate configuration files',
+            'No previous configuration files found. \n Drop entry file to auto-generate configuration files',
         });
       }
     });
-    
+
     // run store.dispatch() upon electron event
     ipcRenderer.on('webpack-stats-results-json', (event) => {
       console.log('webpack results event:');
       console.log(event);
       this.props.retrieveCompilationStats();
     });
-    
 
-    
     return (
-      <div>
+      <div className="main">
+        <div className='header'>
         <Bee />
-        <ImportLoader />
-        <CodeLoader />
+		    </div>
         <div>{mainPage}</div>
-        
+
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  showModal: () => dispatch(showModal()), 
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()) 
+const mapDispatchToProps = dispatch => ({
+  showModal: () => dispatch(showModal()),
+  retrieveCompilationStats: () => dispatch(retrieveCompilationStats())
 });
 
 const mapStateToProps = state => ({ home: state.home });

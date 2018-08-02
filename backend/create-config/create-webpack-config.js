@@ -7,8 +7,6 @@
 // TODO AND THEN GET EXPENSIFY AND MCMI WORKING
 // TODO use all bable plugins and presets
 // TODO, only the regular build runs when we use env webpack. check on using production and development
-// TODO get the scripts we need to use
-// TODO make sure temp.js is getting deleted, and potentially change the name
 // TODO we find a config file in cra even though it isn't there. fix this
 // TODO add mini-css-extract to our config files
 // !! delete config if it wasn't there initially
@@ -18,12 +16,12 @@
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt');
-const cmd = require('node-cmd');
 const rimraf = require('rimraf');
 const fse = require('fs-extra');
 const babylon = require('babylon');
 const traverse = require('babel-traverse').default;
 const babel = require('babel-core');
+const fork = require('child_process').fork;
 
 const createWebpackConfig = require('./utils/webpack-template');
 const folderIndexer = require('./utils/get-files-from-root.js');
@@ -67,7 +65,8 @@ const createAndSaveWebpackConfig = (
   rootDir
 ) => {
   return new Promise((resolve, reject) => {
-    const pathToOurDist = path.join(__dirname, '..', 'dist');
+    // const pathToOurDist = path.join(__dirname, '..', 'dist');
+    const pathToOurDist = path.join('/Users/bren/Desktop', 'dist');
     const dynamicWebpackConfig = createWebpackConfig(
       entryFile,
       extensions,
@@ -166,20 +165,25 @@ const parseConfigForOutput = configFileStr => {
 
 const runConfigFromTheirRoot = rootDir => {
   return new Promise((resolve, reject) => {
-    resolve();
-    // const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
-    // const pathToTheirRoot = path.relative(process.cwd(), rootDir);
-    // const pathBackFromRoot = path.relative(rootDir, process.cwd());
-    // process.chdir(pathToTheirRoot);
-    // console.log('current directory: ', process.cwd());
-    // 
-    // cmd.get(`webpack --profile --json > ${statsWritePath}`, (err, res) => {
-    //   if (err) reject(err);
-    //   console.log(res);
-    //   console.log('production and development builds successful');
-    //   process.chdir(pathBackFromRoot);
-    //   resolve();
-    // });
+    const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
+    const pathToChild = path.join(
+      __dirname,
+      'utils',
+      'run-webpack-from-separate-dir-child-process.js'
+    );
+    const child = fork(pathToChild, [statsWritePath], { cwd: rootDir });
+
+    child.on('message', message => {
+      if (message) {
+        if (message.error) {
+          console.log('error: ', message.error);
+          reject(message.error);
+        } else {
+          console.log('webpack successfully run and stas.json successfully written...');
+          resolve();
+        }
+      }
+    });
   });
 };
 // ************** BELOW ARE FUNCTIONS THAT ARE EXPORTED (ABOVE ARE ALL HELPER FUNCTIONS FOR THE EXPORT FUNCTIONS) ***************************
