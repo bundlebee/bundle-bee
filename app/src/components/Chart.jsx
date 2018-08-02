@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './main.sass';
 import D3StarBurstChart from './data_viz/D3StarBurstChart.jsx';
 import D3BarChart from './data_viz/D3BarChart.jsx';
 export class Chart extends Component { 
