@@ -1,8 +1,11 @@
 const fs = require('fs');
 const spawn = require('child_process').spawn;
+const path = require('path');
 
 // const statsWritePath = process.argv[process.argv.length - 1];
-const resultsStream = fs.createWriteStream('/Users/bren/Desktop/stats.json');
+const resultsStream = fs.createWriteStream(
+  path.join(__dirname, '..', '..', '..', '..', 'stats.json')
+);
 
 const child = spawn('webpack', ['--profile', '--json']);
 

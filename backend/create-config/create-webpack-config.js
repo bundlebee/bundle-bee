@@ -66,7 +66,7 @@ const createAndSaveWebpackConfig = (
 ) => {
   return new Promise((resolve, reject) => {
     // const pathToOurDist = path.join(__dirname, '..', 'dist');
-    const pathToOurDist = path.join('/Users/bren/Desktop', 'dist');
+    const pathToOurDist = path.join('../../..', 'dist');
     const dynamicWebpackConfig = createWebpackConfig(
       entryFile,
       extensions,
