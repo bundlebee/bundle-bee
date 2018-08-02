@@ -37,8 +37,9 @@ export class Main extends Component {
   dropZoneActive() {
     return (
       <DropZone>
-        <div>
-          <h1>{this.state.mainPageInstructions}</h1>
+        <div className="drag_div">
+          <img className='cloud_upload' src="./assets/cloud_upload.png" />
+          <h2>{this.state.mainPageInstructions}</h2>
         </div>
       </DropZone>
     );
@@ -90,7 +91,7 @@ export class Main extends Component {
 
         this.setState({
           mainPageInstructions:
-            'No previous configuration files found. Drop entry file to auto-generate configuration files',
+            'No previous configuration files found. \n Drop entry file to auto-generate configuration files',
         });
       }
     });
@@ -105,10 +106,12 @@ export class Main extends Component {
 
     
     return (
-      <div>
+      <div className="main">
+        <div className='header'>
         <Bee />
-        <ImportLoader />
-        <CodeLoader />
+		    </div>
+        {/* <ImportLoader />
+        <CodeLoader /> */}
         <div>{mainPage}</div>
         
       </div>
