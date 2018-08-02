@@ -18,6 +18,8 @@ import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
+import ReactTooltip from 'react-tooltip'
+
 
 export class Main extends Component {
   constructor(props) {

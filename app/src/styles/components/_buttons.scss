@@ -3,3 +3,100 @@
   border-radius: 5px;
   color: $light-blue;
 }
+
+button {
+  color: #FFF;
+  background-color: $btn_lightBlue;
+  &:hover { background-color: lighten($btn_lightBlue, 8%); }
+
+  height: 48px;
+  line-height: 48px;
+
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 1.5rem;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .8px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: none;
+  border: none;
+  user-select: none;
+  border-radius: 2px;
+  transition: all .3s ease-out;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.225);
+
+  &:hover { text-decoration: none; box-shadow: 0 4px 10px 0px rgba(0,0,0,0.225); }
+}
+
+
+
+
+/* Raised Buttons Types */
+button {
+  &.disabled, &[disabled] {
+    cursor: default !important;
+    color: #9e9e9e !important;
+    box-shadow: none !important;
+  }
+
+  &.disabled:not(.btn-flat), &[disabled]:not(.btn-flat) {
+    background-color: #cdcdcd !important;
+    &:hover { background-color: #cdcdcd !important; }
+  }
+
+  
+
+}
+
+/* ----------------------------------------------------------------------
+  Material Design Ripple Effect - by Ravikumar Chauhan
+------------------------------------------------------------------------- */
+.ripple-effect {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  vertical-align: middle;
+  user-select: none;
+  z-index: 1;
+
+  .ripple {
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    background: rgba(255,255,255,0.5);
+    transform: scale(0);
+    pointer-events: none;
+  }
+
+  &.ripple-dark {
+    .ripple {
+      background: rgba(0,0,0,0.1) !important;
+    }
+  }
+
+
+  .animated {
+    animation: ripple 0.6s linear;
+  }
+
+  @include keyframes('ripple') {
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
+}
+
+.tooltip_box {
+  background-color: lightblue;
+}
