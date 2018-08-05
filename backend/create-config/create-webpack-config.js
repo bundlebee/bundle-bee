@@ -19,10 +19,10 @@ const traverse = require('babel-traverse').default;
 const babel = require('babel-core');
 const fork = require('child_process').fork;
 
-const returnCurrentDirectoryFromPath = require('./utils/returnCurrentDirectoryFromPath.js');
-const getAllFilesInCurrentDirectory = require('./utils/getAllFilesInCurrentDirectory.js');
-const getInfoForWebpackConfigFromFileList = require('./utils/getInfoForWebpackConfigFromFileList.js');
-const createWebpackConfig = require('./utils/webpack-template');
+const returnCurrentDirectoryFromPath = require('./utils/indexFilesFromRootHelpers/returnCurrentDirectoryFromPath.js');
+const getAllFilesInCurrentDirectory = require('./utils/indexFilesFromRootHelpers/getAllFilesInCurrentDirectory.js');
+const getInfoForWebpackConfigFromFileList = require('./utils/createWebPackConfigHelpers/getInfoForWebpackConfigFromFileList.js');
+const createWebpackConfig = require('./utils/createWebPackConfigHelpers/webpack-template');
 
 const createAndSaveWebpackConfig = (
   entryFile,
@@ -99,6 +99,7 @@ const runConfigFromTheirRoot = rootDir => {
     const pathToChild = path.join(
       __dirname,
       'utils',
+      'file-and-system-actions',
       'run-webpack-from-separate-dir-child-process.js'
     );
     const child = fork(pathToChild, [statsWritePath], { cwd: rootDir });

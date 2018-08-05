@@ -5,7 +5,7 @@ const createMenuBar = require('./backend/menuBar.js');
 const { fork } = require('child_process');
 const path = require('path');
 const {
-  indexFilesFromRoot,
+  // indexFilesFromRoot,
   runWebpack,
 } = require('./backend/create-config/create-webpack-config.js');
 const fs = require('fs');
@@ -35,10 +35,11 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
     __dirname,
     'backend',
     'create-config',
+    'utils',
     'indexFilesFromRoot.js'
   );
   const child = fork(
-    '/Users/bren/Codesmith/bundle-bee/mvp/backend/create-config/indexFilesFromRoot.js',
+    '/Users/bren/Codesmith/bundle-bee/mvp/backend/create-config/utils/indexFilesFromRoot.js',
     [rootDirPath]
   );
   child.on('message', ({ foundWebpackConfig, foundEntryFile }) => {

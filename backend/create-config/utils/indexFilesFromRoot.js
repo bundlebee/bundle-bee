@@ -1,10 +1,10 @@
 const babylon = require('babylon');
 const traverse = require('babel-traverse').default;
 
-const returnCurrentDirectoryFromPath = require('./utils/returnCurrentDirectoryFromPath.js');
-const getAllFilesInCurrentDirectory = require('./utils/getAllFilesInCurrentDirectory.js');
-const getInfoForWebpackConfigFromFileList = require('./utils/getInfoForWebpackConfigFromFileList.js');
-const writeToFile = require('./utils/writeToFile.js');
+const returnCurrentDirectoryFromPath = require('./indexFilesFromRootHelpers/returnCurrentDirectoryFromPath.js');
+const getAllFilesInCurrentDirectory = require('./indexFilesFromRootHelpers/getAllFilesInCurrentDirectory.js');
+const getInfoForWebpackConfigFromFileList = require('./createWebPackConfigHelpers/getInfoForWebpackConfigFromFileList.js');
+const writeToFile = require('./file-and-system-actions/writeToFile.js');
 
 const parseConfigForOutput = configFileStr => {
   try {

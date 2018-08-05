@@ -5,7 +5,7 @@ const createRules = require('./create-rules.js');
 const resolvedWebpackPath = require.resolve('webpack');
 const resolvedPathPath = require.resolve('path');
 const resolvedHTMLPath = require.resolve('html-webpack-plugin');
-const pathToOurTemplate = path.join(__dirname, '..', 'template.html');
+const pathToOurTemplate = path.join(__dirname, '..', '..', 'template.html');
 
 module.exports = (entry, extensions, outputPath, htmlTemplateEntry, rootDir) => {
   const importantExtensions = ['.js', '.jsx', '.css', '.sass', '.scss', '.less'];
