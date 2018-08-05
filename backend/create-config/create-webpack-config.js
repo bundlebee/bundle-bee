@@ -1,4 +1,3 @@
-// !! if webpack is not installed globally, we should tell them they need to install it
 // TODO the functions that get called after the various prompts should be refactored into a reusable function
 // TODO prompt params should probably be set outside of the prompt call (look at docs)
 // TODO dont use set timeout for the deletion of the files obs. make a callback or promise or something
@@ -15,34 +14,15 @@
 
 const fs = require('fs');
 const path = require('path');
-const prompt = require('prompt');
-const rimraf = require('rimraf');
-const fse = require('fs-extra');
 const babylon = require('babylon');
 const traverse = require('babel-traverse').default;
 const babel = require('babel-core');
 const fork = require('child_process').fork;
 
+const returnCurrentDirectoryFromPath = require('./utils/returnCurrentDirectoryFromPath.js');
+const getAllFilesInCurrentDirectory = require('./utils/getAllFilesInCurrentDirectory.js');
+const getInfoForWebpackConfigFromFileList = require('./utils/getInfoForWebpackConfigFromFileList.js');
 const createWebpackConfig = require('./utils/webpack-template');
-const folderIndexer = require('./utils/get-files-from-root.js');
-prompt.start();
-
-const distDirPath = path.join(__dirname, '..', 'dist');
-// ?? ODD. these files get recrearted by parcel even when i delete them, and i have to add them here for them to delete at all. if i add them later, the code block doesn't run
-const foldersToDeleteAfterRunning = [
-  path.join(__dirname, '.cache'),
-  path.join(__dirname, 'dist'),
-  path.join(__dirname, '..', 'dist'),
-];
-
-const getFiles = rootDir => {
-  return new Promise((resolve, reject) => {
-    folderIndexer(rootDir, (err, res) => {
-      if (err) reject(err);
-      if (res) resolve(res);
-    });
-  });
-};
 
 const createAndSaveWebpackConfig = (
   entryFile,
@@ -91,54 +71,8 @@ const createAndSaveWebpackConfig = (
   });
 };
 
-const getRequiredInfoFromFiles = (files, rootDir) => {
-  function packageJSONExistsInDir(fileEntry, rootDir) {
-    return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
-  }
-  const webpackConfig = { exists: false, path: null, content: null };
-  let entryFileAbsolutePath;
-  let entryIsInRoot;
-  let indexHtmlPath;
-  let filePaths = files.reduce((files, fileInfo) => {
-    // check if entry file is in root of project
-    if (!entryIsInRoot && packageJSONExistsInDir(fileInfo, rootDir)) entryIsInRoot = true;
-    const { name, fullPath } = fileInfo;
-    // TODO prompt if multiple webpack configs found
-    // check for webpack config outside of node modules
-    if (
-      name === 'webpack.config.js' &&
-      !fullPath.includes('/node_modules/') &&
-      !webpackConfig.exists
-    ) {
-      webpackConfig.exists = true;
-      (webpackConfig.fullPath = fullPath),
-        //might not need some of this stuff anymore. might just need to know if it exists. we'll see
-        (webpackConfig.content = fs.readFileSync(fullPath, 'utf-8'));
-      webpackConfig.info = fileInfo;
-    }
-    {
-      if (name === 'index.html' && !fullPath.includes('/node_modules/') && !indexHtmlPath)
-        indexHtmlPath = fullPath;
-    }
-    // make sure /src/ is in the root of the project (name should be src/index.js and when you remove src/index.js)
-    if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir) {
-      entryFileAbsolutePath = `'${fullPath}'`;
-    }
-    return files.concat(name);
-  }, []);
-  const extensions = files
-    .map(file => path.extname(file.name))
-    .reduce((acc, ext) => (acc.includes(ext) ? acc : acc.concat(ext)), []);
-  return {
-    webpackConfig,
-    entryIsInRoot,
-    indexHtmlPath,
-    extensions,
-    filePaths,
-    entryFileAbsolutePath,
-  };
-};
-
+// INPUT: str absolute path of file
+//OUTPUT: str containing webpack entry info || null
 const parseConfigForOutput = configFileStr => {
   try {
     let output;
@@ -183,45 +117,45 @@ const runConfigFromTheirRoot = rootDir => {
   });
 };
 // ************** BELOW ARE FUNCTIONS THAT ARE EXPORTED (ABOVE ARE ALL HELPER FUNCTIONS FOR THE EXPORT FUNCTIONS) ***************************
-const indexFilesFromRoot = rootDir => {
-  // in case they provide a file, just grab the directory's path. it's possibly using fs stats to test if file or directory is better, but that is a slower, synchronous function. i think this works in all cases
-  rootDir = path.extname(rootDir) ? path.dirname(rootDir) : rootDir;
-  return new Promise((resolve, reject) => {
-    getFiles(rootDir)
-      .then(files => {
-        let {
-          webpackConfig,
-          entryIsInRoot,
-          indexHtmlPath,
-          extensions,
-          entryFileAbsolutePath,
-        } = getRequiredInfoFromFiles(files, rootDir);
-        if (!entryIsInRoot) {
-          console.log('----------no package.json in provided directory----------'); // TODO prompt them to make sure this is the root folder
+const indexFilesFromRoot = pathFromDrag =>
+  returnCurrentDirectoryFromPath(pathFromDrag)
+    .then(rootDir => getAllFilesInCurrentDirectory(rootDir))
+    .then(files => getInfoForWebpackConfigFromFileList(files))
+    .then(res => {
+      const electron = require('electron');
+      const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+      console.log('user data path', userDataPath);
+      let {
+        webpackConfig,
+        entryIsInRoot,
+        indexHtmlPath,
+        extensions,
+        entryFileAbsolutePath,
+        rootDir,
+      } = res;
+
+      if (webpackConfig.exists) {
+        const entryFromParsingWebpackConfig = parseConfigForOutput(webpackConfig.content);
+        if (
+          entryFromParsingWebpackConfig &&
+          entryFromParsingWebpackConfig !== 'null' &&
+          entryFromParsingWebpackConfig !== 'undefined'
+        ) {
+          entryFileAbsolutePath = entryFromParsingWebpackConfig;
         }
-        if (webpackConfig.exists) {
-          const entryFromParsingWebpackConfig = parseConfigForOutput(webpackConfig.content);
-          if (
-            entryFromParsingWebpackConfig &&
-            entryFromParsingWebpackConfig !== 'null' &&
-            entryFromParsingWebpackConfig !== 'undefined'
-          ) {
-            entryFileAbsolutePath = entryFromParsingWebpackConfig;
-          }
-        }
-        const response = {
-          webpackConfig,
-          entryIsInRoot,
-          indexHtmlPath,
-          extensions,
-          rootDir,
-          entryFileAbsolutePath,
-        };
-        resolve(response);
-      })
-      .catch(e => console.log(e));
-  });
-};
+      }
+      const response = {
+        webpackConfig,
+        entryIsInRoot,
+        indexHtmlPath,
+        extensions,
+        rootDir,
+        entryFileAbsolutePath,
+      };
+
+      return response;
+    })
+    .catch(e => console.log(e));
 const runWebpack = requestObject => {
   return new Promise((resolve, reject) => {
     console.log(requestObject.webpackConfig);

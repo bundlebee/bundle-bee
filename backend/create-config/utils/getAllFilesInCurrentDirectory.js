@@ -2,7 +2,7 @@ const path = require('path');
 const readdirp = require('readdirp');
 let results = [];
 
-module.exports = (root, callback) => {
+const folderIndexer = (root, callback) => {
   const settings = {
     root,
     entryType: 'all',
@@ -24,4 +24,13 @@ module.exports = (root, callback) => {
       callback(null, results);
       results = [];
     });
+};
+
+module.exports = rootDir => {
+  return new Promise((resolve, reject) => {
+    folderIndexer(rootDir, (err, res) => {
+      if (err) reject(err);
+      if (res) resolve(res);
+    });
+  });
 };

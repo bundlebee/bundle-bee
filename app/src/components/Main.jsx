@@ -35,7 +35,7 @@ export class Main extends Component {
     return (
       <DropZone>
         <div className="drag_div">
-          <img className='cloud_upload' src="./assets/cloud_upload.png" />
+          <img className="cloud_upload" src="./assets/cloud_upload.png" />
           <h2>{this.state.mainPageInstructions}</h2>
         </div>
       </DropZone>
@@ -66,16 +66,11 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
 
-    ipcRenderer.on('webpack-config-check', (event, res) => {
-      console.log('this is in main.jsx', res);
-
-      if (res.webpackConfig.exists) {
+    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
+      if (res.foundWebpackConfig) {
         this.props.showModal();
-      } else if (res.entryFileAbsolutePath) {
-        console.log('sending run-webpack without webpack config');
-        ipcRenderer.send('run-webpack', {
-          createNewConfig: true,
-        });
+      } else if (res.foundEntryFile) {
+        ipcRenderer.send('run-webpack', { createNewConfig: true });
       } else {
         this.setState({
           mainPageInstructions:
@@ -84,15 +79,14 @@ export class Main extends Component {
       }
     });
 
-    // run store.dispatch() upon electron event
-    ipcRenderer.on('webpack-stats-results-json', (event) => {
+    ipcRenderer.on('webpack-stats-results-json', event => {
       console.log('webpack results event: ', event);
       this.props.retrieveCompilationStats();
     });
 
     return (
       <div className="main">
-        <div className='header'>
+        <div className="header">
           <Bee />
         </div>
         <div>{mainPage}</div>
@@ -103,7 +97,7 @@ export class Main extends Component {
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats())
+  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
 });
 
 const mapStateToProps = state => ({ home: state.home });

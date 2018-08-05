@@ -1,16 +1,21 @@
 // Basic init
 
 const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
-const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
 const createMenuBar = require('./backend/menuBar.js');
-
+const { fork } = require('child_process');
+const path = require('path');
+const {
+  indexFilesFromRoot,
+  runWebpack,
+} = require('./backend/create-config/create-webpack-config.js');
+const fs = require('fs');
 require('electron-reload')(__dirname);
 
 // To avoid being garbage collected
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ width: 1024, height: 765 });
+  mainWindow = new BrowserWindow({ width: 200, height: 765 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
   //Adding Menu Bar
@@ -23,32 +28,34 @@ ipcMain.on('ondragstart', (event, filePath) => {
     file: filePath,
     icon: '/path/to/icon.png',
   });
-
-  console.log('asdf drag');
-  event.sender.send('asdf', null);
 });
 
-let parsedFilesInfo;
-ipcMain.on('check-root-directory', (event, rootDirPath) => {
-  bundlerProcesses
-    .indexFilesFromRoot(rootDirPath)
-    .then(res => {
-      // set globally so other emitters in main can access it without always passing the object back and forth
-      parsedFilesInfo = res;
-      if (!parsedFilesInfo.entryFileAbsolutePath) {
-        console.log('no entry file found');
-      }
-      event.sender.send('webpack-config-check', res);
-    })
-    .catch(e => console.log(e));
+ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) => {
+  const pathToIndexFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'indexFilesFromRoot.js'
+  );
+  const child = fork(
+    '/Users/bren/Codesmith/bundle-bee/mvp/backend/create-config/indexFilesFromRoot.js',
+    [rootDirPath]
+  );
+  child.on('message', ({ foundWebpackConfig, foundEntryFile }) => {
+    event.sender.send('handle-file-indexing-results', {
+      foundWebpackConfig,
+      foundEntryFile,
+    });
+  });
 });
 
 ipcMain.on('run-webpack', (event, { createNewConfig }) => {
+  const pathToUserFileInfo = path.join(__dirname, '..', 'electronUserData', 'configurationData.js');
+  const parsedFilesInfo = JSON.parse(fs.readFileSync(pathToUserFileInfo, 'utf-8'));
   parsedFilesInfo.createNewConfig = createNewConfig;
-  bundlerProcesses
-    .runWebpack(parsedFilesInfo)
+
+  runWebpack(parsedFilesInfo)
     .then(res => {
-      parsedFilesInfo = {};
       console.log('finished running webpack');
       event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready
     })

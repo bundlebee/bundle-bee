@@ -56,13 +56,14 @@ class DropZone extends Component {
   _onDrop(e) {
     e.preventDefault();
     // Upload files
+
     let files = e.dataTransfer.files;
     const { path } = files[0];
-    ipcRenderer.send('check-root-directory', path);
     console.log('path: ', path);
-    // this.setState({ className: 'drop-zone-hide', showModal: true });
+
+    ipcRenderer.send('index-project-files-from-dropped-item-path', path);
     this.props.loadModal();
-    
+
     return false;
   }
   render() {
