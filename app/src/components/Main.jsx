@@ -72,6 +72,8 @@ export class Main extends Component {
       } else if (res.foundEntryFile) {
         ipcRenderer.send('run-webpack', { createNewConfig: true });
       } else {
+        console.log('no index.js nor webpack.config found');
+
         this.setState({
           mainPageInstructions:
             'No previous configuration files found. \n Drop entry file to auto-generate configuration files',

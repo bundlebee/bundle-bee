@@ -1,4 +1,4 @@
-const { indexFilesFromRoot } = require('../backend/create-config/create-webpack-config.js');
+const { indexFilesFromRoot } = require('../backend/create-config/process-and-bundle-project.js');
 
 jest.setTimeout(10000);
 const mockbusterPath = '/Users/bren/Codesmith/mockbuster';

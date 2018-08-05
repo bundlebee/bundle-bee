@@ -7,7 +7,7 @@ const path = require('path');
 const {
   // indexFilesFromRoot,
   runWebpack,
-} = require('./backend/create-config/create-webpack-config.js');
+} = require('./backend/create-config/process-and-bundle-project.js');
 const fs = require('fs');
 require('electron-reload')(__dirname);
 
@@ -38,10 +38,7 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
     'utils',
     'indexFilesFromRoot.js'
   );
-  const child = fork(
-    '/Users/bren/Codesmith/bundle-bee/mvp/backend/create-config/utils/indexFilesFromRoot.js',
-    [rootDirPath]
-  );
+  const child = fork(pathToIndexFileModule, [rootDirPath]);
   child.on('message', ({ foundWebpackConfig, foundEntryFile }) => {
     event.sender.send('handle-file-indexing-results', {
       foundWebpackConfig,
@@ -54,7 +51,6 @@ ipcMain.on('run-webpack', (event, { createNewConfig }) => {
   const pathToUserFileInfo = path.join(__dirname, '..', 'electronUserData', 'configurationData.js');
   const parsedFilesInfo = JSON.parse(fs.readFileSync(pathToUserFileInfo, 'utf-8'));
   parsedFilesInfo.createNewConfig = createNewConfig;
-
   runWebpack(parsedFilesInfo)
     .then(res => {
       console.log('finished running webpack');
