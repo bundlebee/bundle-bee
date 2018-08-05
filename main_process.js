@@ -9,7 +9,7 @@ const {
   runWebpack,
 } = require('./backend/create-config/process-and-bundle-project.js');
 const fs = require('fs');
-require('electron-reload')(__dirname);
+require('electron-reload')(__dirname, { ignored: /electronUserData|node_modules|[\/\\]\./ });
 
 // To avoid being garbage collected
 let mainWindow;
@@ -48,7 +48,7 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
 });
 
 ipcMain.on('run-webpack', (event, { createNewConfig }) => {
-  const pathToUserFileInfo = path.join(__dirname, '..', 'electronUserData', 'configurationData.js');
+  const pathToUserFileInfo = path.join(__dirname, 'electronUserData', 'configurationData.js');
   const parsedFilesInfo = JSON.parse(fs.readFileSync(pathToUserFileInfo, 'utf-8'));
   parsedFilesInfo.createNewConfig = createNewConfig;
   runWebpack(parsedFilesInfo)

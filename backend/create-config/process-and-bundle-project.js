@@ -18,7 +18,7 @@ const createAndSaveWebpackConfig = (
   webpackConfig
 ) => {
   return new Promise((resolve, reject) => {
-    const pathToOurDist = path.join(__dirname, '..', '..', '..', 'electronUserData', 'dist');
+    const pathToOurDist = path.join(__dirname, '..', '..', 'electronUserData', 'dist');
     console.log('​pathToOurDist', pathToOurDist);
 
     const dynamicWebpackConfig = createWebpackConfig(

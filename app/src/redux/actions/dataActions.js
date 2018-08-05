@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 export const retrieveCompilationStats = () => {
   return function(dispatch) {
-    d3.json('/Users/bren/Desktop/stats.json')
+    d3.json('../electronUserData/dist/stats.json')
       .then(function(data) {
         console.log(data);
 
