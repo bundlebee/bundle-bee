@@ -60,7 +60,14 @@ const parseConfigForOutput = configFileStr => {
 
 const runConfigFromTheirRoot = rootDir => {
   return new Promise((resolve, reject) => {
-    const statsWritePath = path.join(__dirname, '..', 'dist', 'stats.json');
+    const statsWritePath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'electronUserData',
+      'dist',
+      'stats.json'
+    );
     const pathToChild = path.join(
       __dirname,
       'utils',
