@@ -11,7 +11,6 @@ returnCurrentDirectoryFromPath(pathFromDrag)
   .then(res => getInfoForWebpackConfigFromFileList(res))
   .then(res => tryAndSetEntryFromWebpackConfigEntry(res, res.webpackConfig))
   .then(res => writeToFile(res, 'configurationData.js'))
-  // .then(res => console.log(res))
   .then(res => {
     process.send({
       foundWebpackConfig: res.webpackConfig.exists,
