@@ -45,4 +45,4 @@ jspm_packages
 .vs/
 .vscode/
 
-electronUserData/
+backend/dist

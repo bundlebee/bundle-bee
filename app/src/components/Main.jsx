@@ -1,10 +1,14 @@
 import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
+import Card from './Card.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
+
 import { retrieveCompilationStats } from '../redux/actions/dataActions';
+
+
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -14,7 +18,6 @@ import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
-import ReactTooltip from 'react-tooltip';
 
 export class Main extends Component {
   constructor(props) {
@@ -24,19 +27,18 @@ export class Main extends Component {
     };
   }
   renderLoadingModal() {
-    return <ImportLoader />;
+    return <div>{`isLoadingModal: ${this.props.home.loadingModal}`}</div>;
   }
 
-  renderLoadingBundle() {
-    return <CodeLoader />;
+  renderLoadingComplete() {
+    return <div>{`isLoadingComplete: ${this.props.home.loadingComplete}`}</div>;
   }
 
   dropZoneActive() {
     return (
       <DropZone>
-        <div className="drag_div">
-          <img className="cloud_upload" src="./assets/cloud_upload.png" />
-          <h2>{this.state.mainPageInstructions}</h2>
+        <div>
+          <h1>{this.state.mainPageInstructions}</h1>
         </div>
       </DropZone>
     );
@@ -50,7 +52,7 @@ export class Main extends Component {
     return <Bee />;
   }
 
-  renderChart() {
+  renderCards() {
     return (
       <div>
         <Chart />
@@ -64,37 +66,59 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
+    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderCards();
 
-    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
-      if (res.foundWebpackConfig) {
+    let loadingBee = null;
+    // ipcRenderer.on('asdf', (event, payload) => {
+    //   console.log('asdf');
+    //   alert('hi');
+    // });
+    // 
+    ipcRenderer.on('webpack-config-check', (event, res) => {
+      console.log(res);
+      console.log('this is in main.jsx');
+
+      if (res.webpackConfig.exists) {
         this.props.showModal();
-      } else if (res.foundEntryFile) {
-        ipcRenderer.send('run-webpack', { createNewConfig: true });
+      } else if (res.entryFileAbsolutePath) {
+        console.log('sending run-webpack without webpack config');
+        ipcRenderer.send('run-webpack', {
+          createNewConfig: true,
+        });
       } else {
-        console.log('no index.js nor webpack.config found');
-        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
+        console.log('here we are');
+
+        this.setState({
+          mainPageInstructions:
+            'No previous configuration files found. Drop entry file to auto-generate configuration files',
+        });
       }
     });
-
-    ipcRenderer.on('webpack-stats-results-json', event => {
+    
+    // run store.dispatch() upon electron event
+    ipcRenderer.on('webpack-stats-results-json', (event) => {
+      console.log('webpack results event:');
+      console.log(event);
       this.props.retrieveCompilationStats();
     });
+    
 
+    
     return (
-      <div className="main">
-        <div className="header">
-          <Bee />
-        </div>
+      <div>
+        <Bee />
+        <ImportLoader />
+        <CodeLoader />
         <div>{mainPage}</div>
+        
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  showModal: () => dispatch(showModal()),
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
+const mapDispatchToProps = dispatch => ({ 
+  showModal: () => dispatch(showModal()), 
+  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()) 
 });
 
 const mapStateToProps = state => ({ home: state.home });

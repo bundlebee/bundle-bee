@@ -3,13 +3,17 @@ const CSSExtract = new ExtractTextPlugin('bundle.css');
 
 module.exports = {
   watch: true,
+
   target: 'electron-renderer',
+
   entry: './app/src/index.js',
+
   output: {
     path: __dirname + '/app/build',
     publicPath: 'build/',
     filename: 'bundle.js',
   },
+
   module: {
     rules: [
       {
