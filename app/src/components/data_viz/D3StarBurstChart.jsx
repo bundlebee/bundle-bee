@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
 
+import DisplayButton from './helper_components/DisplayButton.jsx';
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
 
@@ -159,9 +160,12 @@ class D3StarBurstChart extends Component {
     return (
       <div className="d3">
         <div className="sb_d3_container">
-          <button onClick={this.props.displaySizes}>{'Sizes'}</button>
-          <button onClick={this.props.displayFactoryTimes}>{'Factory Times'}</button>
-          <button onClick={this.props.displayBuildingTimes}>{'Building Times'}</button>
+          <DisplayButton handleClick={this.props.displaySizes} 
+          isHighligthed={this.props.chart.screen === chart.SIZE} >{'Sizes'}</DisplayButton>
+          <DisplayButton handleClick={this.props.displayFactoryTimes}  
+          isHighligthed={this.props.chart.screen === chart.FACTORY_TIME}>{'Factory Times'}</DisplayButton>
+          <DisplayButton handleClick={this.props.displayBuildingTimes} 
+          isHighligthed={this.props.chart.screen === chart.BUILDING_TIME}>{'Building Times'}</DisplayButton>
         </div>
         <div id="sb_d3_explanation">
           <span id="sb_d3_filename"></span><br />
