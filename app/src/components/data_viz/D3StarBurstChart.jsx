@@ -1,12 +1,9 @@
-// change starBurstData to it will read from the fresh webpack run
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
 
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
-
-import stats from '../../../../backend/dist/stats.json';
 
 const rootData = { "name": "rootData", "children": [] };
 
@@ -31,7 +28,7 @@ class D3StarBurstChart extends Component {
     this.total.building = 0;
 
     console.log('using redux starburst mock data');
-    let displayStats = stats ? stats : this.props.data.starBurstData;
+    let displayStats = this.props.data.starBurstData;
 
     displayStats.chunks[0].modules.forEach(element => {
 
