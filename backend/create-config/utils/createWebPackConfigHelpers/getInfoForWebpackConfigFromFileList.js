@@ -34,7 +34,7 @@ module.exports = files => {
     }
     // make sure /src/ is in the root of the project (name should be src/index.js when you remove src/index.js)
     if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir) {
-      entry = `'${fullPath}'`;
+      entry = fullPath;
     }
     return files.concat(name);
   }, []);

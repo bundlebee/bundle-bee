@@ -78,6 +78,7 @@ export class Main extends Component {
     });
 
     ipcRenderer.on('webpack-stats-results-json', event => {
+      ipcRenderer.send('run-parcel');
       this.props.retrieveCompilationStats();
     });
 

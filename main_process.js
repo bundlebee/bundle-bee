@@ -94,3 +94,20 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
     });
   }
 });
+// gets called like 6 times. not sure why
+let stopParcelRunningAgain = false;
+ipcMain.on('run-parcel', event => {
+  if (!stopParcelRunningAgain) {
+    stopParcelRunningAgain = true;
+    const pathToRunParcelFileModule = path.join(
+      __dirname,
+      'backend',
+      'create-config',
+      'utils',
+      'runParcel.js'
+    );
+    const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
+    const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
+    createParc
+  }
+});
