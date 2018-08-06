@@ -16,15 +16,17 @@ module.exports = (res, { content }) => {
               .trim();
             let entryValuePlusRootDir = path.join(res.rootDir, entryValueInWebpackConfig);
             if (fs.existsSync(entryValueInWebpackConfig)) {
-              entry = `'${entryValueInWebpackConfig}'`;
+              entry = entryValueInWebpackConfig;
             } else if (fs.existsSync(entryValuePlusRootDir)) {
-              entry = `'${entryValuePlusRootDir}'`;
+              entry = entryValuePlusRootDir;
             }
           }
         },
       },
     });
-    res.entry = entry;
+    if (entry) {
+      res.entry = entry;
+    }
     return res;
   } catch (error) {
     return res;
