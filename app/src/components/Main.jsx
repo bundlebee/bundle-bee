@@ -73,16 +73,11 @@ export class Main extends Component {
         ipcRenderer.send('run-webpack', { createNewConfig: true });
       } else {
         console.log('no index.js nor webpack.config found');
-
-        this.setState({
-          mainPageInstructions:
-            'No previous configuration files found. \n Drop entry file to auto-generate configuration files',
-        });
+        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
       }
     });
 
     ipcRenderer.on('webpack-stats-results-json', event => {
-      console.log('webpack results event: ', event);
       this.props.retrieveCompilationStats();
     });
 

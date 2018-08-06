@@ -1,13 +1,9 @@
 // Basic init
 
-const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
 const { fork } = require('child_process');
 const path = require('path');
-const {
-  // indexFilesFromRoot,
-  runWebpack,
-} = require('./backend/create-config/process-and-bundle-project.js');
 const fs = require('fs');
 require('electron-reload')(__dirname, { ignored: /electronUserData|node_modules|[\/\\]\./ });
 
@@ -38,8 +34,9 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
     'utils',
     'indexFilesFromRoot.js'
   );
-  const child = fork(pathToIndexFileModule, [rootDirPath]);
-  child.on('message', ({ foundWebpackConfig, foundEntryFile }) => {
+  const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
+  indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
+    if (e) console.log('Error: ', e);
     event.sender.send('handle-file-indexing-results', {
       foundWebpackConfig,
       foundEntryFile,
@@ -47,14 +44,53 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
   });
 });
 
-ipcMain.on('run-webpack', (event, { createNewConfig }) => {
-  const pathToUserFileInfo = path.join(__dirname, 'electronUserData', 'configurationData.js');
-  const parsedFilesInfo = JSON.parse(fs.readFileSync(pathToUserFileInfo, 'utf-8'));
-  parsedFilesInfo.createNewConfig = createNewConfig;
-  runWebpack(parsedFilesInfo)
-    .then(res => {
-      console.log('finished running webpack');
-      event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready
-    })
-    .catch(e => console.log('error:', e));
+ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
+  const pathToCreateWebpackFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'createWebpackConfig.js'
+  );
+  const pathToRunWebpackFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runWebpack.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'stats.json');
+
+  if (createNewConfig) {
+    const createWebpackChild = fork(pathToCreateWebpackFileModule, [pathFromDrag]);
+    createWebpackChild.on('message', ({ webpackDirectory, err }) => {
+      if (err) console.log('Error: ', err);
+      const runWebpackChild = fork(pathToRunWebpackFileModule, [pathToWriteStatsFile], {
+        cwd: webpackDirectory,
+      });
+      runWebpackChild.on('message', message => {
+        if (message.error) {
+          console.log('error: ', message.error);
+        } else {
+          console.log('webpack successfully run and stats.json successfully written...');
+          event.sender.send('webpack-stats-results-json');
+        }
+      });
+    });
+  } else {
+    const { rootDir } = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'electronUserData', 'configurationData.js'), 'utf-8')
+    );
+    const runWebpackChild = fork(pathToRunWebpackFileModule, [pathToWriteStatsFile], {
+      cwd: rootDir,
+    });
+    runWebpackChild.on('message', message => {
+      if (message.error) {
+        console.log('error: ', message.error);
+      } else {
+        console.log('webpack successfully run and stats.json successfully written...');
+        event.sender.send('webpack-stats-results-json');
+      }
+    });
+  }
 });

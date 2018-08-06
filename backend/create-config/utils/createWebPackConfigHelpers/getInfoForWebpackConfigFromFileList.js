@@ -8,7 +8,7 @@ function packageJSONExistsInDir(fileEntry, rootDir) {
 module.exports = files => {
   const rootDir = files[0] ? files[0].fullParentDir : null;
   const webpackConfig = { exists: false, path: null, content: null };
-  let entryFileAbsolutePath;
+  let entry;
   let entryIsInRoot;
   let indexHtmlPath;
   let filePaths = files.reduce((files, fileInfo) => {
@@ -34,7 +34,7 @@ module.exports = files => {
     }
     // make sure /src/ is in the root of the project (name should be src/index.js when you remove src/index.js)
     if (fullPath.includes('/src/index.js') && fullPath.replace('/src/index.js', '') === rootDir) {
-      entryFileAbsolutePath = `'${fullPath}'`;
+      entry = `'${fullPath}'`;
     }
     return files.concat(name);
   }, []);
@@ -49,6 +49,6 @@ module.exports = files => {
     extensions,
     filePaths,
     rootDir,
-    entryFileAbsolutePath,
+    entry,
   };
 };

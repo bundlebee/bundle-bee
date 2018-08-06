@@ -12,7 +12,7 @@ returnCurrentDirectoryFromPath(pathFromDrag)
   .then(res =>
     process.send({
       foundWebpackConfig: res.webpackConfig.exists,
-      foundEntryFile: res.entryFileAbsolutePath ? true : false,
+      foundEntryFile: res.entry ? true : false,
     })
   )
-  .catch(e => console.log(e));
+  .catch(e => process.send({ e }));
