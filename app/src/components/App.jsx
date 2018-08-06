@@ -3,11 +3,10 @@ import Main from './Main.jsx';
 
 const App = () => {
     return (
-        <div className="testapp">
+        <div className="main">
             <Main />
         </div>
     )
 };
-
 
 export default App;

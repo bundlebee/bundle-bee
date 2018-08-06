@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { showModal } from '../redux/actions/homeActions';
+import { loadModal } from '../redux/actions/homeActions';
 
 class DropZone extends Component {
   constructor() {
@@ -56,11 +56,14 @@ class DropZone extends Component {
   _onDrop(e) {
     e.preventDefault();
     // Upload files
+
     let files = e.dataTransfer.files;
     const { path } = files[0];
-    ipcRenderer.send('check-root-directory', path);
     console.log('path: ', path);
-    this.setState({ className: 'drop-zone-hide', showModal: true });
+
+    ipcRenderer.send('index-project-files-from-dropped-item-path', path);
+    this.props.loadModal();
+
     return false;
   }
   render() {
@@ -68,14 +71,14 @@ class DropZone extends Component {
       <div>
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
-          Drop Here to Upload
+          <h1>Drop Here to Upload</h1>
         </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({ showModal: () => dispatch(showModal()) });
+const mapDispatchToProps = dispatch => ({ loadModal: () => dispatch(loadModal()) });
 
 const mapStateToProps = state => ({ home: state.home });
 
