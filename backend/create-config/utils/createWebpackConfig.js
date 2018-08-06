@@ -16,5 +16,11 @@ getSavedProjectDataFromLocalFile(pathToLocalFile)
     return res;
   })
   .then(res => writeToFile(res, 'configurationData.js'))
-  .then(() => process.send({ webpackDirectory: pathToUserDataFolder }))
-  .catch(err => process.send({ err }));
+  .then(() => {
+    process.send({ webpackDirectory: pathToUserDataFolder });
+    process.exit();
+  })
+  .catch(err => {
+    process.send({ err });
+    process.exit();
+  });

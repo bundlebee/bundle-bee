@@ -1,5 +1,5 @@
 const fs = require('fs');
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 
 const statsWritePath = process.argv[process.argv.length - 1];
 const resultsStream = fs.createWriteStream(statsWritePath);

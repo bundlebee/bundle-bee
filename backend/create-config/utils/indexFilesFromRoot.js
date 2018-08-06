@@ -9,10 +9,14 @@ returnCurrentDirectoryFromPath(pathFromDrag)
   .then(rootDir => getAllFilesInCurrentDirectory(rootDir))
   .then(files => getInfoForWebpackConfigFromFileList(files))
   .then(res => writeToFile(res, 'configurationData.js'))
-  .then(res =>
+  .then(res => {
     process.send({
       foundWebpackConfig: res.webpackConfig.exists,
       foundEntryFile: res.entry ? true : false,
-    })
-  )
-  .catch(e => process.send({ e }));
+    });
+    process.exit();
+  })
+  .catch(e => {
+    process.send({ e });
+    process.exit();
+  });
