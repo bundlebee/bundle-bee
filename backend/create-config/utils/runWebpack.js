@@ -7,6 +7,7 @@ const statsWritePath = process.argv[process.argv.length - 1];
 exec(`webpack --profile --json > ${statsWritePath}`, null, error => {
   if (error) process.send({ error });
   else process.send({ status: 'done' });
+  process.exit();
 });
 
 // exec(`webpack --profile --json`, { maxBuffer: 1024 * 100000 }, (error, stdout) => {
