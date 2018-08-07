@@ -1,7 +1,7 @@
 # electron project build
 app/build
 
-#
+.DS_Store
 *-lock.json
 
 # Logs
