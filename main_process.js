@@ -94,20 +94,35 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
     });
   }
 });
-// gets called like 6 times. not sure why
-let stopParcelRunningAgain = false;
+
 ipcMain.on('run-parcel', event => {
-  if (!stopParcelRunningAgain) {
-    stopParcelRunningAgain = true;
-    const pathToRunParcelFileModule = path.join(
-      __dirname,
-      'backend',
-      'create-config',
-      'utils',
-      'runParcel.js'
-    );
-    const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
-    const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
-    createParc
-  }
+  const pathToRunParcelFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runParcel.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
+  const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
+  createParcelChild.on('message', message => {
+    if (message.error) {
+      console.log('error: ', message.error);
+    } else {
+      console.log('rollup successfully run and stats.json successfully written...');
+      event.sender.send('parcel-stats-results-json');
+    }
+  });
+});
+
+ipcMain.on('run-rollup', event => {
+  const pathToRunRollupModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runRollup.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
+  const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
 });
