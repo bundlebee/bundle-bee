@@ -44,9 +44,6 @@ jspm_packages
 
 .vs/
 .vscode/
-<<<<<<< HEAD
 
 dist/
-=======
 .cache/
->>>>>>> 66f78c413832c553323bd26c5f1be73f4de7db48
