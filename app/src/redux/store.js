@@ -12,7 +12,8 @@ export default () => {
         combineReducers({
             home: homeReducer,
             chart: chartReducer,
-            data: dataReducer
+            data: dataReducer,
+            bundle: bundleReducer,
         }),
         composeWithDevTools(applyMiddleware(thunk))
     );

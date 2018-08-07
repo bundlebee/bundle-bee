@@ -3,9 +3,10 @@ import * as chart from '../constants/chartProperties.js';
 
 const initialState = {
   screen: chart.SIZE
+  
 };
 
-const homeReducer = (state = initialState, action) => {
+const chartReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.DISPLAY_SIZES:
       return {screen: chart.SIZE};
@@ -18,5 +19,5 @@ const homeReducer = (state = initialState, action) => {
   }
 };
 
-export default homeReducer;
+export default chartReducer;
 
