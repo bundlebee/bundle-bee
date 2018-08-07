@@ -15,13 +15,31 @@ import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
 import ReactTooltip from 'react-tooltip';
-
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mainPageInstructions: 'Drop Your Root Directory To Get Started',
     };
+  }
+  componentDidMount() {
+    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
+      if (res.foundWebpackConfig) {
+        this.props.showModal();
+      } else if (res.foundEntryFile) {
+        ipcRenderer.send('run-webpack', { createNewConfig: true });
+      } else {
+        console.log('no index.js nor webpack.config found');
+        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
+      }
+    });
+    ipcRenderer.on('webpack-stats-results-json', () => {
+      ipcRenderer.send('run-parcel');
+      this.props.retrieveCompilationStats();
+    });
+    ipcRenderer.on('parcel-stats-results-json', () => {
+      ipcRenderer.send('run-rollup');
+    });
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -65,23 +83,6 @@ export class Main extends Component {
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
-
-    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
-      if (res.foundWebpackConfig) {
-        this.props.showModal();
-      } else if (res.foundEntryFile) {
-        ipcRenderer.send('run-webpack', { createNewConfig: true });
-      } else {
-        console.log('no index.js nor webpack.config found');
-        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
-      }
-    });
-
-    ipcRenderer.on('webpack-stats-results-json', event => {
-      ipcRenderer.send('run-parcel');
-      this.props.retrieveCompilationStats();
-    });
-
     return (
       <div className="main">
         <div className="header">
