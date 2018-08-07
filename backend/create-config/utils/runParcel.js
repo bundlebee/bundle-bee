@@ -11,11 +11,28 @@ const pathToSavedData = path.join(
   'electronUserData',
   'configurationData.js'
 );
+
+// getSavedProjectDataFromFile(pathToSavedData)
+//   .then(({ entry, indexHtmlPath, rootDir }) => {
+//     const parcelEntryFile = indexHtmlPath || entry;
+//     exec(
+//       `parcel build ${parcelEntryFile} --detailed-report > ${pathToWriteStatsFile}`,
+//       null,
+//       error => {
+//         if (error) process.send({ error });
+//         else process.send({ status: 'done' });
+//         process.exit();
+//       }
+//     );
+//   })
+//   .catch(e => console.log(e));
+
 getSavedProjectDataFromFile(pathToSavedData)
   .then(({ entry, indexHtmlPath, rootDir }) => {
+    const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
     const parcelEntryFile = indexHtmlPath || entry;
     exec(
-      `parcel build ${parcelEntryFile} --detailed-report > ${pathToWriteStatsFile}`,
+      `node ${parcelBundlerProcess} ${parcelEntryFile} > ${pathToWriteStatsFile}`,
       null,
       error => {
         if (error) process.send({ error });
@@ -25,3 +42,6 @@ getSavedProjectDataFromFile(pathToSavedData)
     );
   })
   .catch(e => console.log(e));
+
+
+
