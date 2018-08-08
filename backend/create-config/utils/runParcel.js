@@ -3,6 +3,7 @@ const { exec } = require('child_process');
 const getSavedProjectDataFromFile = require('./createWebPackConfigHelpers/getSavedProjectDataFromFile.js');
 
 const pathToWriteStatsFile = process.argv[process.argv.length - 1];
+const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'dist');
 const pathToSavedData = path.join(
   __dirname,
   '..',
@@ -27,21 +28,23 @@ const pathToSavedData = path.join(
 //   })
 //   .catch(e => console.log(e));
 
+
+
 getSavedProjectDataFromFile(pathToSavedData)
-  .then(({ entry, indexHtmlPath, rootDir }) => {
+  .then((results) => {
+    
+    const entry = results.entry;
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
-    const parcelEntryFile = indexHtmlPath || entry;
     exec(
-      `node ${parcelBundlerProcess} ${parcelEntryFile} > ${pathToWriteStatsFile}`,
+      `node ${parcelBundlerProcess} ${entry} ${pathToWriteStatsFile}`,
       null,
       error => {
         if (error) process.send({ error });
-        else process.send({ status: 'done' });
+        else process.send('');
         process.exit();
       }
     );
   })
   .catch(e => console.log(e));
-
 
 
