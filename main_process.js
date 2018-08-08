@@ -1,23 +1,17 @@
 // Basic init
 
-//New Concise Import Statements
-const { app, BrowserWindow, ipcMain, ipcRender, Menu, Dialog } = require('electron');
-const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
+const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
-
-// Old Code
-// const electron = require('electron');
-// const { ipcMain, ipcRenderer } = require('electron');
-// const { app, BrowserWindow } = electron;
-// const bundlerProcesses = require('./backend/create-config/create-webpack-config.js');
-// Let electron reloads by itself when webpack watches changes in ./app/
-require('electron-reload')(__dirname);
+const { fork } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+require('electron-reload')(__dirname, { ignored: /electronUserData|node_modules|[\/\\]\./ });
 
 // To avoid being garbage collected
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow();
+  mainWindow = new BrowserWindow({ width: 200, height: 765 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
   //Adding Menu Bar
@@ -30,35 +24,105 @@ ipcMain.on('ondragstart', (event, filePath) => {
     file: filePath,
     icon: '/path/to/icon.png',
   });
-
-  console.log('asdf drag');
-  event.sender.send('asdf', null);
 });
 
-let parsedFilesInfo;
-ipcMain.on('check-root-directory', (event, rootDirPath) => {
-  bundlerProcesses
-    .indexFilesFromRoot(rootDirPath)
-    .then(res => {
-      // set globally so other emitters in main can access it without always passing the object back and forth
-      parsedFilesInfo = res;
-      if (!parsedFilesInfo.entryFileAbsolutePath) {
-        console.log('no entry file found');
+ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) => {
+  const pathToIndexFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'indexFilesFromRoot.js'
+  );
+  const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
+  indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
+    if (e) console.log('Error: ', e);
+    event.sender.send('handle-file-indexing-results', {
+      foundWebpackConfig,
+      foundEntryFile,
+    });
+  });
+});
+
+ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
+  const pathToCreateWebpackFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'createWebpackConfig.js'
+  );
+  const pathToRunWebpackFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runWebpack.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'stats.json');
+
+  if (createNewConfig) {
+    const createWebpackChild = fork(pathToCreateWebpackFileModule, [pathFromDrag]);
+    createWebpackChild.on('message', ({ webpackDirectory, err }) => {
+      if (err) console.log('Error: ', err);
+      const runWebpackChild = fork(pathToRunWebpackFileModule, [pathToWriteStatsFile], {
+        cwd: webpackDirectory,
+      });
+      runWebpackChild.on('message', message => {
+        if (message.error) {
+          console.log('error: ', message.error);
+        } else {
+          console.log('webpack successfully run and stats.json successfully written...');
+          event.sender.send('webpack-stats-results-json');
+        }
+      });
+    });
+  } else {
+    const { rootDir } = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'electronUserData', 'configurationData.js'), 'utf-8')
+    );
+    const runWebpackChild = fork(pathToRunWebpackFileModule, [pathToWriteStatsFile], {
+      cwd: rootDir,
+    });
+    runWebpackChild.on('message', message => {
+      if (message.error) {
+        console.log('error: ', message.error);
+      } else {
+        console.log('webpack successfully run and stats.json successfully written...');
+        event.sender.send('webpack-stats-results-json');
       }
-      event.sender.send('webpack-config-check', res);
-    })
-    .catch(e => console.log(e));
+    });
+  }
 });
 
-ipcMain.on('run-webpack', (event, { createNewConfig }) => {
-  parsedFilesInfo.createNewConfig = createNewConfig;
-  bundlerProcesses
-    .runWebpack(parsedFilesInfo)
-    .then(res => {
-      parsedFilesInfo = {};
-      console.log('finished running webpack');
+ipcMain.on('run-parcel', event => {
+  const pathToRunParcelFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runParcel.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
+  const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
+  createParcelChild.on('message', message => {
+    if (message.error) {
+      console.log('error: ', message.error);
+    } else {
+      console.log('rollup successfully run and stats.json successfully written...');
+      event.sender.send('parcel-stats-results-json');
+    }
+  });
+});
 
-      event.sender.send('webpack-stats-results-json', res); // send a message to the front end that the webpack compilation stats json is ready
-    })
-    .catch(e => console.log('error:', e));
+ipcMain.on('run-rollup', event => {
+  const pathToRunRollupModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runRollup.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
+  const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
 });

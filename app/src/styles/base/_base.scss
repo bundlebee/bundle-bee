@@ -2,4 +2,339 @@
 //Border box sets the sizing to a more intuitive model (padding,e tc. don't change the overall size of an element so it stays the size you define it as regardless of other changes in size of box-model elements (margin, padding, etc.)
 * {
   box-sizing: border-box;
-  color: blue;}
+  }
+  @mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+      @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+      @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+      @content;
+    }
+    @-o-keyframes #{$animation-name} {
+      @content;
+    }
+    @keyframes #{$animation-name} {
+      @content;
+    }
+  }
+  // Column generator
+  @mixin colmk($numRows, $margin) {
+    width: ((100% - (($numRows - 1) * $margin)) / $numRows);
+
+    &:nth-child(n) {
+      margin-right: $margin;
+      margin-bottom: $margin;
+    }
+
+    &:nth-child(#{$numRows}n) {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  /* -----------------------------------------------------
+    Body
+  -------------------------------------------------------- */
+  body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(236, 235, 235);
+  }
+
+  *, *::after, *::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: $l-size;
+    color: white;
+  }
+  h2 {
+    font-size: $m-size;
+    color: gray;
+  }
+  a {
+    color: white;
+    outline: none;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  /* -----------------------------------------------------
+      Main
+  -------------------------------------------------------- */
+  main {
+    width: 100%;
+    max-width: 940px;
+    margin: 1.4rem auto;
+
+    section {
+      display: block;
+      margin-bottom: 1.4rem;
+      padding: 1.2rem;
+      background-color: #fff;
+      box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.157);
+
+      &:last-child { margin-bottom: 0; }
+
+      .heading {
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+      }
+
+      .wrap {
+        overflow: hidden;
+        display: block;
+        margin: 1rem 0 0.8rem;
+        text-align: center;
+
+        .holder {
+          float: left;
+          //display: inline-block;
+          //margin-right: 8px;
+          //margin-bottom: 8px;
+          text-align: center;
+          background-color: #f2f2f2;
+
+          &:last-child { margin-right: 0; }
+
+          &.col-3 {
+            //width: calc(100% / 3 - 8px);
+            @include colmk(3, 1%);
+          }
+          &.col-4 {
+            //width: calc(100% / 4 - 9px);
+            //&:nth-child(4n) { margin-right: 0; }
+            @include colmk(4, 1%);
+          }
+
+          .demo {
+            min-height: 120px;
+            padding: 2em 0;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+          }
+
+          .captions {
+            padding: 8px;
+            color: rgba(0,0,0,0.5);
+            font-size: 13px;
+            font-weight: bold;
+            border-top: 1px solid rgba(0,0,0,0.1);
+          }
+
+          @media only screen and (max-width: 860px) {
+            &.col-4 {
+              @include colmk(3, 1%);
+            }
+          }
+
+          @media only screen and (max-width: 640px) {
+            float: none;
+
+            &.col-3,
+            &.col-4 {
+              display: block;
+              width: 100%;
+
+              &:nth-child(n) { margin: 0; margin-bottom: 14px; }
+            }
+          }
+        }
+      }
+    }
+
+    @media only screen and (max-width: 960px) {
+      padding: 0 1.5%;
+    }
+  }
+
+  /* -----------------------------------------------------
+     Header
+  -------------------------------------------------------- */
+  header {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    text-align: center;
+    background-color: #FFF;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 0;
+      padding: 25px 0;
+      font-size: 2em;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: black;
+    }
+  }
+
+
+
+
+
+  /* :root {
+    --primary-color: #42b983;
+} */
+
+/*
+ * Global CSS goes here, it requires to use :global before each style
+ */
+
+
+ #app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #2c3e50;
+  /* max-width: 600px; */
+  /* font-family: Source Sans Pro, Helvetica, sans-serif;
+  text-align: center; */
+}
+
+.card {
+  margin: 2rem;
+  min-width: 800px;
+  background-color: purple;
+  color: white;
+  display: block
+}
+
+.card-hide {
+  display: none;
+}
+ 
+.loading {
+  font-size: 3rem;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: darkgrey;
+}
+
+div.header {
+  display: inline-block;
+}
+
+#wrapper {
+  display: inline-block;
+}
+
+.drop_div {
+  min-width: 600px;
+  min-height: 400px;
+  padding: 40px;
+  margin: 10px;
+  line-height: 1.3em;
+  border: 2px dashed lightgrey;
+  border-radius: 20px;
+  box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.2);
+}
+
+.modal {
+  min-width: 400px;
+  min-height: 600px;
+}
+
+
+.drop-zone-hide{
+  display: none;
+}
+
+.drop-zone-show{
+  position: fixed;
+  display: flex;
+  background: rgba(17, 109, 210, 0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.drop_here_txt{
+  color: #ffffff;
+}
+
+
+.drag_div{
+  min-width: 800px;
+  min-height: 400px;
+  max-width: 800px;
+  max-height: 400px;
+  padding: 20px;
+  margin: 10px;
+  border: 6px dashed lightgrey;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  justify-content: center;
+  align-items:center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cloud_upload{
+  height: 30%;
+  width: 30%;
+  align-self: center;
+}
+
+.header{
+  display: block;
+  align-self: center;
+}
+
+.parent{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+}

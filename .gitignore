@@ -1,7 +1,7 @@
 # electron project build
 app/build
 
-#
+.DS_Store
 *-lock.json
 
 # Logs
@@ -45,4 +45,5 @@ jspm_packages
 .vs/
 .vscode/
 
-backend/dist
+dist/
+.cache/

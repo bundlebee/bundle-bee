@@ -1,0 +1,42 @@
+
+.sb_d3_container {
+  justify-content: center;
+  display: flex;
+}
+
+.sb_d3_container button {
+  margin: 0 1rem;
+  width: 12rem;
+  background-color: rgb(11, 67, 124);
+}
+
+#sb_d3_explanation {
+ margin-top: 2rem;
+ margin-bottom: -9rem;
+ text-align: center;
+}
+
+#sb_d3_percentage {
+  font-size: 2.5em;
+}
+
+#sb_d3_fileNames {
+  padding: 5px 100px 50px 100px;
+  color: blue;
+}
+
+.sb_d3_box {
+  max-height: 300px;
+}
+
+.d3 {
+  height: 50%;
+  margin-top: 4rem;
+}
+
+.d3_btn_highligthed {
+  background-color: lightblue !important; 
+}
+.d3_btn_default {
+
+}

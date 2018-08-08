@@ -5,11 +5,8 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store.js';
 
 import './styles/styles.scss';
-// import './global.css';
 
 const store = configureStore();
-
-
 
 render(
   <Provider store={store}>
@@ -17,4 +14,3 @@ render(
   </Provider>,
   document.getElementById('app')
 );
-

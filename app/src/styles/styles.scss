@@ -2,5 +2,8 @@
 // scss/sass partials import names do not include the underscore. just the name starting after the _
 @import './base/settings';
 @import './base/base';
+@import './components/d3';
 @import './components/buttons';
 @import './components/code-loader';
+@import './components/cube-loader';
+@import './components/loading';
