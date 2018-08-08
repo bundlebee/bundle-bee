@@ -109,7 +109,7 @@ ipcMain.on('run-parcel', event => {
     if (message.error) {
       console.log('error: ', message.error);
     } else {
-      console.log('rollup successfully run and stats.json successfully written...');
+      console.log('parcel successfully run and stats.json successfully written...');
       event.sender.send('parcel-stats-results-json');
     }
   });
