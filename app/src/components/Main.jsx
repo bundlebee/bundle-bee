@@ -40,6 +40,9 @@ export class Main extends Component {
     ipcRenderer.on('parcel-stats-results-json', () => {
       ipcRenderer.send('run-rollup');
     });
+    ipcRenderer.on('rollup-stats-results-json', () => {
+      console.log('build finished');
+    });
   }
   renderLoadingModal() {
     return <ImportLoader />;

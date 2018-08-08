@@ -109,7 +109,7 @@ ipcMain.on('run-parcel', event => {
     if (message.error) {
       console.log('error: ', message.error);
     } else {
-      console.log('rollup successfully run and stats.json successfully written...');
+      console.log('parcel successfully run and stats.json successfully written...');
       event.sender.send('parcel-stats-results-json');
     }
   });
@@ -125,4 +125,12 @@ ipcMain.on('run-rollup', event => {
   );
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
   const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
+  createRollupChild.on('message', message => {
+    if (message.error) {
+      console.log('error: ', message.error);
+    } else {
+      console.log('rollup successfully run and stats.json successfully written...');
+      event.sender.send('rollup-stats-results-json');
+    }
+  });
 });
