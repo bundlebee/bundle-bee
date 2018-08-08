@@ -4,7 +4,11 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-import { retrieveCompilationStats } from '../redux/actions/dataActions';
+import {
+  retrieveWebpackStats,
+  retrieveRollupStats,
+  retrieveParcelStats,
+} from '../redux/actions/dataActions';
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -33,16 +37,27 @@ export class Main extends Component {
         this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
       }
     });
-    ipcRenderer.on('webpack-stats-results-json', () => {
+
+    ipcRenderer.on('webpack-stats-results-json', event => {
       ipcRenderer.send('run-parcel');
-      this.props.retrieveCompilationStats();
+      console.log('@webpack');
+      this.props.retrieveWebpackStats();
     });
-    ipcRenderer.on('parcel-stats-results-json', () => {
+
+    ipcRenderer.on('parcel-stats-results-json', event => {
       ipcRenderer.send('run-rollup');
+      console.log('@parcel');
+
+      this.props.retrieveParcelStats();
     });
     ipcRenderer.on('rollup-stats-results-json', () => {
       console.log('build finished');
     });
+
+    // ipcRenderer.on('rollup-stats-results-json', event => {
+    //   ipcRenderer.send('run-parcel');
+    //   this.props.retrieveRollupStats();
+    // });
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -80,12 +95,23 @@ export class Main extends Component {
   }
 
   render() {
+    // THIS IS FOR DEBUGGING PURPOSES
+    // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+    // if ( this.props.home.screen !== home.SHOW_STARBURST) {
+    //   console.log("at if statement")
+    //   this.props.retrieveWebpackStats();
+    //   // this.props.retrieveParcelStats();
+    //   // this.props.retrieveRollupStats();
+    //
+    // }
+
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
+    else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
+
     return (
       <div className="main">
         <div className="header">
@@ -99,7 +125,9 @@ export class Main extends Component {
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
+  retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
+  retrieveParcelStats: () => dispatch(retrieveParcelStats()),
+  retrieveRollupStats: () => dispatch(retrieveRollupStats()),
 });
 
 const mapStateToProps = state => ({ home: state.home });
