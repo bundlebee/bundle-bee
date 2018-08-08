@@ -5,7 +5,7 @@ module.exports = (data, fileName) => {
   return new Promise((resolve, reject) => {
     let stringData = typeof data === 'string' ? data : JSON.stringify(data);
     const savePath = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', fileName);
-    fs.writeFile(savePath, stringData, (err, res) => {
+    fs.writeFile(savePath, stringData, err => {
       if (err) reject(`error writing file ${fileName}`);
       resolve(data);
     });
