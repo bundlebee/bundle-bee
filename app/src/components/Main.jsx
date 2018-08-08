@@ -89,22 +89,21 @@ export class Main extends Component {
 
   render() {
     // THIS IS FOR DEBUGGING PURPOSES
-    // console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
-    // if ( this.props.home.screen !== home.BUNDLE_WEBPACK_COMPLETE) {
+    // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+    // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   // this.props.retrieveParcelStats();
-    // //   // this.props.retrieveRollupStats();
-
-    }
+    //   // this.props.retrieveRollupStats();
+    // 
+    // }
 
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else mainPage = this.renderChart();
-
+    else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
     
 
     return (
