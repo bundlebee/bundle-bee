@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
-import { retrieveCompilationStats } from '../redux/actions/dataActions';
+
+import { retrieveWebpackStats, retrieveRollupStats, retrieveParcelStats } from '../redux/actions/dataActions';
+
 import { connect } from 'react-redux';
-import { isLoading, showModal, resetHome, bundlingComplete } from '../redux/actions/homeActions';
+import { isLoading, showModal } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
+
 import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
-import StatusMessage from './loaders/statusMessage.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
-import ReactTooltip from 'react-tooltip';
 
+import ReactTooltip from 'react-tooltip';
 export class Main extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,6 @@ export class Main extends Component {
   }
   componentDidMount() {
     ipcRenderer.on('handle-file-indexing-results', (event, res) => {
-      console.log('Step1 after indexing has happened')
       if (res.foundWebpackConfig) {
         this.props.showModal();
       } else if (res.foundEntryFile) {
@@ -32,13 +33,24 @@ export class Main extends Component {
         this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
       }
     });
-    ipcRenderer.on('webpack-stats-results-json', () => {
+
+    ipcRenderer.on('webpack-stats-results-json', event => {
       ipcRenderer.send('run-parcel');
-      this.props.retrieveCompilationStats();
+      console.log('@webpack')
+      this.props.retrieveWebpackStats();
     });
-    ipcRenderer.on('parcel-stats-results-json', () => {
+
+    ipcRenderer.on('parcel-stats-results-json', event => {
       ipcRenderer.send('run-rollup');
+      console.log('@parcel')
+
+      this.props.retrieveParcelStats();
     });
+
+    // ipcRenderer.on('rollup-stats-results-json', event => {
+    //   ipcRenderer.send('run-parcel');
+    //   this.props.retrieveRollupStats();
+    // });
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -63,6 +75,10 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
 
+  renderBee() {
+    return <Bee />;
+  }
+
   renderChart() {
     return (
       <div>
@@ -72,19 +88,27 @@ export class Main extends Component {
   }
 
   render() {
+    // THIS IS FOR DEBUGGING PURPOSES
+    // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+    // if ( this.props.home.screen !== home.SHOW_STARBURST) {
+    //   console.log("at if statement")
+    //   this.props.retrieveWebpackStats();
+    //   // this.props.retrieveParcelStats();
+    //   // this.props.retrieveRollupStats();
+    //
+    // }
+
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
+    else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
+
 
     return (
       <div className="main">
         <div className="header">
-          <button onClick={() => {
-            this.props.resetHome();
-          }}>RESET</button>
           <Bee />
         </div>
         <div>{mainPage}</div>
@@ -94,9 +118,11 @@ export class Main extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  resetHome: () => dispatch(resetHome()),
   showModal: () => dispatch(showModal()),
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
+  retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
+  retrieveParcelStats: () => dispatch(retrieveParcelStats()),
+  retrieveRollupStats: () => dispatch(retrieveRollupStats()),
+
 });
 
 const mapStateToProps = state => ({ home: state.home });
