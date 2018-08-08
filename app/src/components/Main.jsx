@@ -94,9 +94,9 @@ export class Main extends Component {
     //   console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   // this.props.retrieveParcelStats();
-    //   // this.props.retrieveRollupStats();
+    // //   // this.props.retrieveRollupStats();
 
-    // }
+    }
 
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
