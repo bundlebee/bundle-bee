@@ -15,13 +15,42 @@ import ImportLoader from './loaders/ImportLoader.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
 
 import ReactTooltip from 'react-tooltip';
-
 export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mainPageInstructions: 'Drop Your Root Directory To Get Started',
     };
+  }
+  componentDidMount() {
+    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
+      if (res.foundWebpackConfig) {
+        this.props.showModal();
+      } else if (res.foundEntryFile) {
+        ipcRenderer.send('run-webpack', { createNewConfig: true });
+      } else {
+        console.log('no index.js nor webpack.config found');
+        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
+      }
+    });
+
+    ipcRenderer.on('webpack-stats-results-json', event => {
+      ipcRenderer.send('run-parcel');
+      console.log('@webpack')
+      this.props.retrieveWebpackStats();
+    });
+
+    ipcRenderer.on('parcel-stats-results-json', event => {
+      ipcRenderer.send('run-rollup');
+      console.log('@parcel')
+
+      this.props.retrieveParcelStats();
+    });
+
+    // ipcRenderer.on('rollup-stats-results-json', event => {
+    //   ipcRenderer.send('run-parcel');
+    //   this.props.retrieveRollupStats();
+    // });
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -59,7 +88,8 @@ export class Main extends Component {
   }
 
   render() {
-console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
+    // THIS IS FOR DEBUGGING PURPOSES
+    console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
     if ( this.props.home.screen !== home.BUNDLE_WEBPACK_COMPLETE) {
       console.log("at if statement")
       this.props.retrieveWebpackStats();
@@ -73,36 +103,9 @@ console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_WEBPACK_COMPLETE) mainPage = this.renderChart();
+    else mainPage = this.renderChart();
 
-    ipcRenderer.on('handle-file-indexing-results', (event, res) => {
-      if (res.foundWebpackConfig) {
-        this.props.showModal();
-      } else if (res.foundEntryFile) {
-        ipcRenderer.send('run-webpack', { createNewConfig: true });
-      } else {
-        console.log('no index.js nor webpack.config found');
-        this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
-      }
-    });
-
-    ipcRenderer.on('webpack-stats-results-json', event => {
-      ipcRenderer.send('run-parcel');
-      console.log('@webpack')
-      this.props.retrieveWebpackStats();
-    });
-
-    ipcRenderer.on('parcel-stats-results-json', event => {
-      ipcRenderer.send('run-rollup');
-      console.log('@parcel')
-
-      this.props.retrieveParcelStats();
-    });
-
-    ipcRenderer.on('rollup-stats-results-json', event => {
-      ipcRenderer.send('run-parcel');
-      this.props.retrieveRollupStats();
-    });
+    
 
     return (
       <div className="main">
