@@ -136,6 +136,7 @@ class D3StarBurstChart extends Component {
     console.log(this.props.activeData, "DATAAAAAA");
     return (
       <div className="d3">
+      
         <p>{this.props.chart.bundleType}</p>
         <div className="sb_d3_container">
           <DisplayButton
