@@ -9,10 +9,10 @@ export const retrieveWebpackStats = () => {
         console.log(data);
 
         // TODO do parsing here!
-         const hierarchicalData = parseWebpackOutput(data);
-         console.log(hierarchicalData, "PARSED");
+         const parsedData = parseWebpackOutput(data);
+         console.log(parsedData, "PARSED");
 
-        dispatch({ type: types.BUNDLE_COMPLETE, payload: data }); //
+        dispatch({ type: types.BUNDLE_WEBPACK_COMPLETE, payload: parsedData }); 
       })
       .catch(function(error) {
         alert('error:');

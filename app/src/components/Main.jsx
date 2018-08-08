@@ -59,12 +59,12 @@ export class Main extends Component {
   }
 
   render() {
-console.log(this.props.home.screen,home.BUNDLE_COMPLETE, "MAIN JSX")
-    if ( this.props.home.screen !== home.BUNDLE_COMPLETE) {
+console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
+    if ( this.props.home.screen !== home.BUNDLE_WEBPACK_COMPLETE) {
       console.log("at if statement")
-      this.props.retrieveParcelStats();
       this.props.retrieveWebpackStats();
-      this.props.retrieveRollupStats();
+      // this.props.retrieveParcelStats();
+      // this.props.retrieveRollupStats();
 
     }
 
@@ -73,7 +73,7 @@ console.log(this.props.home.screen,home.BUNDLE_COMPLETE, "MAIN JSX")
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
+    else if (this.props.home.screen === home.BUNDLE_WEBPACK_COMPLETE) mainPage = this.renderChart();
 
     ipcRenderer.on('handle-file-indexing-results', (event, res) => {
       if (res.foundWebpackConfig) {

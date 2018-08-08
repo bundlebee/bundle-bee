@@ -17,19 +17,7 @@ class Chart extends Component {
   
   
   render() {
-    let dataToDisplay;
-    if (this.props.chart.bundleType === chart.WEBPACK) {
-      dataToDisplay = this.props.data.starBurstData;   // shouldn't be this yo
-    }
-    else  if (this.props.chart.bundleType === chart.PARCEL) {
-      dataToDisplay = this.props.data.parcelStarBurstData;
-
-    }
-   else  if (this.props.chart.bundleType === chart.ROLLUP) {
-      dataToDisplay = this.props.data.rollupStarBurstData;
-
-    }
-
+    
     return (
       <div className="chart">
            <DisplayButton handleClick={this.props.displayWebpack} 
@@ -40,7 +28,7 @@ class Chart extends Component {
           isHighligthed={this.props.chart.bundleType === chart.ROLLUP}>{'Rollup'}</DisplayButton>     
 
 
-        <D3StarBurstChart dataToDisplay={dataToDisplay}/> 
+        <D3StarBurstChart /> 
       </div>
     )
   }
@@ -55,7 +43,7 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 const mapStateToProps = (state) => (
-  { chart: state.chart, data: state.data }
+  { chart: state.chart }
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chart);

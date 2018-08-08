@@ -6,7 +6,6 @@ import DisplayButton from './helper_components/DisplayButton.jsx';
 import * as chart from '../../redux/constants/chartProperties.js';
 import { displaySizes, displayFactoryTimes, displayBuildingTimes } from '../../redux/actions/chartActions.js';
 
-const rootData = { "name": "rootData", "children": [] };
 
 class D3StarBurstChart extends Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class D3StarBurstChart extends Component {
   }
 
   componentDidMount() {
-    this.initStarburstChart();
     this.instantiateStarburstChart();
   }
 
@@ -22,71 +20,27 @@ class D3StarBurstChart extends Component {
     this.instantiateStarburstChart();
   }
 
-  initStarburstChart() {
-    this.total = {};
-    this.total.size = 0;
-    this.total.factory = 0;
-    this.total.building = 0;
-
-    // this.props.data.starBurstData;
-    console.log(this.props.dataToDisplay, "DATA TO BE DISPLAYED")
-    let displayStats = this.props.dataToDisplay; //this.props.data.starBurstData
-    console.log(displayStats, "WHAT AM I")
-    
-
-
-
-
-    displayStats.chunks[0].modules.forEach(element => {0
-
-      let directoryAndName = element.name.replace(/[.\/]/, "");
-      let parts = directoryAndName.replace(/[.\/]/, "").split("/");
-
-      var currentNode = rootData;
-      for (var j = 0; j < parts.length; j++) {
-
-        var children = currentNode["children"];
-        var nodeName = parts[j];
-        var childNode;
-        if (j + 1 < parts.length) {
-          // Not yet at the end of the sequence; move down the tree.
-          var foundChild = false;
-          for (var k = 0; k < children.length; k++) {
-            if (children[k]["name"] == nodeName) {
-              childNode = children[k];
-              foundChild = true;
-              break;
-            }
-          }
-          // If we don't already have a child node for this branch, create it.
-          if (!foundChild) {
-            childNode = { "name": nodeName, "children": [] };
-            children.push(childNode);
-          }
-          currentNode = childNode;
-        } else {
-          // Reached the end of the sequence; create a leaf node.
-          const size = element.size || 0;
-          const factory = element.profile ? element.profile.factory : 0;
-          const building = element.profile ? element.profile.building : 0;
-          console.log(this, "THISSSSSSSSSSSSSSSSSSSSSSSSS")
-
-          this.total.size += Number(size);
-          this.total.factory += Number(factory);
-          this.total.building += Number(building);
-          childNode = { "name": nodeName, size, factory, building };
-          children.push(childNode);
-        }
-      }
-    });
-  }
+ 
 
   instantiateStarburstChart() {
+    let data;
+    if (this.props.chart.bundleType === chart.WEBPACK) {
+      data = this.props.data.webpackStarBurstData;  
+    }
+    else  if (this.props.chart.bundleType === chart.PARCEL) {
+      data = this.props.data.parcelStarBurstData;
+
+    }
+   else  if (this.props.chart.bundleType === chart.ROLLUP) {
+      data = this.props.data.rollupStarBurstData;
+
+    }
+
 
     const mouseover = d => {
       // Get total size of the tree = value of rootData node from partition.
       //   totalSize = path.datum().value;
-      var percentage = (100.0 * d.value / this.total[this.props.chart.screen]).toPrecision(3);
+      var percentage = (100.0 * d.value / data.total[this.props.chart.screen]).toPrecision(3);
 
       var percentageString = percentage + "%";
       if (percentage < 0.1) {
@@ -119,7 +73,6 @@ class D3StarBurstChart extends Component {
     var color = d3.scaleOrdinal()
       .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-    //d3.scaleOrdinal(); // d3.category10()
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('#svgStarBurst')
@@ -133,13 +86,11 @@ class D3StarBurstChart extends Component {
     var partition = d3.partition()
       .size([2 * Math.PI, radius]);
 
-    // Attempt to get the data from our JSON file
-    // console.log("before data");
 
     // Find the rootData node of our data, and begin sizing process.
-    var global = d3.hierarchy(rootData) // starBurstData imported file
+    // data sample depends on what bundle is chosen
+    var global = d3.hierarchy(data.hierarchicalData) 
       .sum(d => { return d[this.props.chart.screen]; });
-    // .sum(function (d) { return 10});
 
     // Calculate the sizes of each arc that we'll draw later.
     partition(global);
@@ -162,7 +113,6 @@ class D3StarBurstChart extends Component {
   }
 
   render() {
-    console.log(this.props.dataToDisplay, "D3 SB")
     return (
       <div className="d3">
       <p>{this.props.chart.bundleType}</p>
