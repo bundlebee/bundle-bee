@@ -6,6 +6,7 @@ const createRollupConfigFromParams = require('./rollupConfigHelpers/createRollup
 const runRollupFromUsersRoot = require('./rollupConfigHelpers/runRollupFromUsersRoot.js');
 const copyFilesToElectron = require('./rollupConfigHelpers/copyFilesToElectron.js');
 const deleteCreatedFilesFromUsersRoot = require('./rollupConfigHelpers/deleteCreatedFilesFromUsersRoot.js');
+const writeToFile = require('./file-and-system-actions/writeToFile.js');
 
 // const pathToWriteStats = process.argv[process.argv.length - 1];
 const pathToUserDataFolder = path.join(__dirname, '..', '..', '..', 'electronUserData');
@@ -17,8 +18,7 @@ getSavedProjectDataFromFile(pathToLocalFile)
   .then(res => runRollupFromUsersRoot(res))
   .then(res => copyFilesToElectron(res))
   .then(res => deleteCreatedFilesFromUsersRoot(res))
-  .then(res => console.log('this is the end'))
-  // .then(res => writeToFile(res, 'configurationData.js'))
+  .then(res => writeToFile(res, 'configurationData.js'))
   .then(() => {
     process.send('');
     process.exit();

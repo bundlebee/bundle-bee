@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 module.exports = res =>
   new Promise((resolve, reject) => {
@@ -12,12 +13,21 @@ module.exports = res =>
       ''
     );
     plugins = plugins.reduce((acc, plugin) => acc + `${plugin}` + '\n', '');
-
+    const localRollupConfigSavePath = path.join(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      '..',
+      'electronUserData',
+      'rollup.config.js'
+    );
+    const usersRollupConfigSavePath = path.join(res.rootDir, 'bundle-bee-rollup.config.js');
     const configString = `
     ${modules}
 
     export default {
-      input: '/Users/bren/React/1-indecisionApp-rollup-tests/src/index.js',
+      input: '${res.entry}',
       output: {
         file: './bundle-bee-rollup-dist/bundle.js',
         format: 'iife',
@@ -25,19 +35,12 @@ module.exports = res =>
       plugins: [${plugins}]
     };
     `;
-    fs.writeFile(
-      '/Users/bren/Codesmith/bundle-bee/mvp/electronUserData/rollup.config.js',
-      configString,
-      err => {
+    res.rollupConfigString = configString;
+    fs.writeFile(localRollupConfigSavePath, configString, err => {
+      if (err) reject(err);
+      fs.writeFile(usersRollupConfigSavePath, configString, err => {
         if (err) reject(err);
-        fs.writeFile(
-          '/Users/bren/React/1-indecisionApp-rollup-tests/bundle-bee-rollup.config.js',
-          configString,
-          err => {
-            if (err) reject(err);
-            resolve(res);
-          }
-        );
-      }
-    );
+        resolve(res);
+      });
+    });
   });

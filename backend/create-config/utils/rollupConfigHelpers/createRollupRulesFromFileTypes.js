@@ -8,7 +8,9 @@ const JS_X = {
   plugins: [
     `babel({
       babelrc: false,
-      presets: [['es2015-rollup'], ['react'], ['stage-0']],
+      presets: [['${require.resolve('babel-preset-es2015-rollup')}'], ['${require.resolve(
+      'babel-preset-react'
+    )}'], ['${require.resolve('babel-preset-stage-0')}']],
     }),`,
   ],
 };
