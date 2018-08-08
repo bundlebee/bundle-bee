@@ -24,6 +24,7 @@ class D3StarBurstChart extends Component {
   }
 
   instantiateStarburstChart() {
+    d3.select("#sb_d3_explanation").style("visibility", "hidden");
     const mouseover = d => {
       // Get total size of the tree = value of rootData node from partition.
       //   totalSize = path.datum().value;
@@ -45,6 +46,13 @@ class D3StarBurstChart extends Component {
       d3.select("#sb_d3_filevalue").text(d.value / 1000); // units of kb or seconds
 
       d3.select("#sb_d3_explanation").style("visibility", "");
+      console.log("mouseover")
+
+    };
+
+    const mouseleave = d => {
+      d3.select("#sb_d3_explanation").style("visibility", "hidden");
+      console.log("mouseleave")
     };
 
     // remove <g> element from <svg>
@@ -119,6 +127,9 @@ class D3StarBurstChart extends Component {
         return color((d.children ? d : d.parent).data.name);
       })
       .on("mouseover", mouseover);
+
+    // Add the mouseleave handler to the bounding circle.
+    g.selectAll("g").on("mouseleave", mouseleave);
   }
 
   render() {
