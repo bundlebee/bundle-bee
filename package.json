@@ -1,6 +1,6 @@
 {
   "name": "bundle-bee",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "\"A minimal Electron App to compare bundles\"",
   "main": "main_process.js",
   "jest": {

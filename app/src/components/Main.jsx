@@ -3,18 +3,16 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
-
 import { retrieveCompilationStats } from '../redux/actions/dataActions';
-
 import { connect } from 'react-redux';
-import { isLoading, showModal } from '../redux/actions/homeActions';
+import { isLoading, showModal, resetHome, bundlingComplete } from '../redux/actions/homeActions';
 import * as home from '../redux/constants/homeConstants';
-
 import Bee from './loaders/awesomeBee.jsx';
 import ImportLoader from './loaders/ImportLoader.jsx';
+import StatusMessage from './loaders/statusMessage.jsx';
 import CodeLoader from './loaders/CodeLoader.jsx';
-
 import ReactTooltip from 'react-tooltip';
+
 export class Main extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +22,7 @@ export class Main extends Component {
   }
   componentDidMount() {
     ipcRenderer.on('handle-file-indexing-results', (event, res) => {
+      console.log('Step1 after indexing has happened')
       if (res.foundWebpackConfig) {
         this.props.showModal();
       } else if (res.foundEntryFile) {
@@ -64,10 +63,6 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
 
-  renderBee() {
-    return <Bee />;
-  }
-
   renderChart() {
     return (
       <div>
@@ -83,9 +78,13 @@ export class Main extends Component {
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.BUNDLE_COMPLETE) mainPage = this.renderChart();
+
     return (
       <div className="main">
         <div className="header">
+          <button onClick={() => {
+            this.props.resetHome();
+          }}>RESET</button>
           <Bee />
         </div>
         <div>{mainPage}</div>
@@ -95,6 +94,7 @@ export class Main extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
+  resetHome: () => dispatch(resetHome()),
   showModal: () => dispatch(showModal()),
   retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
 });
