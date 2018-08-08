@@ -95,7 +95,7 @@ export class Main extends Component {
     //   this.props.retrieveWebpackStats();
     //   // this.props.retrieveParcelStats();
     //   // this.props.retrieveRollupStats();
-    // 
+    //
     // }
 
     let mainPage = null;
@@ -104,7 +104,7 @@ export class Main extends Component {
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
-    
+
 
     return (
       <div className="main">
@@ -122,7 +122,7 @@ const mapDispatchToProps = dispatch => ({
   retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
   retrieveParcelStats: () => dispatch(retrieveParcelStats()),
   retrieveRollupStats: () => dispatch(retrieveRollupStats()),
-  
+
 });
 
 const mapStateToProps = state => ({ home: state.home });
