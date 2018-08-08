@@ -13,7 +13,6 @@ export default () => {
             home: homeReducer,
             chart: chartReducer,
             data: dataReducer,
-            bundle: bundleReducer,
         }),
         composeWithDevTools(applyMiddleware(thunk))
     );

@@ -17,6 +17,7 @@ const homeReducer = (state = initialState, action) => {
       return {screen: home.LOADING_BUNDLE};
     case types.BUNDLE_COMPLETE:
       return {screen: home.BUNDLE_COMPLETE};
+ 
     default:
       return state;
   }

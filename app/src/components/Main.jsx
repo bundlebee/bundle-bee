@@ -4,7 +4,7 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-import { retrieveCompilationStats } from '../redux/actions/dataActions';
+import { retrieveWebpackStats, retrieveRollupStats, retrieveParcelStats } from '../redux/actions/dataActions';
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -59,6 +59,15 @@ export class Main extends Component {
   }
 
   render() {
+console.log(this.props.home.screen,home.BUNDLE_COMPLETE, "MAIN JSX")
+    if ( this.props.home.screen !== home.BUNDLE_COMPLETE) {
+      console.log("at if statement")
+      this.props.retrieveParcelStats();
+      this.props.retrieveWebpackStats();
+      this.props.retrieveRollupStats();
+
+    }
+
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
@@ -79,7 +88,20 @@ export class Main extends Component {
 
     ipcRenderer.on('webpack-stats-results-json', event => {
       ipcRenderer.send('run-parcel');
-      this.props.retrieveCompilationStats();
+      console.log('@webpack')
+      this.props.retrieveWebpackStats();
+    });
+
+    ipcRenderer.on('parcel-stats-results-json', event => {
+      ipcRenderer.send('run-rollup');
+      console.log('@parcel')
+
+      this.props.retrieveParcelStats();
+    });
+
+    ipcRenderer.on('rollup-stats-results-json', event => {
+      ipcRenderer.send('run-parcel');
+      this.props.retrieveRollupStats();
     });
 
     return (
@@ -95,7 +117,10 @@ export class Main extends Component {
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
-  retrieveCompilationStats: () => dispatch(retrieveCompilationStats()),
+  retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
+  retrieveParcelStats: () => dispatch(retrieveParcelStats()),
+  retrieveRollupStats: () => dispatch(retrieveRollupStats()),
+  
 });
 
 const mapStateToProps = state => ({ home: state.home });

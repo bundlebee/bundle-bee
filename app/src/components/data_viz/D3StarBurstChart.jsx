@@ -28,10 +28,16 @@ class D3StarBurstChart extends Component {
     this.total.factory = 0;
     this.total.building = 0;
 
-    console.log('using redux starburst mock data');
-    let displayStats = this.props.data.starBurstData;
+    // this.props.data.starBurstData;
+    console.log(this.props.dataToDisplay, "DATA TO BE DISPLAYED")
+    let displayStats = this.props.dataToDisplay; //this.props.data.starBurstData
+    console.log(displayStats, "WHAT AM I")
+    
 
-    displayStats.chunks[0].modules.forEach(element => {
+
+
+
+    displayStats.chunks[0].modules.forEach(element => {0
 
       let directoryAndName = element.name.replace(/[.\/]/, "");
       let parts = directoryAndName.replace(/[.\/]/, "").split("/");
@@ -63,6 +69,7 @@ class D3StarBurstChart extends Component {
           const size = element.size || 0;
           const factory = element.profile ? element.profile.factory : 0;
           const building = element.profile ? element.profile.building : 0;
+          console.log(this, "THISSSSSSSSSSSSSSSSSSSSSSSSS")
 
           this.total.size += Number(size);
           this.total.factory += Number(factory);
@@ -75,7 +82,6 @@ class D3StarBurstChart extends Component {
   }
 
   instantiateStarburstChart() {
-    console.log('instantiating...');
 
     const mouseover = d => {
       // Get total size of the tree = value of rootData node from partition.
@@ -94,7 +100,6 @@ class D3StarBurstChart extends Component {
       d3.select("#sb_d3_filename")
         .text(d.data.name)
 
-      console.log(d.value);
       //ADDED FILE VALUE
       d3.select("#sb_d3_filevalue")
         .text(d.value / 1000) // units of kb or seconds
@@ -129,7 +134,7 @@ class D3StarBurstChart extends Component {
       .size([2 * Math.PI, radius]);
 
     // Attempt to get the data from our JSON file
-    console.log("before data");
+    // console.log("before data");
 
     // Find the rootData node of our data, and begin sizing process.
     var global = d3.hierarchy(rootData) // starBurstData imported file
@@ -157,8 +162,10 @@ class D3StarBurstChart extends Component {
   }
 
   render() {
+    console.log(this.props.dataToDisplay, "D3 SB")
     return (
       <div className="d3">
+      <p>{this.props.chart.bundleType}</p>
         <div className="sb_d3_container">
           <DisplayButton handleClick={this.props.displaySizes} 
           isHighligthed={this.props.chart.screen === chart.SIZE} >{'Sizes'}</DisplayButton>
