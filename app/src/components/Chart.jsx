@@ -22,18 +22,21 @@ class Chart extends Component {
         <DisplayButton
           handleClick={this.props.displayWebpack}
           isHighligthed={this.props.chart.bundleType === chart.WEBPACK}
+          isActive={this.props.data.webpackStarBurstData}
         >
           {"Webpack"}
         </DisplayButton>
         <DisplayButton
           handleClick={this.props.displayParcel}
           isHighligthed={this.props.chart.bundleType === chart.PARCEL}
+          isActive={this.props.data.parcelStarBurstData}
         >
           {"Parcel"}
         </DisplayButton>
         <DisplayButton
           handleClick={this.props.displayRollup}
           isHighligthed={this.props.chart.bundleType === chart.ROLLUP}
+          isActive={this.props.data.rollupStarBurstData}
         >
           {"Rollup"}
         </DisplayButton>
@@ -50,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
   displayRollup: () => dispatch(displayRollup())
 });
 
-const mapStateToProps = state => ({ chart: state.chart });
+const mapStateToProps = state => ({ chart: state.chart, data: state.data});
 
 export default connect(
   mapStateToProps,

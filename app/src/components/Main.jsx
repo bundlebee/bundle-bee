@@ -4,7 +4,11 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-import { retrieveWebpackStats, retrieveRollupStats, retrieveParcelStats } from '../redux/actions/dataActions';
+import {
+  retrieveWebpackStats,
+  retrieveRollupStats,
+  retrieveParcelStats,
+} from '../redux/actions/dataActions';
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -36,15 +40,18 @@ export class Main extends Component {
 
     ipcRenderer.on('webpack-stats-results-json', event => {
       ipcRenderer.send('run-parcel');
-      console.log('@webpack')
+      console.log('@webpack');
       this.props.retrieveWebpackStats();
     });
 
     ipcRenderer.on('parcel-stats-results-json', event => {
       ipcRenderer.send('run-rollup');
-      console.log('@parcel')
+      console.log('@parcel');
 
       this.props.retrieveParcelStats();
+    });
+    ipcRenderer.on('rollup-stats-results-json', () => {
+      console.log('build finished');
     });
 
     // ipcRenderer.on('rollup-stats-results-json', event => {
@@ -103,9 +110,7 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_MODAL) mainPage = this.renderLoadingModal();
     else if (this.props.home.screen === home.SHOW_MODAL) mainPage = this.renderModal();
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
-    else mainPage = this.renderChart();
-
-    
+    else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
 
     return (
       <div className="main">
@@ -123,7 +128,6 @@ const mapDispatchToProps = dispatch => ({
   retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
   retrieveParcelStats: () => dispatch(retrieveParcelStats()),
   retrieveRollupStats: () => dispatch(retrieveRollupStats()),
-  
 });
 
 const mapStateToProps = state => ({ home: state.home });

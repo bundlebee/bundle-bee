@@ -1,5 +1,8 @@
-// const mockStarBurstData = require('../../components/data_viz/compilation-stats.json');
-const initialState = { starBurstData: null };
+const initialState = { 
+  webpackStarBurstData: null,
+  parcelStarBurstData: null,
+  rollupStarBurstData: null
+};
 
 import * as types from '../actions/actionConstants.js';
 
@@ -10,6 +13,8 @@ const dataReducer = (state = initialState, action) => {
       return { ... state, webpackStarBurstData: action.payload };
    }
     case types.BUNDLE_PARCEL_COMPLETE: {
+      console.log('bundle parcel complete');
+      console.log(action.payload);
       return {... state,  parcelStarBurstData: action.payload };
  }   
     case types.BUNDLE_ROLLUP_COMPLETE: {

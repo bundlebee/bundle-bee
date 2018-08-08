@@ -3,7 +3,8 @@ const Bundler = require('parcel-bundler');
 const fs = require('fs');
 
 const parcelEntryFile = process.argv[2];
-const pathToWriteStatsFile = process.argv[3];
+const rootDir = process.argv[3];
+const pathToWriteStatsFile = process.argv[4];
 
 // hack for production mode
 process.env.NODE_ENV = 'production';
@@ -20,7 +21,7 @@ bundler.on('bundled', mainBundle => {
   
   const bundleOutputs = bundles.map(bundle => (
     Array.from(bundle.assets).map(asset => ({
-      relativeName: asset.relativeName,
+      name: path.relative(rootDir, asset.name),
       buildTime: asset.buildTime,
       bundledSize: asset.bundledSize
     }))

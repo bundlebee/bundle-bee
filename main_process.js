@@ -5,7 +5,6 @@ const createMenuBar = require('./backend/menuBar.js');
 const { fork } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-require('electron-reload')(__dirname, { ignored: /electronUserData|node_modules|[\/\\]\./ });
 
 // To avoid being garbage collected
 let mainWindow;
@@ -103,8 +102,13 @@ ipcMain.on('run-parcel', event => {
     'utils',
     'runParcel.js'
   );
+
+  const { rootDir } = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'electronUserData', 'configurationData.js'), 'utf-8')
+  );
+
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
-  const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
+  const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
   createParcelChild.on('message', message => {
     if (message.error) {
       console.log('error: ', message.error);
@@ -125,4 +129,12 @@ ipcMain.on('run-rollup', event => {
   );
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
   const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
+  createRollupChild.on('message', message => {
+    if (message.error) {
+      console.log('error: ', message.error);
+    } else {
+      console.log('rollup successfully run and stats.json successfully written...');
+      event.sender.send('rollup-stats-results-json');
+    }
+  });
 });
