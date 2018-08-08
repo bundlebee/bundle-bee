@@ -89,14 +89,14 @@ export class Main extends Component {
 
   render() {
     // THIS IS FOR DEBUGGING PURPOSES
-    console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
-    if ( this.props.home.screen !== home.BUNDLE_WEBPACK_COMPLETE) {
-      console.log("at if statement")
-      this.props.retrieveWebpackStats();
-      // this.props.retrieveParcelStats();
-      // this.props.retrieveRollupStats();
+    // console.log(this.props.home.screen, home.BUNDLE_WEBPACK_COMPLETE, "MAIN JSX")
+    // if ( this.props.home.screen !== home.BUNDLE_WEBPACK_COMPLETE) {
+    //   console.log("at if statement")
+    //   this.props.retrieveWebpackStats();
+    //   // this.props.retrieveParcelStats();
+    //   // this.props.retrieveRollupStats();
 
-    }
+    // }
 
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
