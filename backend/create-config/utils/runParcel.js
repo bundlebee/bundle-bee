@@ -2,7 +2,8 @@ const path = require('path');
 const { exec } = require('child_process');
 const getSavedProjectDataFromFile = require('./createWebPackConfigHelpers/getSavedProjectDataFromFile.js');
 
-const pathToWriteStatsFile = process.argv[process.argv.length - 1];
+const rootDir = process.argv[2];
+const pathToWriteStatsFile = process.argv[3];
 const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'dist');
 const pathToSavedData = path.join(
   __dirname,
@@ -36,7 +37,7 @@ getSavedProjectDataFromFile(pathToSavedData)
     const entry = results.entry;
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
     exec(
-      `node ${parcelBundlerProcess} ${entry} ${pathToWriteStatsFile}`,
+      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile}`,
       null,
       error => {
         if (error) process.send({ error });
