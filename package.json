@@ -3,13 +3,6 @@
   "version": "1.0.2",
   "description": "\"A minimal Electron App to compare bundles\"",
   "main": "main_process.js",
-  "build": {
-    "appId": "com.bundlebee.app",
-    "files": [
-      "app/**/*",
-      "node_modules"
-    ]
-  },
   "jest": {
     "verbose": false,
     "testURL": "http://localhost/"
