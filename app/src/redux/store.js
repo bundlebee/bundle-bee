@@ -12,7 +12,7 @@ export default () => {
         combineReducers({
             home: homeReducer,
             chart: chartReducer,
-            data: dataReducer
+            data: dataReducer,
         }),
         composeWithDevTools(applyMiddleware(thunk))
     );

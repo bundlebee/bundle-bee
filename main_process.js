@@ -103,13 +103,18 @@ ipcMain.on('run-parcel', event => {
     'utils',
     'runParcel.js'
   );
+  
+  const { rootDir } = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'electronUserData', 'configurationData.js'), 'utf-8')
+  );
+  
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
-  const createParcelChild = fork(pathToRunParcelFileModule, [pathToWriteStatsFile]);
+  const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
   createParcelChild.on('message', message => {
     if (message.error) {
       console.log('error: ', message.error);
     } else {
-      console.log('rollup successfully run and stats.json successfully written...');
+      console.log('parcel successfully run and stats.json successfully written...');
       event.sender.send('parcel-stats-results-json');
     }
   });
