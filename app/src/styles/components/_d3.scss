@@ -44,3 +44,14 @@
 .d3_btn_disabled {
   background-color: gray !important;
 }
+
+#sequence {
+  width: 800px;
+  height: 70px;
+  background-color: orange; 
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}

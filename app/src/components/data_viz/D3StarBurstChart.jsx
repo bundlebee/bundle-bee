@@ -22,10 +22,18 @@ class D3StarBurstChart extends Component {
   componentDidUpdate() {
     this.instantiateStarburstChart();
   }
+////////////////////////////////////////////////////////////////
+
 
   instantiateStarburstChart() {
+    // init
+
     d3.select("#sb_d3_explanation").style("visibility", "hidden");
+
+    // MOUSEOVER EVENTS   
     const mouseover = d => {
+
+
       // Get total size of the tree = value of rootData node from partition.
       //   totalSize = path.datum().value;
       var percentage = (
@@ -47,13 +55,101 @@ class D3StarBurstChart extends Component {
 
       d3.select("#sb_d3_explanation").style("visibility", "");
       console.log("mouseover")
+       
+      // BREADCRUMBS
+      var sequenceArray = d.ancestors().reverse();
+      sequenceArray.shift(); // remove root node from the array
+      let trickArray = sequenceArray.slice(0);
+      // convert path array to a '/' seperated path string. add '/' at the end if it's a directory.
+      const path = "./" + trickArray.map(node => node.data.name).join("/") + (trickArray[trickArray.length - 1].children ? "/" : "");
+      _self.props.onHover(path);
+
+      for (var i = 1; i < trickArray.length + 1; i++) {
+        updateBreadcrumbs(trickArray.slice(0, i), percentageString);
+      }
+      // Fade all the segments.
+      d3.selectAll("#chart").selectAll("path")
+        .style("opacity", 0.3);
+
+      // Then highlight only those that are an ancestor of the current segment.
+      vis.selectAll("path")
+        .filter(function (node) {
+          return (sequenceArray.indexOf(node) >= 0);
+        })
+        .style("opacity", 1);
 
     };
 
+    // MOUSELEAVE EVENTS
+
     const mouseleave = d => {
+      d3.select("#trail")
+      .style("visibility", "hidden");
+
+
       d3.select("#sb_d3_explanation").style("visibility", "hidden");
       console.log("mouseleave")
     };
+
+        // Update the breadcrumb trail to show the current sequence and percentage.
+        function updateBreadcrumbs(nodeArray, percentageString) {
+
+          // Data join; key function combines name and depth (= position in sequence).
+          var trail = d3.select("#trail")
+            .selectAll("g")
+            .data(nodeArray, function (d) { return d.data.name + d.depth; });
+    
+          // Remove exiting nodes.
+          trail.exit().remove();
+    
+          // Add breadcrumb and label for entering nodes.
+          var entering = trail.enter().append("svg:g");
+    
+          entering.append("svg:polygon")
+            .attr("points", breadcrumbPoints)
+            .style("fill", function (d) { return '#53c79f'; });
+    
+          entering.append("svg:text")
+            .attr("x", (b.w + b.t) / 2)
+            .attr("y", b.h / 2)
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "start")
+            .text(function (d) { return d.data.name; });
+    
+          // Now move and update the percentage at the end.
+          var nodeAryFlat = '';
+    
+          for (var i = 0; i < nodeArray.length; i++) {
+            nodeAryFlat = nodeAryFlat + ' ' + nodeArray[i].data.name
+          }
+    
+          var nodeAryFlatLength = 0;
+          var nodeAryFlatLengthPercentage = 0;
+          for (var i = 1; i < nodeArray.length; i++) {
+            nodeAryFlatLength = nodeAryFlatLength + b.w + nodeArray[i - 1].data.name.length * 7.5 + b.t
+            nodeAryFlatLengthPercentage = nodeAryFlatLength + b.w + nodeArray[i].data.name.length * 7.5 + b.t + 15
+          }
+    
+          entering.attr("transform", function (d, i) {
+            if (i === 0) {
+              return "translate(0, 0)"
+            } else {
+              return "translate(" + nodeAryFlatLength + ", 0)";   //POSITIONING OF WORDS
+            }
+          });
+    
+          d3.select("#trail").select("#endlabel")
+            .attr("x", (nodeAryFlatLengthPercentage))  //CONTROLS WHERE THE PERCENTAGE IS LOCATED
+            .attr("y", b.h / 2)
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "start")
+            .text(percentageString);
+    
+          // Make the breadcrumb trail visible, if it's hidden.
+          d3.select("#trail")
+            .style("visibility", "");
+    
+        }
 
     // remove <g> element from <svg>
     d3.selectAll(".starburstgroup").remove();
@@ -129,14 +225,13 @@ class D3StarBurstChart extends Component {
       .on("mouseover", mouseover);
 
     // Add the mouseleave handler to the bounding circle.
-    g.selectAll("g").on("mouseleave", mouseleave);
+    d3.select("#starburstgroup").on("mouseleave", mouseleave);
   }
 
   render() {
     console.log(this.props.activeData, "DATAAAAAA");
     return (
       <div className="d3">
-      
         <p>{this.props.chart.bundleType}</p>
         <div className="sb_d3_container">
           <DisplayButton
@@ -180,6 +275,7 @@ class D3StarBurstChart extends Component {
           )}
         </div>
         <div className="sb_d3_box">
+        <div id="sequence"></div>
           <svg
             id="svgStarBurst"
             className="d3_starburst"
