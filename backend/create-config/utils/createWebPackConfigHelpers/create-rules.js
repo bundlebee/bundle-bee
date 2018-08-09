@@ -1,18 +1,19 @@
 const MiniCssExtractPluginDotLoaderString = 'MiniCssExtractPlugin.loader';
 
 const JS_X = {
-  test: /\.jsx?$/i,
+  test: /\.jsx?$/,
   exclude: /node_modules/,
   use: {
     loader: 'babel-loader',
     options: {
-      presets: ['babel-preset-env', 'babel-preset-react'],
-      plugins: ['transform-class-properties'],
+      presets: ['babel-preset-env', 'babel-preset-react', 'babel-preset-stage-0'].map(x =>
+        require.resolve(x)
+      ),
     },
   },
 };
 const GIF_PNG_SVG_JPG_JPEG = {
-  test: /\.(gif|png|jpe?g|svg)$/i,
+  test: /\.(gif|png|jpe?g|svg)$/,
   use: [
     'file-loader',
     {
@@ -39,8 +40,9 @@ const LESS = {
 
 module.exports = extensions => {
   // create rules array of appropriate loaders
+  const dependencies = [];
   const alreadyAdded = new Set();
-  return extensions.reduce((acc, ext) => {
+  const rules = extensions.reduce((acc, ext) => {
     if ((ext === '.js' || ext === '.jsx') && !alreadyAdded.has(ext)) {
       alreadyAdded.add('.js');
       alreadyAdded.add('.jsx');
@@ -66,4 +68,5 @@ module.exports = extensions => {
     }
     return acc;
   }, []);
+  return { rules, dependencies };
 };
