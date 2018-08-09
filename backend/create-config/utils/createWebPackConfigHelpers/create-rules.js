@@ -1,6 +1,5 @@
-const MiniCssExtractPluginDotLoaderString = 'MiniCssExtractPlugin.loader';
-
-const JS_X = {
+const JS_X = `
+{
   test: /\.jsx?$/,
   exclude: /node_modules/,
   use: {
@@ -11,8 +10,8 @@ const JS_X = {
       ),
     },
   },
-};
-const GIF_PNG_SVG_JPG_JPEG = {
+}`;
+const GIF_PNG_SVG_JPG_JPEG = `{
   test: /\.(gif|png|jpe?g|svg)$/,
   use: [
     'file-loader',
@@ -24,19 +23,21 @@ const GIF_PNG_SVG_JPG_JPEG = {
       },
     },
   ],
-};
-const CSS_SASS_SCSS = {
+}`;
+const CSS_SASS_SCSS = `
+{
   test: /\.(sa|sc|c)ss$/,
-  use: [MiniCssExtractPluginDotLoaderString, 'css-loader', 'sass-loader'],
-};
-const LESS = {
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+}`;
+const LESS = `
+{
   test: /\.less$/,
   use: [
     'style-loader' /* // creates style nodes from JS strings */,
     'css-loader' /* // translates CSS into CommonJS */,
     'less-loader' /*  // compiles Less to CSS */,
   ],
-};
+}`;
 
 module.exports = extensions => {
   // create rules array of appropriate loaders

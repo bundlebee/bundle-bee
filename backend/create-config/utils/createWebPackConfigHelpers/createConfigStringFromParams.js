@@ -16,7 +16,7 @@ module.exports = res => {
     : `{title: 'template', template: '${pathToOurTemplate}'}`;
   // util.inspect  preserves regex (unlike) JSON.stringify.  showHidden : false allows for deeply nested objects
   let { rules, dependencies } = createRules(extensions);
-  rules = util.inspect(rules, { showHidden: false, depth: null });
+  // rules = util.inspect(rules, { showHidden: false, depth: null });
   const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
   const config = `
 const path = require('path');
@@ -32,7 +32,7 @@ module.exports = {
       filename: 'bundle.js',
     },
     module: {
-      rules:${rules},
+      rules:[${rules}],
     },
     devServer: {
       contentBase: path.join(__dirname, 'webpack-dist'),
@@ -44,7 +44,7 @@ module.exports = {
   resolve: {
     extensions: ${extensionsToResolve.length ? '[' + extensionsToResolve + ']' : ''},
   },
-  };`.replace(/\'MiniCssExtractPlugin\.loader\'/, 'MiniCssExtractPlugin.loader');
+  };`;
 
   return { res, config };
 };
