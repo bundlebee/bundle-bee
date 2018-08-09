@@ -51,10 +51,18 @@ const base_rules = {
       variableName: 'replace',
       packageName: 'rollup-plugin-replace',
     },
+    {
+      variableName: 'json',
+      packageName: 'rollup-plugin-json',
+    },
   ],
   plugins: [
     `commonjs({
       include: 'node_modules/**',
+            namedExports: {
+        'node_modules/react-dom/index.js': ['render', 'findDOMNode'],
+        'node_modules/react/index.js': ['Component', 'Children', 'createElement', 'cloneElement'],
+      },
     }),`,
     `resolve({
       module: true,
@@ -67,6 +75,7 @@ const base_rules = {
     `replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),`,
+    `json(),`,
   ],
 };
 
