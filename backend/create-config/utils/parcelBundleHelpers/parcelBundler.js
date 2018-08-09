@@ -9,8 +9,12 @@ const pathToWriteStatsFile = process.argv[4];
 // hack for production mode
 process.env.NODE_ENV = 'production';
 
+// hack to change node.js directory
+process.chdir(rootDir);
+console.log(process.cwd());
+
 // define the bundler
-const bundler = new Bundler(parcelEntryFile);
+const bundler = new Bundler(parcelEntryFile, {detailedReport: true});
 bundler.bundle();
 
 // on bundler completion, gather size and timing information
