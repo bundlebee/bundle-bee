@@ -1,3 +1,5 @@
+const MiniCssExtractPluginDotLoaderString = 'MiniCssExtractPlugin.loader';
+
 const JS_X = {
   test: /\.jsx?$/i,
   exclude: /node_modules/,
@@ -9,7 +11,6 @@ const JS_X = {
     },
   },
 };
-const CSS = { test: /\.css$/i, use: 'css-loader' };
 const GIF_PNG_SVG_JPG_JPEG = {
   test: /\.(gif|png|jpe?g|svg)$/i,
   use: [
@@ -23,14 +24,12 @@ const GIF_PNG_SVG_JPG_JPEG = {
     },
   ],
 };
-
-const SASS_SCSS = {
-  test: /\.s(c|a)ss$/i,
-  exclude: /node_modules/,
-  use: ['style-loader', 'css-loader', 'sass-loader'],
+const CSS_SASS_SCSS = {
+  test: /\.(sa|sc|c)ss$/,
+  use: [MiniCssExtractPluginDotLoaderString, 'css-loader', 'sass-loader'],
 };
 const LESS = {
-  test: /\.less$/i,
+  test: /\.less$/,
   use: [
     'style-loader' /* // creates style nodes from JS strings */,
     'css-loader' /* // translates CSS into CommonJS */,
@@ -56,13 +55,11 @@ module.exports = extensions => {
       alreadyAdded.add('.jpeg');
       alreadyAdded.add('.svg');
       acc.push(GIF_PNG_SVG_JPG_JPEG);
-    } else if (ext === '.css' && !alreadyAdded.has(ext)) {
-      alreadyAdded.add('.css');
-      acc.push(CSS);
-    } else if ((ext === '.scss' || ext === '.sass') && !alreadyAdded.has(ext)) {
+    } else if ((ext === '.css' || ext === '.scss' || ext === '.sass') && !alreadyAdded.has(ext)) {
       alreadyAdded.add('.scss');
       alreadyAdded.add('.sass');
-      acc.push(SASS_SCSS);
+      alreadyAdded.add('.css');
+      acc.push(CSS_SASS_SCSS);
     } else if (ext === '.less' && !alreadyAdded.has(ext)) {
       alreadyAdded.add('.less');
       acc.push(LESS);

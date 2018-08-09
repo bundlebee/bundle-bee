@@ -4,7 +4,7 @@ const getSavedProjectDataFromFile = require('./createWebPackConfigHelpers/getSav
 
 const rootDir = process.argv[2];
 const pathToWriteStatsFile = process.argv[3];
-const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'dist');
+const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'parcel-dist');
 const pathToSavedData = path.join(
   __dirname,
   '..',
@@ -14,30 +14,12 @@ const pathToSavedData = path.join(
   'configurationData.js'
 );
 
-// getSavedProjectDataFromFile(pathToSavedData)
-//   .then(({ entry, indexHtmlPath, rootDir }) => {
-//     const parcelEntryFile = indexHtmlPath || entry;
-//     exec(
-//       `parcel build ${parcelEntryFile} --detailed-report > ${pathToWriteStatsFile}`,
-//       null,
-//       error => {
-//         if (error) process.send({ error });
-//         else process.send({ status: 'done' });
-//         process.exit();
-//       }
-//     );
-//   })
-//   .catch(e => console.log(e));
-
-
-
 getSavedProjectDataFromFile(pathToSavedData)
-  .then((results) => {
-    
-    const entry = results.entry;
+  .then(results => {
+    const entry = results.indexHtmlPath || results.entry;
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
     exec(
-      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile}`,
+      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
       null,
       error => {
         if (error) process.send({ error });
@@ -47,5 +29,3 @@ getSavedProjectDataFromFile(pathToSavedData)
     );
   })
   .catch(e => console.log(e));
-
-

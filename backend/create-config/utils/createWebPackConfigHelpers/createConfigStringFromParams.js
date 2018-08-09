@@ -16,10 +16,12 @@ module.exports = res => {
     : `{title: 'template', template: '${pathToOurTemplate}'}`;
   // util.inspect  preserves regex (unlike) JSON.stringify.  showHidden : false allows for deeply nested objects
   const rules = util.inspect(createRules(extensions), { showHidden: false, depth: null });
-  const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'dist');
+  const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
   const config = `
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: '${entry}',
@@ -32,15 +34,16 @@ module.exports = {
       rules:${rules},
     },
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: path.join(__dirname, 'webpack-dist'),
     },
     plugins: [
     new HtmlWebpackPlugin(${indexHtmlPath}), 
+    new MiniCssExtractPlugin('bundle.css')
   ],
   resolve: {
     extensions: ${extensionsToResolve.length ? '[' + extensionsToResolve + ']' : ''},
   },
-  };`;
+  };`.replace(/\'MiniCssExtractPlugin\.loader\'/, 'MiniCssExtractPlugin.loader');
 
   return { res, config };
 };
