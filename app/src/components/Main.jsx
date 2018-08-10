@@ -23,8 +23,9 @@ export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainPageInstructions: 'Drop Your Root Directory To Get Started',
+      mainPageMessage: '',
     };
+    this.handleRestart = this.handleRestart.bind(this);
   }
   componentDidMount() {
     ipcRenderer.on('handle-file-indexing-results', (event, res) => {
@@ -52,6 +53,9 @@ export class Main extends Component {
     });
     ipcRenderer.on('rollup-stats-results-json', () => {
       console.log('build finished');
+    });
+    ipcRenderer.on('error', () => {
+      this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
     // ipcRenderer.on('rollup-stats-results-json', event => {
@@ -81,11 +85,6 @@ export class Main extends Component {
   renderModal() {
     return <ModalPrompt />;
   }
-
-  renderBee() {
-    return <Bee />;
-  }
-
   renderChart() {
     return (
       <div>
@@ -93,7 +92,9 @@ export class Main extends Component {
       </div>
     );
   }
-
+  handleRestart() {
+    ipcRenderer.send('restart');
+  }
   render() {
     // THIS IS FOR DEBUGGING PURPOSES
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
@@ -117,6 +118,12 @@ export class Main extends Component {
         <div className="header">
           <Bee />
         </div>
+        {this.state.mainPageMessage && (
+          <div>
+            <h1>{this.state.mainPageMessage}</h1>
+            <button onClick={() => this.handleRestart()}>Restart</button>
+          </div>
+        )}
         <div>{mainPage}</div>
       </div>
     );
