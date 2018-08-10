@@ -7,8 +7,6 @@ function packageJSONExistsInDir(fileEntry, rootDir) {
 
 module.exports = files => {
   const rootDir = files[0] ? files[0].fullParentDir : null;
-  console.log('rootDir');
-  console.log(rootDir);
   const webpackConfig = { exists: false, path: null, content: null };
   let entry;
   let entryIsInRoot;

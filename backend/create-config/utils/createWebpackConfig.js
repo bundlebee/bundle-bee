@@ -13,6 +13,8 @@ getSavedProjectDataFromLocalFile(pathToLocalFile)
   .then(res => createWebpackConfig(res))
   .then(({ config, res }) => {
     writeToFile(config, 'webpack.config.js');
+    writeToFile(config, path.join('webpack-dist', 'webpack.config.js'));
+    writeToFile(res.webpackDependencies, path.join('webpack-dist', 'package.json'));
     return res;
   })
   .then(res => writeToFile(res, 'configurationData.js'))

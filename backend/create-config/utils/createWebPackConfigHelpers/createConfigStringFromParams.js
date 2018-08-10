@@ -16,6 +16,9 @@ module.exports = res => {
     : `{title: 'template', template: '${pathToOurTemplate}'}`;
   // util.inspect  preserves regex (unlike) JSON.stringify.  showHidden : false allows for deeply nested objects
   let { rules, dependencies } = createRules(extensions);
+  res.webpackDependencies = JSON.stringify({
+    devDependencies: dependencies,
+  });
   // rules = util.inspect(rules, { showHidden: false, depth: null });
   const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
   const config = `
