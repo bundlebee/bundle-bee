@@ -3,6 +3,8 @@ const { exec } = require('child_process');
 const getSavedProjectDataFromFile = require('./createWebPackConfigHelpers/getSavedProjectDataFromFile.js');
 const addParcelDependenciesToRes = require('./parcelBundleHelpers/addParcelDependenciesToUserDataObject.js');
 const writeToFile = require('./file-and-system-actions/writeToFile.js');
+const validator = require('html-validator');
+const fs = require('fs');
 
 const rootDir = process.argv[2];
 const pathToWriteStatsFile = process.argv[3];
@@ -20,19 +22,47 @@ getSavedProjectDataFromFile(pathToSavedData)
   .then(res => addParcelDependenciesToRes(res))
   .then(res => writeToFile(res.parcelDependencies, path.join('parcel-dist', 'package.json'), res))
   .then(res => {
-    const entry = res.indexHtmlPath || res.entry;
+    const options = {
+      format: 'text',
+    };
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
-
-    exec(
-      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
-      null,
-      error => {
-        if (error) process.send({ error });
-        else {
-          process.send('');
-          process.exit();
-        }
-      }
-    );
+    let entry;
+    fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
+      if (err) throw err;
+      options.data = html;
+      validator(options)
+        .then(data => {
+          if (data.includes('Error:')) {
+            entry = res.entry;
+            exec(
+              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
+              null,
+              error => {
+                if (error) process.send({ error });
+                else {
+                  process.send('');
+                  process.exit();
+                }
+              }
+            );
+          } else {
+            entry = res.indexHtmlPath;
+            exec(
+              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
+              null,
+              error => {
+                if (error) process.send({ error });
+                else {
+                  process.send('');
+                  process.exit();
+                }
+              }
+            );
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    });
   })
   .catch(e => console.log(e));
