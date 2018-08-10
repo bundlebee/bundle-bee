@@ -4,7 +4,7 @@ const JS_X = {
   test: /\.jsx?$/,
   exclude: /node_modules/,
   use: {
-    loader: 'babel-loader',
+    loader: require.resolve('babel-loader'),
     options: {
       presets: ['babel-preset-env', 'babel-preset-react', 'babel-preset-stage-0'].map(x =>
         require.resolve(x)
@@ -25,7 +25,7 @@ const GIF_PNG_SVG_JPG_JPEG = {
   rules: `{
   test: /\.(gif|png|jpe?g|svg)$/,
   use: [
-    'file-loader',
+    require.resolve('file-loader'),
     {
       loader: 'image-webpack-loader',
       options: {
@@ -41,7 +41,7 @@ const CSS_SASS_SCSS = {
   rules: `
 {
   test: /\.(sa|sc|c)ss$/,
-  use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+  use: [MiniCssExtractPlugin.loader, require.resolve('css-loader'), require.resolve('sass-loader')],
 }`,
   dependencies: {
     'node-sass': '^4.9.2',
@@ -55,9 +55,9 @@ const LESS = {
 {
   test: /\.less$/,
   use: [
-    'style-loader' /* // creates style nodes from JS strings */,
-    'css-loader' /* // translates CSS into CommonJS */,
-    'less-loader' /*  // compiles Less to CSS */,
+    require.resolve('style-loader') /* // creates style nodes from JS strings */,
+    require.resolve('css-loader') /* // translates CSS into CommonJS */,
+    require.resolve('less-loader') /*  // compiles Less to CSS */,
   ],
 }`,
   dependencies: {

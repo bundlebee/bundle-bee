@@ -41,7 +41,10 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
   );
   const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
   indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
-    if (e) return event.sender.send('error');
+    if (e) {
+      console.log(e);
+      return event.sender.send('error');
+    }
     event.sender.send('handle-file-indexing-results', {
       foundWebpackConfig,
       foundEntryFile,
@@ -74,7 +77,10 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
         cwd: webpackDirectory,
       });
       runWebpackChild.on('message', message => {
-        if (message.error) return event.sender.send('error');
+        if (message.error) {
+          console.log(message.error);
+          return event.sender.send('error');
+        }
         console.log('webpack successfully run and stats.json successfully written...');
         event.sender.send('webpack-stats-results-json');
       });
@@ -87,7 +93,10 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
       cwd: rootDir,
     });
     runWebpackChild.on('message', message => {
-      if (message.error) return event.sender.send('error');
+      if (message.error) {
+        console.log(message.error);
+        return event.sender.send('error');
+      }
       console.log('webpack successfully run and stats.json successfully written...');
       event.sender.send('webpack-stats-results-json');
     });
@@ -110,7 +119,10 @@ ipcMain.on('run-parcel', event => {
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
   const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
   createParcelChild.on('message', message => {
-    if (message.error) return event.sender.send('error');
+    if (message.error) {
+      console.log(message.error);
+      return event.sender.send('error');
+    }
     console.log('parcel successfully run and stats.json successfully written...');
     event.sender.send('parcel-stats-results-json');
   });
@@ -127,7 +139,10 @@ ipcMain.on('run-rollup', event => {
   const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
   const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
   createRollupChild.on('message', message => {
-    if (message.error) return event.sender.send('error');
+    if (message.error) {
+      console.log(message.error);
+      return event.sender.send('error');
+    }
     console.log('rollup successfully run and stats.json successfully written...');
     event.sender.send('rollup-stats-results-json');
   });
