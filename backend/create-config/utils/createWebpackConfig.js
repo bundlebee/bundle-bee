@@ -11,12 +11,11 @@ const pathToLocalFile = path.join(pathToUserDataFolder, 'configurationData.js');
 getSavedProjectDataFromLocalFile(pathToLocalFile)
   .then(res => setEntryFromDragPathIfDragPathExists(res, process.argv[process.argv.length - 1]))
   .then(res => createWebpackConfig(res))
-  .then(({ config, res }) => {
-    writeToFile(config, 'webpack.config.js');
-    writeToFile(config, path.join('webpack-dist', 'webpack.config.js'));
-    writeToFile(res.webpackDependencies, path.join('webpack-dist', 'package.json'));
-    return res;
-  })
+  .then(res => writeToFile(res.webpackConfigString, 'webpack.config.js', res))
+  .then(res =>
+    writeToFile(res.webpackConfigString, path.join('webpack-dist', 'webpack.config.js'), res)
+  )
+  .then(res => writeToFile(res.webpackDependencies, path.join('webpack-dist', 'package.json'), res))
   .then(res => writeToFile(res, 'configurationData.js'))
   .then(() => {
     process.send({ webpackDirectory: pathToUserDataFolder });

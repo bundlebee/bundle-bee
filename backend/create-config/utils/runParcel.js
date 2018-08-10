@@ -18,6 +18,7 @@ const pathToSavedData = path.join(
 
 getSavedProjectDataFromFile(pathToSavedData)
   .then(res => addParcelDependenciesToRes(res))
+  .then(res => writeToFile(res.parcelDependencies, path.join('parcel-dist', 'package.json'), res))
   .then(res => {
     const entry = res.indexHtmlPath || res.entry;
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
@@ -28,10 +29,8 @@ getSavedProjectDataFromFile(pathToSavedData)
       error => {
         if (error) process.send({ error });
         else {
-          writeToFile(res.parcelDependencies, path.join('parcel-dist', 'package.json')).then(() => {
-            process.send('');
-            process.exit();
-          });
+          process.send('');
+          process.exit();
         }
       }
     );

@@ -21,7 +21,7 @@ module.exports = res => {
   });
   // rules = util.inspect(rules, { showHidden: false, depth: null });
   const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
-  const config = `
+  res.webpackConfigString = `
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -48,6 +48,5 @@ module.exports = {
     extensions: ${extensionsToResolve.length ? '[' + extensionsToResolve + ']' : ''},
   },
   };`;
-
-  return { res, config };
+  return res;
 };
