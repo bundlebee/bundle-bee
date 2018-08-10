@@ -15,11 +15,17 @@ module.exports = res => {
     ? `{title: 'template', template: '${indexHtmlPath}'}`
     : `{title: 'template', template: '${pathToOurTemplate}'}`;
   // util.inspect  preserves regex (unlike) JSON.stringify.  showHidden : false allows for deeply nested objects
-  const rules = util.inspect(createRules(extensions), { showHidden: false, depth: null });
-  const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'dist');
-  const config = `
+  let { rules, dependencies } = createRules(extensions);
+  res.webpackDependencies = JSON.stringify({
+    devDependencies: dependencies,
+  });
+  // rules = util.inspect(rules, { showHidden: false, depth: null });
+  const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
+  res.webpackConfigString = `
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: '${entry}',
@@ -29,18 +35,18 @@ module.exports = {
       filename: 'bundle.js',
     },
     module: {
-      rules:${rules},
+      rules:[${rules}],
     },
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: path.join(__dirname, 'webpack-dist'),
     },
     plugins: [
     new HtmlWebpackPlugin(${indexHtmlPath}), 
+    new MiniCssExtractPlugin('bundle.css')
   ],
   resolve: {
     extensions: ${extensionsToResolve.length ? '[' + extensionsToResolve + ']' : ''},
   },
   };`;
-
-  return { res, config };
+  return res;
 };

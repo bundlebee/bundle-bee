@@ -6,6 +6,9 @@ const { fork } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+if (!fs.existsSync('./electronUserData')) {
+  fs.mkdirSync('./electronUserData');
+}
 // To avoid being garbage collected
 let mainWindow;
 
