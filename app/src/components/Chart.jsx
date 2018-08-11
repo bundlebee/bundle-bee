@@ -17,8 +17,22 @@ class Chart extends Component {
   }
 
   render() {
+ 
+
     return (
+
       <div className="chart">
+       {/* <div className="chart">
+   
+  <nav className="tabs">
+    <div className="selector"></div>
+    <a href="#" className="active"><i className="fas fa-burn"></i>Avengers</a>
+    <a href="#"><i className="fas fa-bomb"></i>Guardians of The Galaxy</a>
+    <a href="#"><i className="fas fa-bolt"></i>Thor</a>
+    <a href="#"><i className="fab fa-superpowers"></i>Black Panther</a>
+  </nav>
+
+       </div> */}
         <DisplayButton
           handleClick={this.props.displayWebpack}
           isHighligthed={this.props.chart.bundleType === chart.WEBPACK}

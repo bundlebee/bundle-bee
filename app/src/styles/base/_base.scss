@@ -1,9 +1,6 @@
 // place the base settings in here. Anything that is the base/starting point for your html elements
 //Border box sets the sizing to a more intuitive model (padding,e tc. don't change the overall size of an element so it stays the size you define it as regardless of other changes in size of box-model elements (margin, padding, etc.)
-svg {
-  margin: auto;
-  display: block;
-}
+
 * {
   box-sizing: border-box;
   }
