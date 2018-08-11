@@ -24,7 +24,6 @@
 }
 
 .sb_d3_box {
-  max-height: 300px;
 }
 
 .d3 {
@@ -53,6 +52,9 @@
 
 .chart {
   min-width: 1200px;
+  border: 1px solid black;
+  margin: auto;
+  display: block;
 }
 
 h1 .d3_title {

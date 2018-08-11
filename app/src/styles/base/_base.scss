@@ -1,5 +1,9 @@
 // place the base settings in here. Anything that is the base/starting point for your html elements
 //Border box sets the sizing to a more intuitive model (padding,e tc. don't change the overall size of an element so it stays the size you define it as regardless of other changes in size of box-model elements (margin, padding, etc.)
+svg {
+  margin: auto;
+  display: block;
+}
 * {
   box-sizing: border-box;
   }
@@ -201,7 +205,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  // height: 100%;
   color: #2c3e50;
   /* max-width: 600px; */
   /* font-family: Source Sans Pro, Helvetica, sans-serif;
@@ -252,7 +256,7 @@ div.header {
   display: inline-block;
 }
 
-#wrapper {
+#bee_wrapper {
   display: inline-block;
 }
 
@@ -297,7 +301,9 @@ div.header {
   color: #ffffff;
 }
 
-
+.dropzone_div{
+  margin-top: 40px;
+}
 .drag_div{
   min-width: 800px;
   min-height: 400px;
