@@ -17,11 +17,9 @@
 }
 
 #sb_d3_percentage {
-  font-size: 2.5em;
 }
 
 #sb_d3_fileNames {
-  padding: 5px 100px 50px 100px;
   color: blue;
 }
 
@@ -43,3 +41,48 @@
 .d3_btn_disabled {
   background-color: gray !important;
 }
+
+#sequence {
+  width: 1200px;
+  height: 70px;
+}
+
+#sequence text, #legend text {
+  fill: #fff;
+}
+
+.chart {
+  min-width: 1200px;
+}
+
+h1 .d3_title {
+  font-size: $l-size;
+  color: darkslategray;
+}
+
+.d3_tooltip {
+  background: lightgray;
+	box-shadow: 0 0 5px #999999;
+	color: #333;
+	font-size: 12px;
+	left: 130px;
+	padding: 10px;
+	position: absolute;
+	text-align: center;
+	top: 95px;
+	width: 200px;
+	z-index: 10;
+	display: block;
+	// opacity: 0;
+}
+.legend {
+	font-size: 12px;
+}
+rect {
+	cursor: pointer;                                              /* NEW */
+	stroke-width: 2;
+}
+rect.disabled {                                                 /* NEW */
+	fill: transparent !important;                                 /* NEW */
+}
+
