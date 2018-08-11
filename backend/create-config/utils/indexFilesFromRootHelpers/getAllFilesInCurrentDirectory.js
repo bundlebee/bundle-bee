@@ -6,9 +6,6 @@ const folderIndexer = (root, callback) => {
   const settings = {
     root,
     entryType: 'all',
-    // Filter files with js and json extension
-    // fileFilter: ['*.js', '*.json'],
-    // Filter by directory
     directoryFilter: ['!.git'],
   };
   readdirp(settings)

@@ -1,9 +1,14 @@
 const path = require('path');
 const { exec } = require('child_process');
 const getSavedProjectDataFromFile = require('./createWebPackConfigHelpers/getSavedProjectDataFromFile.js');
+const addParcelDependenciesToRes = require('./parcelBundleHelpers/addParcelDependenciesToUserDataObject.js');
+const writeToFile = require('./file-and-system-actions/writeToFile.js');
+const validator = require('html-validator');
+const fs = require('fs');
 
-const pathToWriteStatsFile = process.argv[process.argv.length - 1];
-const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'dist');
+const rootDir = process.argv[2];
+const pathToWriteStatsFile = process.argv[3];
+const outputDir = path.join(path.dirname(pathToWriteStatsFile), 'parcel-dist');
 const pathToSavedData = path.join(
   __dirname,
   '..',
@@ -12,21 +17,52 @@ const pathToSavedData = path.join(
   'electronUserData',
   'configurationData.js'
 );
+
 getSavedProjectDataFromFile(pathToSavedData)
-  .then(({ entry }) => {
-    exec(
-      `parcel build ${entry} --out-dir ${outputDir} --detailed-report > ${pathToWriteStatsFile}`,
-      (error, stdout) => {
-        console.log('cwd: ', process.cwd());
-
-        console.log('​outputDir', outputDir);
-        console.log('​stdout', stdout);
-        console.log('​error', error);
-
-        if (error) process.send({ error });
-        else process.send('');
-        process.exit();
-      }
-    );
+  .then(res => addParcelDependenciesToRes(res))
+  .then(res => writeToFile(res.parcelDependencies, path.join('parcel-dist', 'package.json'), res))
+  .then(res => {
+    const options = {
+      format: 'text',
+    };
+    const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
+    let entry;
+    fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
+      if (err) throw err;
+      options.data = html;
+      validator(options)
+        .then(data => {
+          if (data.includes('Error:')) {
+            entry = res.entry;
+            exec(
+              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
+              null,
+              error => {
+                if (error) process.send({ error });
+                else {
+                  process.send('');
+                  process.exit();
+                }
+              }
+            );
+          } else {
+            entry = res.indexHtmlPath;
+            exec(
+              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
+              null,
+              error => {
+                if (error) process.send({ error });
+                else {
+                  process.send('');
+                  process.exit();
+                }
+              }
+            );
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    });
   })
   .catch(e => console.log(e));

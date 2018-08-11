@@ -4,7 +4,11 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-import { retrieveWebpackStats, retrieveRollupStats, retrieveParcelStats } from '../redux/actions/dataActions';
+import {
+  retrieveWebpackStats,
+  retrieveRollupStats,
+  retrieveParcelStats,
+} from '../redux/actions/dataActions';
 
 import { connect } from 'react-redux';
 import { isLoading, showModal } from '../redux/actions/homeActions';
@@ -19,8 +23,9 @@ export class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainPageInstructions: 'Drop Your Root Directory To Get Started',
+      mainPageMessage: '',
     };
+    this.handleRestart = this.handleRestart.bind(this);
   }
   componentDidMount() {
     ipcRenderer.on('handle-file-indexing-results', (event, res) => {
@@ -36,15 +41,21 @@ export class Main extends Component {
 
     ipcRenderer.on('webpack-stats-results-json', event => {
       ipcRenderer.send('run-parcel');
-      console.log('@webpack')
+      console.log('@webpack');
       this.props.retrieveWebpackStats();
     });
 
     ipcRenderer.on('parcel-stats-results-json', event => {
       ipcRenderer.send('run-rollup');
-      console.log('@parcel')
+      console.log('@parcel');
 
       this.props.retrieveParcelStats();
+    });
+    ipcRenderer.on('rollup-stats-results-json', () => {
+      console.log('build finished');
+    });
+    ipcRenderer.on('error', () => {
+      this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
     // ipcRenderer.on('rollup-stats-results-json', event => {
@@ -74,11 +85,6 @@ export class Main extends Component {
   renderModal() {
     return <ModalPrompt />;
   }
-
-  renderBee() {
-    return <Bee />;
-  }
-
   renderChart() {
     return (
       <div>
@@ -86,16 +92,18 @@ export class Main extends Component {
       </div>
     );
   }
-
+  handleRestart() {
+    ipcRenderer.send('restart');
+  }
   render() {
-    // THIS IS FOR DEBUGGING PURPOSES
+    // // THIS IS FOR DEBUGGING PURPOSES
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   // this.props.retrieveParcelStats();
-    //   // this.props.retrieveRollupStats();
-    //
+    // //   // this.props.retrieveRollupStats();
+
     // }
 
     let mainPage = null;
@@ -105,12 +113,17 @@ export class Main extends Component {
     else if (this.props.home.screen === home.LOADING_BUNDLE) mainPage = this.renderLoadingBundle();
     else if (this.props.home.screen === home.SHOW_STARBURST) mainPage = this.renderChart();
 
-
     return (
       <div className="main">
         <div className="header">
           <Bee />
         </div>
+        {this.state.mainPageMessage && (
+          <div>
+            <h1>{this.state.mainPageMessage}</h1>
+            <button onClick={() => this.handleRestart()}>Restart</button>
+          </div>
+        )}
         <div>{mainPage}</div>
       </div>
     );
@@ -122,7 +135,6 @@ const mapDispatchToProps = dispatch => ({
   retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
   retrieveParcelStats: () => dispatch(retrieveParcelStats()),
   retrieveRollupStats: () => dispatch(retrieveRollupStats()),
-
 });
 
 const mapStateToProps = state => ({ home: state.home });
