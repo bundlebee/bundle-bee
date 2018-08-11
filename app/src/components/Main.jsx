@@ -4,6 +4,8 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
+import BrenD3BarChart from './data_viz/brenBarChart.jsx';
+
 import {
   retrieveWebpackStats,
   retrieveRollupStats,
@@ -124,6 +126,7 @@ export class Main extends Component {
             <button onClick={() => this.handleRestart()}>Restart</button>
           </div>
         )}
+        <BrenD3BarChart />
         <div>{mainPage}</div>
       </div>
     );
