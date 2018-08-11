@@ -1,5 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const upath = require('upath');
+
+const sizeTimingPluginPath = upath.normalize(path.join(__dirname, 'custom_plugin', 'size_timing.js'));
 
 module.exports = res =>
   new Promise((resolve, reject) => {
@@ -8,12 +11,12 @@ module.exports = res =>
     modules = modules.reduce(
       (acc, rule) =>
         acc +
-        `const ${rule.variableName} = require('${require.resolve(rule.packageName)}');` +
+        `const ${rule.variableName} = require('${upath.normalize(require.resolve(rule.packageName))}');` +
         '\n',
       ''
     );
     plugins = plugins.reduce((acc, plugin) => acc + `${plugin}` + '\n', '');
-    const localRollupConfigSavePath = path.join(
+    const localRollupConfigSavePath = upath.normalize(path.join(
       __dirname,
       '..',
       '..',
@@ -21,18 +24,19 @@ module.exports = res =>
       '..',
       'electronUserData',
       'rollup.config.js'
-    );
-    const usersRollupConfigSavePath = path.join(res.rootDir, 'bundle-bee-rollup.config.js');
+    ));
+    const usersRollupConfigSavePath = upath.normalize(path.join(res.rootDir, 'bundle-bee-rollup.config.js'));
     const configString = `
     ${modules}
+    const sizeTimingPlugin = require('${sizeTimingPluginPath}');
 
     export default {
-      input: '${res.entry}',
+      input: '${upath.normalize(res.entry)}',
       output: {
         file: './bundle-bee-rollup-dist/bundle.js',
         format: 'iife',
       },
-      plugins: [${plugins}]
+      plugins: [${plugins} sizeTimingPlugin()]
     };
     `;
     res.rollupDependencies = JSON.stringify({

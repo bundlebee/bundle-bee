@@ -52,7 +52,10 @@ export class Main extends Component {
       this.props.retrieveParcelStats();
     });
     ipcRenderer.on('rollup-stats-results-json', () => {
+      console.log('@rollup');
       console.log('build finished');
+      
+      this.props.retrieveRollupStats();
     });
     ipcRenderer.on('error', () => {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
