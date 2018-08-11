@@ -35,6 +35,9 @@ module.exports = res =>
       plugins: [${plugins}]
     };
     `;
+    res.rollupDependencies = JSON.stringify({
+      devDependencies: res.rollupDependencies,
+    });
     res.rollupConfigString = configString;
     fs.writeFile(localRollupConfigSavePath, configString, err => {
       if (err) reject(err);

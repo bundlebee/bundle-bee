@@ -15,10 +15,16 @@ const pathToLocalFile = path.join(pathToUserDataFolder, 'configurationData.js');
 getSavedProjectDataFromFile(pathToLocalFile)
   .then(res => createRollupRulesFromFileTypes(res))
   .then(res => createRollupConfigFromParams(res))
+  .then(res =>
+    writeToFile(res.rollupConfigString, path.join('rollup-dist', 'rollup.config.js'), res)
+  )
+  .then(res => writeToFile(res.rollupDependencies, path.join('rollup-dist', 'package.json'), res))
   .then(res => runRollupFromUsersRoot(res))
   .then(res => copyFilesToElectron(res))
   .then(res => deleteCreatedFilesFromUsersRoot(res))
-  .then(res => writeToFile(res, 'configurationData.js'))
+  .then(res => {
+    writeToFile(res, 'configurationData.js');
+  })
   .then(() => {
     process.send('');
     process.exit();
