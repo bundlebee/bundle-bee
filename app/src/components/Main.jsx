@@ -55,6 +55,8 @@ export class Main extends Component {
     });
     ipcRenderer.on('rollup-stats-results-json', (event, res) => {
       console.log('build finished');
+      
+      this.props.retrieveRollupStats();
     });
     ipcRenderer.on('error', () => {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });

@@ -40,10 +40,14 @@ export const retrieveParcelStats = bundleDir => {
 
 export const retrieveRollupStats = bundleDir => {
   return function(dispatch) {
-    d3.json('../electronUserData/rollupStats.json')
+    d3.json('../electronUserData/rollup-stats.json')
       .then(function(data) {
         console.log(data);
-        dispatch({ type: types.BUNDLE_ROLLUP_COMPLETE, payload: data });
+        
+        const parsedData = parseRollupOutput(data);
+        console.log(parsedData, "ROLLUP PARSED");
+        
+        dispatch({ type: types.BUNDLE_ROLLUP_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {
         alert('error:');
