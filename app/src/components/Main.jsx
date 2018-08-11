@@ -96,14 +96,14 @@ export class Main extends Component {
     ipcRenderer.send('restart');
   }
   render() {
-    // THIS IS FOR DEBUGGING PURPOSES
+    // // THIS IS FOR DEBUGGING PURPOSES
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   // this.props.retrieveParcelStats();
-    //   // this.props.retrieveRollupStats();
-    //
+    // //   // this.props.retrieveRollupStats();
+
     // }
 
     let mainPage = null;
