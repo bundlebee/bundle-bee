@@ -71,7 +71,7 @@ class DropZone extends Component {
       <div>
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
-          <h1>Drop Here to Upload</h1>
+          <h1 className="dropzone">Drop Here to Upload</h1>
         </div>
       </div>
     );
