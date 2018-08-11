@@ -1,15 +1,14 @@
 
 
 export const parseWebpackOutput = (data) => {
-    console.log('@ parseWebpackOutput', data.chunks[0].modules) 
+    console.log('@ parseWebpackOutput') 
     const total = {size: 0, factory: 0, building: 0}; 
 
     const rootData = { "name": "rootData", "children": [] };
     data.chunks[0].modules.forEach(element => {
-
-        let directoryAndName = element.name.replace(/[.\/]/, "");
-        let parts = directoryAndName.replace(/[.\/]/, "").split("/");
-  
+        let directoryAndName = element.name.replace(/\.\//, "");
+        let parts = directoryAndName.split("/");
+        
         var currentNode = rootData;
         for (var j = 0; j < parts.length; j++) {
   
@@ -60,10 +59,8 @@ export const parseParcelOutput = (data) => {
     
     const rootData = { "name": "rootData", "children": [] };
     data.slice().forEach(element => {
-        
-        let directoryAndName = element.name.replace(/\\/g, "/").replace(/[.\/]/, "");
-        console.log(directoryAndName);
-        let parts = directoryAndName.replace(/[.\/]/, "").split("/");
+        let directoryAndName = element.name.replace(/\\/g, "/");
+        let parts = directoryAndName.split("/");
 
         var currentNode = rootData;
         for (var j = 0; j < parts.length; j++) {
@@ -111,10 +108,8 @@ export const parseRollupOutput = (data) => {
     
     const rootData = { "name": "rootData", "children": [] };
     data.slice().forEach(element => {
-        
-        let directoryAndName = element.name.replace(/\\/g, "/").replace(/[.\/]/, "");
-        console.log(directoryAndName);
-        let parts = directoryAndName.replace(/[.\/]/, "").split("/");
+        let directoryAndName = element.name.replace(/\\/g, "/");
+        let parts = directoryAndName.split("/");
 
         var currentNode = rootData;
         for (var j = 0; j < parts.length; j++) {
