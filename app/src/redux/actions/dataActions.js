@@ -1,17 +1,19 @@
 import * as types from './actionConstants.js';
 import * as d3 from 'd3';
-import { parseWebpackOutput, parseParcelOutput, parseRollupOutput } from '../../utils/dataParser.js';
+import {
+  parseWebpackOutput,
+  parseParcelOutput,
+  parseRollupOutput,
+} from '../../utils/dataParser.js';
 
-export const retrieveWebpackStats = () => {
+export const retrieveWebpackStats = bundleDir => {
   return function(dispatch) {
     d3.json('../electronUserData/stats.json')
       .then(function(data) {
         console.log(data);
 
-        const parsedData = parseWebpackOutput(data);
-        console.log(parsedData, "WEBPACK PARSED");
-
-        dispatch({ type: types.BUNDLE_WEBPACK_COMPLETE, payload: parsedData }); 
+        const parsedData = parseWebpackOutput(data, bundleDir);
+        dispatch({ type: types.BUNDLE_WEBPACK_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {
         alert('error:');
@@ -20,25 +22,23 @@ export const retrieveWebpackStats = () => {
   };
 };
 
-export const retrieveParcelStats = () => {
+export const retrieveParcelStats = bundleDir => {
   return function(dispatch) {
     d3.json('../electronUserData/parcel-stats.json')
-    .then(function(data) {
-      console.log(data);
-      
-      const parsedData = parseParcelOutput(data);
-      console.log(parsedData, "PARCEL PARSED");
-      
-      dispatch({ type: types.BUNDLE_PARCEL_COMPLETE, payload: parsedData });
-    })
-    .catch(function(error) {
-      alert('error:');
-      console.log(error);
-    });
+      .then(function(data) {
+        console.log(data);
+
+        const parsedData = parseParcelOutput(data, bundleDir);
+        dispatch({ type: types.BUNDLE_PARCEL_COMPLETE, payload: parsedData });
+      })
+      .catch(function(error) {
+        alert('error:');
+        console.log(error);
+      });
   };
 };
 
-export const retrieveRollupStats = () => {
+export const retrieveRollupStats = bundleDir => {
   return function(dispatch) {
     d3.json('../electronUserData/rollup-stats.json')
       .then(function(data) {
@@ -55,4 +55,3 @@ export const retrieveRollupStats = () => {
       });
   };
 };
-

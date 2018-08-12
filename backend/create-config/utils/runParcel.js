@@ -27,25 +27,13 @@ getSavedProjectDataFromFile(pathToSavedData)
     };
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
     let entry;
-    fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
-      if (err) throw err;
-      options.data = html;
-      validator(options)
-        .then(data => {
-          if (data.includes('Error:')) {
-            entry = res.entry;
-            exec(
-              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
-              null,
-              error => {
-                if (error) process.send({ error });
-                else {
-                  process.send('');
-                  process.exit();
-                }
-              }
-            );
-          } else {
+    console.log('here: ', res.indexHtmlPath);
+    if (res.indexHtmlPath) {
+      fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
+        if (err) throw err;
+        options.data = html;
+        validator(options).then(data => {
+          if (!data.includes('Error:')) {
             entry = res.indexHtmlPath;
             exec(
               `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
@@ -59,10 +47,20 @@ getSavedProjectDataFromFile(pathToSavedData)
               }
             );
           }
-        })
-        .catch(error => {
-          console.error(error);
         });
-    });
+      });
+    }
+    entry = res.entry;
+    exec(
+      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
+      null,
+      error => {
+        if (error) process.send({ error });
+        else {
+          process.send('');
+          process.exit();
+        }
+      }
+    );
   })
   .catch(e => console.log(e));
