@@ -4,8 +4,6 @@ import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
 
-import BrenD3BarChart from './data_viz/brenBarChart.jsx';
-
 import {
   retrieveWebpackStats,
   retrieveRollupStats,
@@ -26,6 +24,7 @@ export class Main extends Component {
     super(props);
     this.state = {
       mainPageMessage: '',
+      dirname: '',
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -55,7 +54,7 @@ export class Main extends Component {
     });
     ipcRenderer.on('rollup-stats-results-json', (event, res) => {
       console.log('build finished');
-      
+      this.setState({ dirname: res });
       this.props.retrieveRollupStats();
     });
     ipcRenderer.on('error', () => {
@@ -90,11 +89,7 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
   renderChart() {
-    return (
-      <div>
-        <Chart />
-      </div>
-    );
+    return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
     ipcRenderer.send('restart');
@@ -128,7 +123,6 @@ export class Main extends Component {
             <button onClick={() => this.handleRestart()}>Restart</button>
           </div>
         )}
-        <BrenD3BarChart />
         <div>{mainPage}</div>
       </div>
     );

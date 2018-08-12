@@ -38,6 +38,10 @@ const chartReducer = (state = initialState, action) => {
       return {
         ...state,
         bundleType: chart.ROLLUP};
+    case types.DISPLAY_TOTALS:
+      return {
+        ...state,
+        bundleType: chart.TOTALS};
 
 
       default:

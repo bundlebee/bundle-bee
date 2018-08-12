@@ -23,4 +23,7 @@ export const displayParcel = () => ({
 export const displayRollup = () => ({
   type: types.DISPLAY_ROLLUP
 });
+export const displayTotals = () => ({
+  type: types.DISPLAY_TOTALS
+});
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-class BrenD3BarChart extends React.Component {
+class BarChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -192,4 +192,4 @@ class BrenD3BarChart extends React.Component {
   }
 }
 
-export default BrenD3BarChart;
+export default BarChart;
