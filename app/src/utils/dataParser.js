@@ -1,7 +1,9 @@
 export const parseWebpackOutput = (data, bundleDir) => {
   console.log('@ parseWebpackOutput');
   const total = { size: 0, factory: 0, building: 0 };
-
+  total.totalElapsedTime = data.time;
+  total.totalBundleSize = data.assets.reduce((acc, asset) => acc + asset.size, 0);
+  
   const rootData = { name: 'rootData', children: [] };
   data.chunks[0].modules.filter(x => !x.identifier.includes(bundleDir)).forEach(element => {
     let directoryAndName = element.name.replace(/\.\//, '');
@@ -50,9 +52,11 @@ export const parseWebpackOutput = (data, bundleDir) => {
 export const parseParcelOutput = (data, bundleDir) => {
   console.log('@ parseParcelOutput');
   const total = { size: 0, building: 0 };
+  total.totalElapsedTime = data.totalElapsedTime;
+  total.totalBundleSize = data.totalBundleSize;
 
   const rootData = { name: 'rootData', children: [] };
-  data
+  data.files
     .slice()
     .filter(x => !x.name.includes(bundleDir))
     .forEach(element => {

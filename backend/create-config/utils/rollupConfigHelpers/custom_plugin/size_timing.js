@@ -125,7 +125,7 @@ const sizeTimingPlugin = () => {
       
       
       // fs.writeFileSync(path.join(__dirname, 'data4.json'), JSON.stringify(fileSizes, null, 2));
-      fs.writeFileSync(path.join(__dirname, '..', '..', '..', '..', '..', 'electronUserData', 'cwd.json'), JSON.stringify(rootDir, null, 2));
+      // fs.writeFileSync(path.join(__dirname, '..', '..', '..', '..', '..', 'electronUserData', 'cwd.json'), JSON.stringify(rootDir, null, 2));
       fs.writeFileSync(path.join(__dirname, '..', '..', '..', '..', '..', 'electronUserData', 'rollup-stats.json'), JSON.stringify(fileTimesSizes, null, 2));
     }
   };
