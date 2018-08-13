@@ -30,7 +30,7 @@ module.exports = res =>
     ${modules}
     const sizeTimingPlugin = require('${sizeTimingPluginPath}');
 
-    export default {
+    module.exports = {
       input: '${upath.normalize(res.entry)}',
       output: {
         file: './bundle-bee-rollup-dist/bundle.js',
