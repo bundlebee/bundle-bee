@@ -1,6 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
-
+import { connect } from 'react-redux';
 class BarChart extends React.Component {
   constructor(props) {
     super(props);
@@ -31,18 +31,21 @@ class BarChart extends React.Component {
     var yAxisRight = d3.axisRight(y1).tickFormat(function(d) {
       return parseInt(d);
     });
-
     var svg = d3
       .select('.bar-chart')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
+    // var data = {
+    //   Webpack: { times: 1, sizes: 2 },
+    //   Rollup: { times: 3, sizes: 5 },
+    //   Parcel: { times: 2, sizes: 4 },
+    // };
     var data = {
-      Webpack: { times: 22, sizes: 10 },
-      Rollup: { times: 42, sizes: 169.0 },
-      Parcel: { times: 32, sizes: 200.0 },
+      Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
+      Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
+      Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
     };
     var dataset = [];
 
@@ -139,8 +142,7 @@ class BarChart extends React.Component {
       })
       .enter()
       .append('rect')
-      .attr('width', 10)
-      // .attr('width', x1.rangeBand())
+      .attr('width', 10 /* x1.bandwidth() */)
       .attr('x', function(d) {
         return x1(d.name);
       })
@@ -192,4 +194,18 @@ class BarChart extends React.Component {
   }
 }
 
-export default BarChart;
+const mapStateToProps = ({ data }) => ({
+  webpackData: {
+    size: data.webpackStarBurstData.total.totalBundleSize,
+    time: data.webpackStarBurstData.total.totalElapsedTime,
+  },
+  parcelData: {
+    size: data.parcelStarBurstData.total.totalBundleSize,
+    time: data.parcelStarBurstData.total.totalElapsedTime,
+  },
+  rollupData: {
+    size: data.rollupStarBurstData.total.totalBundleSize,
+    time: data.rollupStarBurstData.total.totalElapsedTime,
+  },
+});
+export default connect(mapStateToProps)(BarChart);

@@ -3,7 +3,7 @@ export const parseWebpackOutput = (data, bundleDir) => {
   const total = { size: 0, factory: 0, building: 0 };
   total.totalElapsedTime = data.time;
   total.totalBundleSize = data.assets.reduce((acc, asset) => acc + asset.size, 0);
-  
+
   const rootData = { name: 'rootData', children: [] };
   data.chunks[0].modules.filter(x => !x.identifier.includes(bundleDir)).forEach(element => {
     let directoryAndName = element.name.replace(/\.\//, '');
@@ -107,7 +107,7 @@ export const parseRollupOutput = data => {
   total.totalBundleSize = data.totalBundleSize;
 
   const rootData = { name: 'rootData', children: [] };
-  data.slice().forEach(element => {
+  data.files.slice().forEach(element => {
     let directoryAndName = element.name.replace(/\\/g, '/');
     let parts = directoryAndName.split('/');
 

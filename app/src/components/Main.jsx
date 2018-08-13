@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
+// import BarChart from './data_viz/BarChart.jsx';
 
 import {
   retrieveWebpackStats,
