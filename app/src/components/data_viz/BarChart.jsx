@@ -31,13 +31,17 @@ class BarChart extends React.Component {
     var yAxisRight = d3.axisRight(y1).tickFormat(function(d) {
       return parseInt(d);
     });
-    console.log('inside totals: ', this.props);
     var svg = d3
       .select('.bar-chart')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    // var data = {
+    //   Webpack: { times: 1, sizes: 2 },
+    //   Rollup: { times: 3, sizes: 5 },
+    //   Parcel: { times: 2, sizes: 4 },
+    // };
     var data = {
       Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
       Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
@@ -138,8 +142,7 @@ class BarChart extends React.Component {
       })
       .enter()
       .append('rect')
-      .attr('width', 10)
-      // .attr('width', x1.rangeBand())
+      .attr('width', 10 /* x1.bandwidth() */)
       .attr('x', function(d) {
         return x1(d.name);
       })

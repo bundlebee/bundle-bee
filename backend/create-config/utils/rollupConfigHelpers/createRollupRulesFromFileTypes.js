@@ -10,9 +10,12 @@ const JS_X = {
   plugins: [
     `babel({
       babelrc: false,
-      presets: [['${upath.normalize(require.resolve('babel-preset-es2015-rollup'))}'], ['${upath.normalize(require.resolve(
-      'babel-preset-react'
-    ))}'], ['${upath.normalize(require.resolve('babel-preset-stage-0'))}']],
+      exclude: 'node_modules/**'
+      presets: [['${upath.normalize(
+        require.resolve('babel-preset-es2015-rollup')
+      )}'], ['${upath.normalize(require.resolve('babel-preset-react'))}'], ['${upath.normalize(
+      require.resolve('babel-preset-stage-0')
+    )}']],
     }),`,
   ],
   dependencies: {
