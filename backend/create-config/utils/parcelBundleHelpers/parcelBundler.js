@@ -35,5 +35,5 @@ bundler.on('bundled', mainBundle => {
     asset.relativeName = asset.relativeName;
   });
 
-  fs.writeFileSync(pathToWriteStatsFile, JSON.stringify(output, null, 2));
+  fs.writeFileSync(pathToWriteStatsFile, JSON.stringify({totalBundleSize: mainBundle.totalSize, totalElapsedTime: mainBundle.bundleTime, files: output}, null, 2));
 });

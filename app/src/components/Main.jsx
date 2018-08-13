@@ -24,6 +24,7 @@ export class Main extends Component {
     super(props);
     this.state = {
       mainPageMessage: '',
+      dirname: '',
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -39,20 +40,22 @@ export class Main extends Component {
       }
     });
 
-    ipcRenderer.on('webpack-stats-results-json', event => {
+    ipcRenderer.on('webpack-stats-results-json', (event, res) => {
       ipcRenderer.send('run-parcel');
       console.log('@webpack');
-      this.props.retrieveWebpackStats();
+      this.props.retrieveWebpackStats(res);
     });
 
-    ipcRenderer.on('parcel-stats-results-json', event => {
+    ipcRenderer.on('parcel-stats-results-json', (event, res) => {
       ipcRenderer.send('run-rollup');
       console.log('@parcel');
 
-      this.props.retrieveParcelStats();
+      this.props.retrieveParcelStats(res);
     });
-    ipcRenderer.on('rollup-stats-results-json', () => {
+    ipcRenderer.on('rollup-stats-results-json', (event, res) => {
       console.log('build finished');
+      this.setState({ dirname: res });
+      this.props.retrieveRollupStats();
     });
     ipcRenderer.on('error', () => {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
@@ -86,11 +89,7 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
   renderChart() {
-    return (
-      <div>
-        <Chart />
-      </div>
-    );
+    return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
     ipcRenderer.send('restart');
@@ -132,9 +131,9 @@ export class Main extends Component {
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
-  retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
-  retrieveParcelStats: () => dispatch(retrieveParcelStats()),
-  retrieveRollupStats: () => dispatch(retrieveRollupStats()),
+  retrieveWebpackStats: bundleDir => dispatch(retrieveWebpackStats(bundleDir)),
+  retrieveParcelStats: bundleDir => dispatch(retrieveParcelStats(bundleDir)),
+  retrieveRollupStats: bundleDir => dispatch(retrieveRollupStats(bundleDir)),
 });
 
 const mapStateToProps = state => ({ home: state.home });

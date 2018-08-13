@@ -1,3 +1,5 @@
+const upath = require('upath');
+
 const JS_X = {
   modules: [
     {
@@ -8,9 +10,9 @@ const JS_X = {
   plugins: [
     `babel({
       babelrc: false,
-      presets: [['${require.resolve('babel-preset-es2015-rollup')}'], ['${require.resolve(
+      presets: [['${upath.normalize(require.resolve('babel-preset-es2015-rollup'))}'], ['${upath.normalize(require.resolve(
       'babel-preset-react'
-    )}'], ['${require.resolve('babel-preset-stage-0')}']],
+    ))}'], ['${upath.normalize(require.resolve('babel-preset-stage-0'))}']],
     }),`,
   ],
   dependencies: {
@@ -42,7 +44,7 @@ const HTML = templatePath => ({
   modules: [{ variableName: 'html', packageName: 'rollup-plugin-fill-html' }],
   plugins: [
     `html({
-  template: '${templatePath}',
+  template: '${upath.normalize(templatePath)}',
   filename: 'index.html',
 }),`,
   ],
