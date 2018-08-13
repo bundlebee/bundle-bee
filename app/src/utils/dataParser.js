@@ -103,6 +103,8 @@ export const parseParcelOutput = (data, bundleDir) => {
 export const parseRollupOutput = data => {
   console.log('@ parseRollupOutput');
   const total = { size: 0, building: 0 };
+  total.totalElapsedTime = data.totalElapsedTime;
+  total.totalBundleSize = data.totalBundleSize;
 
   const rootData = { name: 'rootData', children: [] };
   data.slice().forEach(element => {
