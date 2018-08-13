@@ -1,0 +1,25 @@
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.y0.axis path,
+.y0.axis line {
+  stroke: #98abc5;
+}
+
+.y1.axis path,
+.y1.axis line {
+  stroke: #d0743c;
+}
+
+.x.axis path,
+.x.axis line {
+  stroke: orange;
+}
+
+.x.axis text {
+  fill: orange;
+}

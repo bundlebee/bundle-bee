@@ -1,5 +1,4 @@
 // Basic init
-
 const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
 const { fork } = require('child_process');
@@ -15,7 +14,6 @@ let mainWindow;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({ width: 1000, height: 765 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-
   //Adding Menu Bar
   const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
   Menu.setApplicationMenu(menu);
@@ -82,7 +80,7 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
           return event.sender.send('error');
         }
         console.log('webpack successfully run and stats.json successfully written...');
-        event.sender.send('webpack-stats-results-json');
+        event.sender.send('webpack-stats-results-json', __dirname);
       });
     });
   } else {
@@ -98,7 +96,7 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
         return event.sender.send('error');
       }
       console.log('webpack successfully run and stats.json successfully written...');
-      event.sender.send('webpack-stats-results-json');
+      event.sender.send('webpack-stats-results-json', __dirname);
     });
   }
 });
@@ -124,7 +122,7 @@ ipcMain.on('run-parcel', event => {
       return event.sender.send('error');
     }
     console.log('parcel successfully run and stats.json successfully written...');
-    event.sender.send('parcel-stats-results-json');
+    event.sender.send('parcel-stats-results-json', __dirname);
   });
 });
 
@@ -144,6 +142,6 @@ ipcMain.on('run-rollup', event => {
       return event.sender.send('error');
     }
     console.log('rollup successfully run and stats.json successfully written...');
-    event.sender.send('rollup-stats-results-json');
+    event.sender.send('rollup-stats-results-json', __dirname);
   });
 });

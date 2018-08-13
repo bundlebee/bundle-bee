@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
+// import BarChart from './data_viz/BarChart.jsx';
 
 import {
   retrieveWebpackStats,
@@ -24,6 +25,8 @@ export class Main extends Component {
     super(props);
     this.state = {
       mainPageMessage: '',
+      // dirname: '',
+      dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -39,22 +42,21 @@ export class Main extends Component {
       }
     });
 
-    ipcRenderer.on('webpack-stats-results-json', event => {
+    ipcRenderer.on('webpack-stats-results-json', (event, res) => {
       ipcRenderer.send('run-parcel');
       console.log('@webpack');
-      this.props.retrieveWebpackStats();
+      this.props.retrieveWebpackStats(res);
     });
 
-    ipcRenderer.on('parcel-stats-results-json', event => {
+    ipcRenderer.on('parcel-stats-results-json', (event, res) => {
       ipcRenderer.send('run-rollup');
       console.log('@parcel');
 
-      this.props.retrieveParcelStats();
+      this.props.retrieveParcelStats(res);
     });
-    ipcRenderer.on('rollup-stats-results-json', () => {
-      console.log('@rollup');
+    ipcRenderer.on('rollup-stats-results-json', (event, res) => {
       console.log('build finished');
-      
+      this.setState({ dirname: res });
       this.props.retrieveRollupStats();
     });
     ipcRenderer.on('error', () => {
@@ -98,12 +100,8 @@ export class Main extends Component {
     document.getElementById('bee_wrapper').style.top = "5px";
     document.getElementById('bee_wrapper').style.right = "150px";
     document.getElementById('bee_wrapper').style.position = "absolute";
-
-    return (
-      <div>
-        <Chart />
-      </div>
-    );
+console.log(this.state.dirname, "MAIN JSX RENDER CHART")
+    return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
     ipcRenderer.send('restart');
@@ -147,9 +145,9 @@ export class Main extends Component {
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
-  retrieveWebpackStats: () => dispatch(retrieveWebpackStats()),
-  retrieveParcelStats: () => dispatch(retrieveParcelStats()),
-  retrieveRollupStats: () => dispatch(retrieveRollupStats()),
+  retrieveWebpackStats: bundleDir => dispatch(retrieveWebpackStats(bundleDir)),
+  retrieveParcelStats: bundleDir => dispatch(retrieveParcelStats(bundleDir)),
+  retrieveRollupStats: bundleDir => dispatch(retrieveRollupStats(bundleDir)),
 });
 
 const mapStateToProps = state => ({ home: state.home });
