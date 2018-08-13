@@ -89,6 +89,16 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
   renderChart() {
+    // change the width and height of the awesome bee to make more room for the d3 chart
+    //svg 
+    document.getElementById('bee-happy').setAttribute("height", "80px");
+    document.getElementById('bee-happy').setAttribute("width", "80px");
+
+    // div container of the svg
+    document.getElementById('bee_wrapper').style.top = "5px";
+    document.getElementById('bee_wrapper').style.right = "150px";
+    document.getElementById('bee_wrapper').style.position = "absolute";
+
     return (
       <div>
         <Chart />
@@ -99,15 +109,15 @@ export class Main extends Component {
     ipcRenderer.send('restart');
   }
   render() {
-    // // THIS IS FOR DEBUGGING PURPOSES
+    // THIS IS FOR DEBUGGING PURPOSES
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
-    // if ( this.props.home.screen !== home.SHOW_STARBURST) {
-    //   console.log("at if statement")
-    //   this.props.retrieveWebpackStats();
-    //   // this.props.retrieveParcelStats();
-    // //   // this.props.retrieveRollupStats();
+    if ( this.props.home.screen !== home.SHOW_STARBURST) {
+      console.log("at if statement")
+      this.props.retrieveWebpackStats();
+      this.props.retrieveParcelStats();
+      this.props.retrieveRollupStats();
 
-    // }
+    }
 
     let mainPage = null;
     if (this.props.home.screen === home.DIRECTORY_PENDING) mainPage = this.dropZoneActive();
@@ -118,13 +128,15 @@ export class Main extends Component {
 
     return (
       <div className="main">
-        <div className="header">
+      
           <Bee />
-        </div>
+        {/* <div className="header">
+        </div> */}
         {this.state.mainPageMessage && (
-          <div>
+          <div className="main">
             <h1>{this.state.mainPageMessage}</h1>
-            <button onClick={() => this.handleRestart()}>Restart</button>
+            <h3>Check out the <a classname="click_me"  target="_blank"href="https://github.com/bundlebee/bundle-bee/blob/master/README.md#bundle-bee">documentation</a> for help.</h3>
+            <button className="button_default" onClick={() => this.handleRestart()}>Restart</button>
           </div>
         )}
         <div>{mainPage}</div>

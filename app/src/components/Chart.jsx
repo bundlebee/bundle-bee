@@ -17,45 +17,39 @@ class Chart extends Component {
   }
 
   render() {
- 
-
     return (
+      <div className="">
+        <nav className="tabs1" id="d3_bundle_type">
+          <DisplayButton
+            handleClick={this.props.displayWebpack}
+            isHighligthed={this.props.chart.bundleType === chart.WEBPACK}
+            isActive={this.props.data.webpackStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/webpack_icon.png" />
+            {"Webpack"}
+          </DisplayButton>
 
-      <div className="chart">
-       {/* <div className="chart">
-   
-  <nav className="tabs">
-    <div className="selector"></div>
-    <a href="#" className="active"><i className="fas fa-burn"></i>Avengers</a>
-    <a href="#"><i className="fas fa-bomb"></i>Guardians of The Galaxy</a>
-    <a href="#"><i className="fas fa-bolt"></i>Thor</a>
-    <a href="#"><i className="fab fa-superpowers"></i>Black Panther</a>
-  </nav>
+          <DisplayButton
+            handleClick={this.props.displayParcel}
+            isHighligthed={this.props.chart.bundleType === chart.PARCEL}
+            isActive={this.props.data.parcelStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/parcel_icon.png" />
+            {"Parcel"}
+          </DisplayButton>
 
-       </div> */}
-        <DisplayButton
-          handleClick={this.props.displayWebpack}
-          isHighligthed={this.props.chart.bundleType === chart.WEBPACK}
-          isActive={this.props.data.webpackStarBurstData}
-        >
-          {"Webpack"}
-        </DisplayButton>
-        <DisplayButton
-          handleClick={this.props.displayParcel}
-          isHighligthed={this.props.chart.bundleType === chart.PARCEL}
-          isActive={this.props.data.parcelStarBurstData}
-        >
-          {"Parcel"}
-        </DisplayButton>
-        <DisplayButton
-          handleClick={this.props.displayRollup}
-          isHighligthed={this.props.chart.bundleType === chart.ROLLUP}
-          isActive={this.props.data.rollupStarBurstData}
-        >
-          {"Rollup"}
-        </DisplayButton>
-
-        <D3StarBurstChart />
+          <DisplayButton
+            handleClick={this.props.displayRollup}
+            isHighligthed={this.props.chart.bundleType === chart.ROLLUP}
+            isActive={this.props.data.rollupStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/rollup_icon.png" />
+            {"Rollup"}
+          </DisplayButton>
+        </nav>
+        <div className="chart">
+          <D3StarBurstChart />
+        </div>
       </div>
     );
   }
@@ -67,7 +61,7 @@ const mapDispatchToProps = dispatch => ({
   displayRollup: () => dispatch(displayRollup())
 });
 
-const mapStateToProps = state => ({ chart: state.chart, data: state.data});
+const mapStateToProps = state => ({ chart: state.chart, data: state.data });
 
 export default connect(
   mapStateToProps,

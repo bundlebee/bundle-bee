@@ -3,6 +3,8 @@
 
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+
   }
   @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
@@ -57,8 +59,8 @@
     box-sizing: border-box;
   }
 
-  h1 .dropzone {
-    font-size: $l-size;
+.dropzone {
+    font-size: 55px;
     color: white;
   }
   h2 {
@@ -66,10 +68,9 @@
     color: gray;
   }
   a {
-    color: white;
+    color: teal;
     outline: none;
     text-decoration: none;
-
     &:hover { text-decoration: underline; }
   }
 
@@ -255,6 +256,7 @@ div.header {
 
 #bee_wrapper {
   display: inline-block;
+  z-index: 100;
 }
 
 .drop_div {
@@ -300,6 +302,7 @@ div.header {
 
 .dropzone_div{
   margin-top: 40px;
+
 }
 .drag_div{
   min-width: 800px;

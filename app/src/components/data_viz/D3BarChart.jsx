@@ -1,4 +1,4 @@
-
+\=]
 // const barData = require('../../../build/data_source/d3_bar_graph.csv');
 import React, { Component } from 'react';
 import * as d3 from 'd3';
@@ -23,7 +23,7 @@ class D3BarChart extends Component {
       D3 code
     */
     var svg = d3.select("#svgBarGraph"),
-      margin = { top: 20, right: 20, bottom: 30, left: 40 },
+      margin = { top: 10, right: 10, bottom: 10, left: 10 },
       width = +svg.attr("width") - margin.left - margin.right,
       height = +svg.attr("height") - margin.top - margin.bottom,
       g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");

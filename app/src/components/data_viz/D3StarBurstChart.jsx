@@ -29,6 +29,21 @@ class D3StarBurstChart extends Component {
     d3.select(".d3_tooltip").style("visibility", "hidden");
     d3.select("#sb_d3_explanation").style("visibility", "hidden");
 
+    // show total size and speed
+    var totals_display = d3
+      .select(".sb_d3_box")
+      .append("div")
+      .attr("class", "totals_display");
+    totals_display.append("span");
+
+    totals_display.append("span").attr("id", "totals_display");
+
+    totals_display.select("#totals_display").html(
+      `
+    <strong>Filename: </strong> <br />
+    `
+    );
+
     // MOUSEOVER EVENTS
     const mouseover = d => {
       var percentage = (
@@ -50,7 +65,7 @@ class D3StarBurstChart extends Component {
 
       tooltip
         .style("top", d3.event.layerY + "px")
-        .style("left", d3.event.layerX + "px");
+        .style("left", d3.event.layerX + 30+ "px");
 
       tooltip.select("#sb_d3_details").html(
         `
@@ -133,7 +148,7 @@ class D3StarBurstChart extends Component {
       var trail = d3
         .select("#sequence")
         .append("svg:svg")
-        .attr("width", width)
+        .attr("width", width + 500)
         .attr("height", 50)
         .attr("id", "trail");
     }
@@ -233,15 +248,15 @@ class D3StarBurstChart extends Component {
 
     // Dimensions of sunburst
     // TODO: should be dynamic
-    var width = 900;
-    var height = 900;
+    var width = 700;
+    var height = 700;
     var _self = this;
     // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
     var b = {
       w: 75,
       h: 30,
       s: 3,
-      t: 30
+      t: 15
     };
     var vis = d3
       .select(this.svg)
@@ -326,11 +341,14 @@ class D3StarBurstChart extends Component {
       <div>
         {/* <h1 className="d3_title">{this.props.chart.bundleType.toUpperCase()}</h1> */}
         <div className="sb_d3_button_container">
+          <nav className="tabs1" id="d3_data_type">            
+
+
           <DisplayButton
             handleClick={this.props.displaySizes}
             isHighligthed={this.props.chart.screen === chart.SIZE}
             isActive={this.props.activeData.total.hasOwnProperty("size")}
-          >
+            >
             {"Sizes"}
           </DisplayButton>
 
@@ -338,7 +356,7 @@ class D3StarBurstChart extends Component {
             handleClick={this.props.displayBuildingTimes}
             isHighligthed={this.props.chart.screen === chart.BUILDING_TIME}
             isActive={this.props.activeData.total.hasOwnProperty("building")}
-          >
+            >
             {"Building Times"}
           </DisplayButton>
 
@@ -346,9 +364,17 @@ class D3StarBurstChart extends Component {
             handleClick={this.props.displayFactoryTimes}
             isHighligthed={this.props.chart.screen === chart.FACTORY_TIME}
             isActive={this.props.activeData.total.hasOwnProperty("factory")}
-          >
+            >
             {"Factory Times"}
           </DisplayButton>
+            </nav>
+            <nav className="tabs1" id="d3_data_type">  
+            <DisplayButton
+            isActive={true}
+            >
+            View Configuration
+          </DisplayButton>
+            </nav>
         </div>
         {/* Breadcrumbz */}
         <div id="sequence" />
