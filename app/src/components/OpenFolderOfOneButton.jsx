@@ -41,7 +41,7 @@ export default ({ dirname, bundleType }) => {
       <button
         className="barchart_btn"
         onClick={() => {
-          shell.showItemInFolder(rollupDist);
+          shell.showItemInFolder(dist_folder);
         }}
       >
         <img className="btn_icon" src={img} />
