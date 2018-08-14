@@ -40,15 +40,23 @@ export const retrieveParcelStats = bundleDir => {
 
 export const retrieveRollupStats = bundleDir => {
   return function(dispatch) {
-    Promise.all(['../electronUserData/rollup-stats.json', '../electronUserData/rollup-totals-stats.json'].map(d3.json))
+    Promise.all(
+      ['../electronUserData/rollup-stats.json', '../electronUserData/rollup-totals-stats.json'].map(
+        x => d3.json(x)
+      )
+    )
       .then(function(dataArray) {
-        const data = {files: dataArray[0], totalElapsedTime: dataArray[1].totalElapsedTime, totalBundleSize: dataArray[1].totalBundleSize};
-        
-        console.log(data);
-        
+        const data = {
+          files: dataArray[0],
+          totalElapsedTime: dataArray[1].totalElapsedTime,
+          totalBundleSize: dataArray[1].totalBundleSize,
+        };
+
+        console.log('retrieverollupstats data: ', data);
+
         const parsedData = parseRollupOutput(data);
-        console.log(parsedData, "ROLLUP PARSED");
-        
+        console.log(parsedData, 'ROLLUP PARSED');
+
         dispatch({ type: types.BUNDLE_ROLLUP_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {

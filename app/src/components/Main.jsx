@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
+// import BarChart from './data_viz/BarChart.jsx';
 
 import {
   retrieveWebpackStats,
@@ -25,6 +26,7 @@ export class Main extends Component {
     this.state = {
       mainPageMessage: '',
       dirname: '',
+      // dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -89,19 +91,29 @@ export class Main extends Component {
     return <ModalPrompt />;
   }
   renderChart() {
+    // change the width and height of the awesome bee to make more room for the d3 chart
+    //svg 
+    document.getElementById('bee-happy').setAttribute("height", "50px");
+    document.getElementById('bee-happy').setAttribute("width", "50px");
+
+    // div container of the svg
+    document.getElementById('bee_wrapper').style.top = "0px";
+    document.getElementById('bee_wrapper').style.right = "150px";
+    document.getElementById('bee_wrapper').style.position = "absolute";
+console.log(this.state.dirname, "MAIN JSX RENDER CHART")
     return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
     ipcRenderer.send('restart');
   }
   render() {
-    // // THIS IS FOR DEBUGGING PURPOSES
+    // THIS IS FOR DEBUGGING PURPOSES
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   console.log("at if statement")
     //   this.props.retrieveWebpackStats();
-    //   // this.props.retrieveParcelStats();
-    // //   // this.props.retrieveRollupStats();
+    //   this.props.retrieveParcelStats();
+    //   this.props.retrieveRollupStats();
 
     // }
 
@@ -114,13 +126,15 @@ export class Main extends Component {
 
     return (
       <div className="main">
-        <div className="header">
+      
           <Bee />
-        </div>
+        {/* <div className="header">
+        </div> */}
         {this.state.mainPageMessage && (
-          <div>
+          <div className="main">
             <h1>{this.state.mainPageMessage}</h1>
-            <button onClick={() => this.handleRestart()}>Restart</button>
+            <h3>Check out the <a classname="click_me"  target="_blank"href="https://github.com/bundlebee/bundle-bee/blob/master/README.md#bundle-bee">documentation</a> for help.</h3>
+            <button className="button_default" onClick={() => this.handleRestart()}>Restart</button>
           </div>
         )}
         <div>{mainPage}</div>

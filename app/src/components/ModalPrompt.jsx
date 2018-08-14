@@ -68,8 +68,8 @@ class ModalPrompt extends Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Choose an option to continue:</h2>
-          <button
+          <h2 ref={subtitle => (this.subtitle = subtitle)}  className="modal_text">Choose an option to continue:</h2>
+          <button className="button_default"
             onClick={e => {
               e.preventDefault();
               console.log('testing');
@@ -79,7 +79,7 @@ class ModalPrompt extends Component {
           >Use Existing Webpack <a className="tooltip_box" data-tip="Bundle Bee will use your project's existing webpack.config.js file.">🐝</a>
           </button>
           <br />
-          <button
+          <button className="button_default"
             onClick={(e) => {
               e.preventDefault();
               ipcRenderer.send('run-webpack', { createNewConfig: true });

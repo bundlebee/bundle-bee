@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import D3StarBurstChart from './data_viz/D3StarBurstChart.jsx';
 import BarChart from './data_viz/BarChart.jsx';
 import { connect } from 'react-redux';
-import OpenFolderButtons from './OpenFolderButtons.jsx';
 
 import {
   displayWebpack,
@@ -22,44 +21,55 @@ class Chart extends Component {
   render() {
     console.log('props: ', this.props);
     return (
-      <div className="chart">
-        <DisplayButton
-          handleClick={this.props.displayWebpack}
-          isHighligthed={this.props.chart.bundleType === chart.WEBPACK}
-          isActive={this.props.data.webpackStarBurstData}
-        >
-          {'Webpack'}
-        </DisplayButton>
-        <DisplayButton
-          handleClick={this.props.displayParcel}
-          isHighligthed={this.props.chart.bundleType === chart.PARCEL}
-          isActive={this.props.data.parcelStarBurstData}
-        >
-          {'Parcel'}
-        </DisplayButton>
-        <DisplayButton
-          handleClick={this.props.displayRollup}
-          isHighligthed={this.props.chart.bundleType === chart.ROLLUP}
-          isActive={this.props.data.rollupStarBurstData}
-        >
-          {'Rollup'}
-        </DisplayButton>
-        <DisplayButton
+      <div className="">
+        <nav className="tabs1" id="d3_bundle_type">
+          <DisplayButton
+            handleClick={this.props.displayWebpack}
+            isHighligthed={this.props.chart.bundleType === chart.WEBPACK}
+            isActive={this.props.data.webpackStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/webpack_icon.png" />
+            {"Webpack"}
+          </DisplayButton>
+
+          <DisplayButton
+            handleClick={this.props.displayParcel}
+            isHighligthed={this.props.chart.bundleType === chart.PARCEL}
+            isActive={this.props.data.parcelStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/parcel_icon.png" />
+            {"Parcel"}
+          </DisplayButton>
+
+          <DisplayButton
+            handleClick={this.props.displayRollup}
+            isHighligthed={this.props.chart.bundleType === chart.ROLLUP}
+            isActive={this.props.data.rollupStarBurstData}
+          >
+            <img className="btn_icon" src="./assets/rollup_icon.png" />
+            {"Rollup"}
+          </DisplayButton>
+          <DisplayButton
           handleClick={this.props.displayTotals}
           isHighligthed={this.props.chart.bundleType === chart.TOTALS}
           isActive={this.props.dirname}
         >
+           <img className="btn_icon" src="./assets/compare_all.png" />
+
           {'Totals'}
         </DisplayButton>
-        {this.props.chart.bundleType === chart.TOTALS ? (
+        </nav>
+
+     {this.props.chart.bundleType === chart.TOTALS ? (
           <div>
-            <BarChart />
-            <OpenFolderButtons dirname={this.props.dirname} />
+            <BarChart dirname={this.props.dirname}
+            bundleType={this.props.chart.bundleType} />
           </div>
         ) : (
           <div>
-            <D3StarBurstChart />
-            {this.props.dirname && <OpenFolderButtons dirname={this.props.dirname} />}
+            <D3StarBurstChart dirname={this.props.dirname} />
+            
+            {/* && <OpenFolderButtons dirname={this.props.dirname} /> */}
           </div>
         )}
       </div>

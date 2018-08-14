@@ -11,13 +11,18 @@ export default ({ dirname }) => {
       upath.normalize(path.join(dirname, 'electronUserData', dist, 'package.json'))
     );
   }
+  console.log(webpackDist)
+  console.log(parcelDist)
+  console.log(rollupDist)
   return (
-    <div>
+    <div className="rounded_div">
+    <h3>Download Files</h3>
       <button
         onClick={() => {
           shell.showItemInFolder(webpackDist);
         }}
       >
+                  <img className="btn_icon" src="./assets/webpack_icon.png" />
         Webpack Files
       </button>
       <button
@@ -25,6 +30,8 @@ export default ({ dirname }) => {
           shell.showItemInFolder(parcelDist);
         }}
       >
+                  <img className="btn_icon" src="./assets/parcel_icon.png" />
+
         Parcel Files
       </button>
       <button
@@ -32,8 +39,11 @@ export default ({ dirname }) => {
           shell.showItemInFolder(rollupDist);
         }}
       >
+                 <img className="btn_icon" src="./assets/compare_all.png" />
+
         Rollup Files
       </button>
     </div>
   );
 };
+

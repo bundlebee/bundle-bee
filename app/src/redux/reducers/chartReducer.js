@@ -3,7 +3,7 @@ import * as chart from '../constants/chartProperties.js';
 
 const initialState = {
   screen: chart.SIZE,
-  bundleType: chart.WEBPACK, // CHANGE FOR DEBUGGING ONLY!
+  bundleType: chart.WEBPACK
 };
 
 const chartReducer = (state = initialState, action) => {
@@ -33,11 +33,13 @@ const chartReducer = (state = initialState, action) => {
     case types.DISPLAY_PARCEL:
       return {
         ...state,
-        bundleType: chart.PARCEL};
+        bundleType: chart.PARCEL,
+        screen: chart.BUILDING_TIME};
     case types.DISPLAY_ROLLUP:
       return {
         ...state,
-        bundleType: chart.ROLLUP};
+        bundleType: chart.ROLLUP,
+        screen: chart.BUILDING_TIME};
     case types.DISPLAY_TOTALS:
       return {
         ...state,

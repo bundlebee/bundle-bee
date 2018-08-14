@@ -1,5 +1,8 @@
 import React from 'react';
 import * as d3 from 'd3';
+import { connect } from 'react-redux';
+import OpenFolderButtons from '../OpenFolderButtons.jsx';
+
 
 class BarChart extends React.Component {
   constructor(props) {
@@ -31,18 +34,21 @@ class BarChart extends React.Component {
     var yAxisRight = d3.axisRight(y1).tickFormat(function(d) {
       return parseInt(d);
     });
-
     var svg = d3
       .select('.bar-chart')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
+    // var data = {
+    //   Webpack: { times: 1, sizes: 2 },
+    //   Rollup: { times: 3, sizes: 5 },
+    //   Parcel: { times: 2, sizes: 4 },
+    // };
     var data = {
-      Webpack: { times: 22, sizes: 10 },
-      Rollup: { times: 42, sizes: 169.0 },
-      Parcel: { times: 32, sizes: 200.0 },
+      Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
+      Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
+      Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
     };
     var dataset = [];
 
@@ -64,7 +70,7 @@ class BarChart extends React.Component {
         return d.bundler;
       })
     );
-    x1.domain(['Time', 'Size']).range([0, 100]);
+    x1.domain(['Time', 'Size']).range([0, 20]);
 
     y0.domain([
       0,
@@ -96,7 +102,7 @@ class BarChart extends React.Component {
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
       .style('fill', '#98abc5')
-      .text('Size');
+      .text('Time');
 
     svg
       .select('.y0.axis')
@@ -114,7 +120,7 @@ class BarChart extends React.Component {
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
       .style('fill', '#d0743c')
-      .text('Time');
+      .text('Size');
 
     svg
       .select('.y1.axis')
@@ -129,7 +135,8 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'g')
       .attr('transform', function(d) {
-        return 'translate(' + x0(d.bundler) + ',0)';
+        console.log( x0(d.bundler) + 50, "x00000000000000000000")
+        return 'translate(' + (x0(d.bundler) + 78) + ',0)';
       });
 
     graph
@@ -139,10 +146,9 @@ class BarChart extends React.Component {
       })
       .enter()
       .append('rect')
-      .attr('width', 10)
-      // .attr('width', x1.rangeBand())
+      .attr('width', 22 /* x1.bandwidth() */)
       .attr('x', function(d) {
-        return x1(d.name);
+        return x1(d.name)-20;
       })
       .attr('y', function(d) {
         return y0(d.value);
@@ -162,7 +168,7 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'legend')
       .attr('transform', function(d, i) {
-        return 'translate(0,' + i * 20 + ')';
+        return 'translate(-420,' + -(i * 20) + ')';
       });
 
     legend
@@ -185,11 +191,30 @@ class BarChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="barchart ">
+      <h2>Build Comparison</h2><br/> 
+      <div className="barchart_inner ">
         <svg className="bar-chart" />
+        <OpenFolderButtons dirname={this.props.dirname} />
+      </div>
+
       </div>
     );
   }
 }
 
-export default BarChart;
+const mapStateToProps = ({ data }) => ({
+  webpackData: {
+    size: data.webpackStarBurstData.total.totalBundleSize,
+    time: data.webpackStarBurstData.total.totalElapsedTime,
+  },
+  parcelData: {
+    size: data.parcelStarBurstData.total.totalBundleSize,
+    time: data.parcelStarBurstData.total.totalElapsedTime,
+  },
+  rollupData: {
+    size: data.rollupStarBurstData.total.totalBundleSize,
+    time: data.rollupStarBurstData.total.totalElapsedTime,
+  },
+});
+export default connect(mapStateToProps)(BarChart);
