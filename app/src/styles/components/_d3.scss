@@ -110,6 +110,23 @@ h1 .d3_title {
   // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.055);
 	// opacity: 0;
 }
+
+
+.d3_tooltip_bar_chart {
+  background: rgba(255, 255, 255, 0.8);
+	color: #333;
+	font-size: 12px;
+	left: 130px;
+	padding: 18px;
+	position: absolute;
+	text-align: left;
+	top: 95px;
+	width: 150px;
+	z-index: 10;
+  border-radius: 10px;
+  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.055);
+	// opacity: 0;
+}
 .legend {
 	font-size: 12px;
 }

@@ -3,7 +3,7 @@ import * as chart from '../constants/chartProperties.js';
 
 const initialState = {
   screen: chart.SIZE,
-  bundleType: chart.WEBPACK
+  bundleType: chart.PARCEL
 };
 
 const chartReducer = (state = initialState, action) => {
