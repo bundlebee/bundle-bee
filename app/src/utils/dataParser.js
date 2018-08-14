@@ -6,7 +6,7 @@ export const parseWebpackOutput = (data, bundleDir) => {
   console.log('@ webpack size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
-  data.chunks[0].modules.filter(x => !x.identifier.includes(bundleDir)).forEach(element => {
+  data.chunks[0].modules.filter(x => !x.identifier.includes(bundleDir) && !x.name.includes('C:/')).forEach(element => {
     let directoryAndName = element.name.replace(/\.\//, '');
     let parts = directoryAndName.split('/');
 
@@ -60,7 +60,7 @@ export const parseParcelOutput = (data, bundleDir) => {
   const rootData = { name: 'rootData', children: [] };
   data.files
     .slice()
-    .filter(x => !x.name.includes(bundleDir))
+    .filter(x => !x.name.includes('..')) // revised filter for not including the entirety of bundle bee
     .forEach(element => {
       let directoryAndName = element.name.replace(/\\/g, '/');
       let parts = directoryAndName.split('/');
