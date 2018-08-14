@@ -68,7 +68,7 @@ class DropZone extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="dropzone_div">
         {this.props.children}
         <div id="dragbox" className={this.state.className}>
           <h1 className="dropzone">Drop Here to Upload</h1>
