@@ -10,6 +10,12 @@ class BarChart extends React.Component {
     this.state = {};
   }
   componentDidMount() {
+    this.instantiateBarGraph();
+  }
+  instantiateBarGraph() {
+
+// console.log(mouseleave, mouseover)
+    
     var margin = { top: 20, right: 40, bottom: 30, left: 40 },
       width = 600 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
@@ -50,6 +56,36 @@ class BarChart extends React.Component {
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
       Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
     };
+
+    const  mouseleave = d => {
+      d3.selectAll(".d3_tooltip_bar_chart").remove();
+
+    }
+    var x =0;
+    const  mouseover = d => {
+      d3.selectAll(".d3_tooltip_bar_chart").remove();
+
+      console.log(x)
+      var tooltip = d3
+        .select(".barchart_inner")
+        .append("div")
+        .attr("class", "d3_tooltip_bar_chart");
+      tooltip.append("span");
+      tooltip.append("span").attr("id", "sb_d3_details");
+
+      tooltip
+        .style("top", d3.event.layerY + "px")
+        .style("left", d3.event.layerX + "px");
+
+      console.log(d3.event.layerY ,  d3.event.layerX )
+      console.log(d, "I want the this variable")
+      tooltip.select("#sb_d3_details").html(
+        `
+        <strong>${d.name}:</strong> ${d.value} 
+        ${d.name === 'Size' ? 'kb' : 'ms'}<br />
+        `
+      );
+    }
     console.log('TOTALS',data);
     var dataset = [];
 
@@ -162,8 +198,16 @@ class BarChart extends React.Component {
       })
       .style('fill', function(d) {
         return color(d.name);
-      });
+      })
+      // .on('mouseover', mouseover)
+      // 
 
+      graph.selectAll('rect').on('mouseover', mouseover)
+      .on('mouseover', mouseover)
+      .on('mouseleave', mouseleave)
+console.log(graph, "graph")
+
+// console.log(d.name, d.values)
     // Legend
     var legend = svg
       .selectAll('.legend')
@@ -191,6 +235,8 @@ class BarChart extends React.Component {
       .text(function(d) {
         return d;
       });
+
+ 
   }
 
   render() {
