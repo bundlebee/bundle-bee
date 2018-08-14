@@ -1,5 +1,6 @@
+// @ts-nocheck
 // Basic init
-const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Dialog, shell } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
 const { fork, exec } = require('child_process');
 const path = require('path');
@@ -9,10 +10,10 @@ const fs = require('fs');
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ width: 1300, height: 765 });
+  mainWindow = new BrowserWindow({ width: 1300, height: 900 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   //Adding Menu Bar
-  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir));
+  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfig));
   Menu.setApplicationMenu(menu);
   // const initialStartFlagFilePath = path.join(__dirname, 'electronUserData', 'initialStartup.txt');
   // if (!fs.existsSync(initialStartFlagFilePath)) {
@@ -173,6 +174,17 @@ ipcMain.on('run-rollup', event => {
 
 function ResetDir() {
   app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
-  console.log('running reset dir2')
+  console.log('running reset dir2');
   app.exit(0);
 };
+
+function OpenConfig(build) {
+  if (build === 'webpack') {
+
+  }
+
+}
+
+function OpenDir(build) {
+
+}

@@ -1,8 +1,4 @@
-module.exports = function createMenuBar(mainWindow, ResetDir) {
-
-  // Need to import OpenDir, ResetDir, OpenWebpackConfig, OpenParcelConfig, OpenRollupConfig functions from main_process.js
-
-
+module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfig) {
 
   const menuBar = [
     {
@@ -42,17 +38,17 @@ module.exports = function createMenuBar(mainWindow, ResetDir) {
           }
         },
         {
-          label: 'Parcel',
+          label: 'Show Parcel Config',
           accelerator: 'CmdOrCtrl+P',
           click() {
             OpenConfig('parcel');
           }
         },
         {
-          label: 'Rollup',
+          label: 'Show Rollup Config',
           accelerator: 'CmdOrCtrl+R',
           click() {
-            OpenRollupConfig();
+            OpenConfig('rollup');
           }
         }
       ]
