@@ -1,6 +1,6 @@
 // @ts-nocheck
 // Basic init
-const { app, BrowserWindow, ipcMain, Menu, Dialog, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
 const { fork, exec } = require('child_process');
 const path = require('path');
