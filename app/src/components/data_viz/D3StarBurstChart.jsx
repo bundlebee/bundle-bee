@@ -76,9 +76,10 @@ class D3StarBurstChart extends Component {
       tooltip.append("span").attr("id", "sb_d3_details");
 
       tooltip
-        .style("top", d3.event.layerY + "px")
-        .style("left", d3.event.layerX + 30+ "px");
+        .style("top", d3.event.layerY +280+ "px")
+        .style("left", d3.event.layerX + 150 + "px");
 
+      console.log(d3.event.layerY ,  d3.event.layerX )
       tooltip.select("#sb_d3_details").html(
         `
         <strong>Filename: </strong>${d.data.name}<br />
@@ -297,7 +298,7 @@ class D3StarBurstChart extends Component {
       .attr("width", width)
       .attr("height", height)
       .append("g")
-      .attr("class", "starburstgroup")
+      .attr("class", "starburstgroup fade-in")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Create our sunburst data structure and size it.
@@ -395,7 +396,7 @@ class D3StarBurstChart extends Component {
         </div>
         {/* Breadcrumbz */}
         <div id="sequence" />
-        <div className="sb_d3_box">
+        <div className="sb_d3_box fade-in ">
           <svg
             id="svgStarBurst"
             className="d3_starburst"

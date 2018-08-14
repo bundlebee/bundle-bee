@@ -25,12 +25,16 @@
 
 .sb_d3_box {
   margin-top: 58px;
-  
+
 }
 
 #svgStarBurst {
   margin: auto;
   display: block;
+  animation: fadein 2s;
+  -moz-animation: fadein .8s; /* Firefox */
+  -webkit-animation: fadein .8s; /* Safari and Chrome */
+  -o-animation: fadein .8s; /* Opera */
 }
 
 .ar-chart {
@@ -130,6 +134,11 @@ rect.disabled {                                                 /* NEW */
 	// z-index: 10;
   border-radius: 10px;
   // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.025);
+  text-align: center;
+  animation: fadein .8s;
+  -moz-animation: fadein .8s; /* Firefox */
+  -webkit-animation: fadein .8s; /* Safari and Chrome */
+  -o-animation: fadein .8s; /* Opera */
 }
 
 #d3_data_type {

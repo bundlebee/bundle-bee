@@ -39,7 +39,7 @@ export default ({ dirname }) => {
           shell.showItemInFolder(rollupDist);
         }}
       >
-                 <img className="btn_icon" src="./assets/compare_all.png" />
+                 <img className="btn_icon" src="./assets/rollup_icon.png" />
 
         Rollup Files
       </button>

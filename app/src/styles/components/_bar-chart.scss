@@ -25,13 +25,18 @@
 }
 
 .barchart{
-      min-width: 1200px;
-    margin: auto;
+  min-width: 1200px;
+  min-height: 900px;
+  margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-top: 88px;
+    animation: fadein .8s;
+    -moz-animation: fadein .8s; /* Firefox */
+    -webkit-animation: fadein .8s; /* Safari and Chrome */
+    -o-animation: fadein .8s; /* Opera */
 }
 
 .barchart_inner{
