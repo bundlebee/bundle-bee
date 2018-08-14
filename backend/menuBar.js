@@ -1,4 +1,14 @@
-module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfig) {
+const shell = require('electron').shell;
+const path = require('path');
+const upath = require('path');
+
+const dists = ['webpack-dist', 'parcel-dist', 'rollup-dist'];
+let webpackDist, parcelDist, rollupDist;
+[webpackDist, parcelDist, rollupDist] = dists.map(dist =>
+  upath.normalize(path.join(__dirname, '..', 'electronUserData', dist, 'package.json'))
+);
+
+module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
 
   const menuBar = [
     {
@@ -16,45 +26,46 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
           accelerator: 'CmdOrCtrl+D',
           click() {
             ResetDir();
-          }
+          },
         },
         {
           label: 'Save File',
           accelerator: 'CmdOrCtrl+S',
           click() {
             mainWindow.webContents.send('save-file');
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
-      label: 'Build',
+      label: 'View Config',
       submenu: [
         {
           enabled: false,
           label: 'Show Webpack Config',
           accelerator: 'CmdOrCtrl+W',
           click() {
-            OpenConfig('webpack');
-          }
+            console.log('clicked: webpack');
+            shell.showItemInFolder(webpackDist);
+          },
         },
         {
           enabled: false,
           label: 'Show Parcel Config',
           accelerator: 'CmdOrCtrl+P',
           click() {
-            OpenConfig('parcel');
-          }
+            shell.showItemInFolder(parcelDist);
+          },
         },
         {
           enabled: false,
           label: 'Show Rollup Config',
           accelerator: 'CmdOrCtrl+R',
           click() {
-            OpenConfig('rollup');
-          }
-        }
-      ]
+            shell.showItemInFolder(rollupDist);
+          },
+        },
+      ],
     },
     {
       label: 'Edit',
@@ -67,25 +78,24 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
         { role: 'paste' },
         { role: 'pasteandmatchstyle' },
         { role: 'delete' },
-        { role: 'selectall' }
-      ]
+        { role: 'selectall' },
+      ],
     },
     {
       role: 'window',
-      submenu: [{ role: 'minimize' }, { role: 'close' }]
+      submenu: [{ role: 'minimize' }, { role: 'close' }],
     },
     {
       label: 'Developer',
       submenu: [
         {
           label: 'Toggle Developer Tools',
-          accelerator:
-            process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+          accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
           click() {
             mainWindow.webContents.toggleDevTools();
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
       role: 'help',
@@ -94,10 +104,10 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
           label: 'Learn More',
           click() {
             require('electron').shell.openExternal('https://github.com/bundlebee/bundle-bee');
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
 
   // If macOS
@@ -113,8 +123,8 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
         { role: 'hideothers' },
         { role: 'unhide' },
         { type: 'separator' },
-        { role: 'quit' }
-      ]
+        { role: 'quit' },
+      ],
     });
     // Window menu
     menuBar[4].submenu = [
@@ -122,8 +132,8 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
       { role: 'minimize' },
       { role: 'zoom' },
       { type: 'separator' },
-      { role: 'front' }
+      { role: 'front' },
     ];
   }
   return menuBar;
-}
+};
