@@ -27,7 +27,7 @@ const GIF_PNG_SVG_JPG_JPEG = {
   use: [
     require.resolve('file-loader'),
     {
-      loader: 'image-webpack-loader',
+      loader: require.resolve('image-webpack-loader'),
       options: {
         bypassOnDebug: true, // webpack@1.x
         disable: true, // webpack@2.x and newer
