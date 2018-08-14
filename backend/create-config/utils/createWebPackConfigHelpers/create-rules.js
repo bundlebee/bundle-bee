@@ -8,9 +8,7 @@ const JS_X = {
   use: {
     loader: '${upath.normalize(require.resolve('babel-loader'))}',
     options: {
-      presets: ['${upath.normalize(require.resolve('babel-preset-env'))}', '${upath.normalize(
-    require.resolve('babel-preset-react')
-  )}', '${upath.normalize(require.resolve('babel-preset-stage-0'))}'],
+      presets: ['${upath.normalize(require.resolve('babel-preset-env'))}', '${upath.normalize(require.resolve('babel-preset-react'))}', '${upath.normalize(require.resolve('babel-preset-stage-0'))}'],
     },
   },
 }`,
@@ -43,9 +41,7 @@ const CSS_SASS_SCSS = {
   rules: `
 {
   test: /\.(sa|sc|c)ss$/,
-  use: [MiniCssExtractPlugin.loader, '${upath.normalize(
-    require.resolve('css-loader')
-  )}', '${upath.normalize(require.resolve('sass-loader'))}'],
+  use: [MiniCssExtractPlugin.loader, '${upath.normalize(require.resolve('css-loader'))}', '${upath.normalize(require.resolve('sass-loader'))}'],
 }`,
   dependencies: {
     'node-sass': '^4.9.2',
@@ -59,9 +55,7 @@ const LESS = {
 {
   test: /\.less$/,
   use: [
-    '${upath.normalize(
-      require.resolve('style-loader')
-    )}' /* // creates style nodes from JS strings */,
+    '${upath.normalize(require.resolve('style-loader'))}' /* // creates style nodes from JS strings */,
     '${upath.normalize(require.resolve('css-loader'))}' /* // translates CSS into CommonJS */,
     '${upath.normalize(require.resolve('less-loader'))}' /*  // compiles Less to CSS */,
   ],

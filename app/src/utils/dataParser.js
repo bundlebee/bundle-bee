@@ -3,6 +3,7 @@ export const parseWebpackOutput = (data, bundleDir) => {
   const total = { size: 0, factory: 0, building: 0 };
   total.totalElapsedTime = data.time;
   total.totalBundleSize = data.assets.reduce((acc, asset) => acc + asset.size, 0);
+  console.log('@ webpack size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   data.chunks[0].modules.filter(x => !x.identifier.includes(bundleDir)).forEach(element => {
@@ -54,6 +55,7 @@ export const parseParcelOutput = (data, bundleDir) => {
   const total = { size: 0, building: 0 };
   total.totalElapsedTime = data.totalElapsedTime;
   total.totalBundleSize = data.totalBundleSize;
+  console.log('@ parcel size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   data.files
@@ -105,6 +107,7 @@ export const parseRollupOutput = data => {
   const total = { size: 0, building: 0 };
   total.totalElapsedTime = data.totalElapsedTime;
   total.totalBundleSize = data.totalBundleSize;
+  console.log('@ rollup size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   data.files.slice().forEach(element => {

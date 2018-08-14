@@ -1,6 +1,9 @@
 import React from 'react';
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
+import OpenFolderButtons from '../OpenFolderButtons.jsx';
+
+
 class BarChart extends React.Component {
   constructor(props) {
     super(props);
@@ -44,8 +47,8 @@ class BarChart extends React.Component {
     // };
     var data = {
       Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
-      Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
+      Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
     };
     var dataset = [];
 
@@ -67,7 +70,7 @@ class BarChart extends React.Component {
         return d.bundler;
       })
     );
-    x1.domain(['Time', 'Size']).range([0, 100]);
+    x1.domain(['Time', 'Size']).range([0, 20]);
 
     y0.domain([
       0,
@@ -99,7 +102,7 @@ class BarChart extends React.Component {
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
       .style('fill', '#98abc5')
-      .text('Size');
+      .text('Time');
 
     svg
       .select('.y0.axis')
@@ -117,7 +120,7 @@ class BarChart extends React.Component {
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
       .style('fill', '#d0743c')
-      .text('Time');
+      .text('Size');
 
     svg
       .select('.y1.axis')
@@ -132,7 +135,8 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'g')
       .attr('transform', function(d) {
-        return 'translate(' + x0(d.bundler) + ',0)';
+        console.log( x0(d.bundler) + 50, "x00000000000000000000")
+        return 'translate(' + (x0(d.bundler) + 78) + ',0)';
       });
 
     graph
@@ -142,9 +146,9 @@ class BarChart extends React.Component {
       })
       .enter()
       .append('rect')
-      .attr('width', 10 /* x1.bandwidth() */)
+      .attr('width', 22 /* x1.bandwidth() */)
       .attr('x', function(d) {
-        return x1(d.name);
+        return x1(d.name)-20;
       })
       .attr('y', function(d) {
         return y0(d.value);
@@ -164,7 +168,7 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'legend')
       .attr('transform', function(d, i) {
-        return 'translate(0,' + i * 20 + ')';
+        return 'translate(-420,' + -(i * 20) + ')';
       });
 
     legend
@@ -187,8 +191,13 @@ class BarChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="barchart ">
+      <h2>Build Comparison</h2><br/> 
+      <div className="barchart_inner ">
         <svg className="bar-chart" />
+        <OpenFolderButtons dirname={this.props.dirname} />
+      </div>
+
       </div>
     );
   }

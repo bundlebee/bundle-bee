@@ -5,6 +5,13 @@ const createRules = require('./create-rules.js');
 
 const pathToOurTemplate = path.join(__dirname, 'template.html');
 
+const reformatPath = file => {
+  if (process.platform === 'win32') {
+    return file.replace(/\//g, '\\\\');
+  }
+  return file;
+}
+
 module.exports = res => {
   let { entry, extensions, indexHtmlPath, rootDir } = res;
   const importantExtensions = ['.js', '.jsx', '.css', '.sass', '.scss', '.less'];
@@ -26,15 +33,13 @@ module.exports = res => {
 const path = require('${require.resolve('path')}');
 
 const HtmlWebpackPlugin = require('${upath.normalize(require.resolve('html-webpack-plugin'))}');
-const MiniCssExtractPlugin = require('${upath.normalize(
-    require.resolve('mini-css-extract-plugin')
-  )}');
+const MiniCssExtractPlugin = require('${upath.normalize(require.resolve('mini-css-extract-plugin'))}');
 
 module.exports = {
     entry: '${upath.normalize(entry)}',
-    context: '${upath.normalize(rootDir)}',
+    context: '${reformatPath(upath.normalize(rootDir))}',
     output: {
-      path: '${upath.normalize(output)}',
+      path: '${reformatPath(upath.normalize(output))}',
       filename: 'bundle.js',
     },
     module: {
