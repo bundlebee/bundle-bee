@@ -5,7 +5,7 @@ const upath = require('path');
 const dists = ['webpack-dist', 'parcel-dist', 'rollup-dist'];
 let webpackDist, parcelDist, rollupDist;
 [webpackDist, parcelDist, rollupDist] = dists.map(dist =>
-  upath.normalize(path.join(__dirname, 'electronUserData', dist, 'package.json'))
+  upath.normalize(path.join(__dirname, '..', 'electronUserData', dist, 'package.json'))
 );
 
 module.exports = function createMenuBar(mainWindow) {
@@ -51,8 +51,6 @@ module.exports = function createMenuBar(mainWindow) {
           label: 'Parcel',
           accelerator: 'CmdOrCtrl+P',
           click() {
-            console.log('clicked: parcel');
-
             shell.showItemInFolder(parcelDist);
           },
         },
@@ -60,8 +58,6 @@ module.exports = function createMenuBar(mainWindow) {
           label: 'Rollup',
           accelerator: 'CmdOrCtrl+R',
           click() {
-            console.log('clicked: rollup');
-            console.log(shell);
             shell.showItemInFolder(rollupDist);
           },
         },
