@@ -1,12 +1,19 @@
 const shell = require('electron').shell;
 const path = require('path');
 const upath = require('path');
+const fs = require('fs');
 
 const dists = ['webpack-dist', 'parcel-dist', 'rollup-dist'];
 let webpackDist, parcelDist, rollupDist;
 [webpackDist, parcelDist, rollupDist] = dists.map(dist =>
   upath.normalize(path.join(__dirname, '..', 'electronUserData', dist, 'package.json'))
 );
+
+function getStatus(dist) {
+  const isEnabled = fs.existsSync(dist);
+  console.log('getStatus ran: ', isEnabled);
+  return isEnabled;
+}
 
 module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
 
@@ -27,21 +34,13 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
           click() {
             ResetDir();
           },
-        },
-        {
-          label: 'Save File',
-          accelerator: 'CmdOrCtrl+S',
-          click() {
-            mainWindow.webContents.send('save-file');
-          },
-        },
+        }
       ],
     },
     {
       label: 'View Config',
       submenu: [
         {
-          enabled: false,
           label: 'Show Webpack Config',
           accelerator: 'CmdOrCtrl+W',
           click() {
@@ -50,7 +49,6 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
           },
         },
         {
-          enabled: false,
           label: 'Show Parcel Config',
           accelerator: 'CmdOrCtrl+P',
           click() {
@@ -58,7 +56,6 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
           },
         },
         {
-          enabled: false,
           label: 'Show Rollup Config',
           accelerator: 'CmdOrCtrl+R',
           click() {
@@ -67,20 +64,7 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
         },
       ],
     },
-    {
-      label: 'Edit',
-      submenu: [
-        { role: 'undo' },
-        { role: 'redo' },
-        { type: 'separator' },
-        { role: 'cut' },
-        { role: 'copy' },
-        { role: 'paste' },
-        { role: 'pasteandmatchstyle' },
-        { role: 'delete' },
-        { role: 'selectall' },
-      ],
-    },
+
     {
       role: 'window',
       submenu: [{ role: 'minimize' }, { role: 'close' }],
@@ -110,30 +94,5 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
     },
   ];
 
-  // If macOS
-  if (process.platform === 'darwin') {
-    menuBar.unshift({
-      label: 'Bundle Bee',
-      submenu: [
-        { role: 'about' },
-        { type: 'separator' },
-        { role: 'services', submenu: [] },
-        { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideothers' },
-        { role: 'unhide' },
-        { type: 'separator' },
-        { role: 'quit' },
-      ],
-    });
-    // Window menu
-    menuBar[4].submenu = [
-      { role: 'close' },
-      { role: 'minimize' },
-      { role: 'zoom' },
-      { type: 'separator' },
-      { role: 'front' },
-    ];
-  }
   return menuBar;
 };

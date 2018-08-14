@@ -92,7 +92,7 @@ export class Main extends Component {
   }
   renderChart() {
     // change the width and height of the awesome bee to make more room for the d3 chart
-    //svg 
+    //svg
     document.getElementById('bee-happy').setAttribute("height", "50px");
     document.getElementById('bee-happy').setAttribute("width", "50px");
 
@@ -100,7 +100,7 @@ export class Main extends Component {
     document.getElementById('bee_wrapper').style.top = "0px";
     document.getElementById('bee_wrapper').style.right = "150px";
     document.getElementById('bee_wrapper').style.position = "absolute";
-console.log(this.state.dirname, "MAIN JSX RENDER CHART")
+    console.log(this.state.dirname, "MAIN JSX RENDER CHART")
     return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
@@ -126,14 +126,14 @@ console.log(this.state.dirname, "MAIN JSX RENDER CHART")
 
     return (
       <div className="main">
-      
-          <Bee />
+
+        <Bee />
         {/* <div className="header">
         </div> */}
         {this.state.mainPageMessage && (
           <div className="main">
             <h1>{this.state.mainPageMessage}</h1>
-            <h3>Check out the <a classname="click_me"  target="_blank"href="https://github.com/bundlebee/bundle-bee/blob/master/README.md#bundle-bee">documentation</a> for help.</h3>
+            <h3>Check out the <a className="click_me" target="_blank" href="https://github.com/bundlebee/bundle-bee/blob/master/README.md#bundle-bee">documentation</a> for help.</h3>
             <button className="button_default" onClick={() => this.handleRestart()}>Restart</button>
           </div>
         )}
