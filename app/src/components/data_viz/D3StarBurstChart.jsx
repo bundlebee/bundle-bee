@@ -44,7 +44,7 @@ class D3StarBurstChart extends Component {
     console.log(this.props.activeData.total, "TOTALS")
     let totals_display_html;
     if (this.props.chart.screen === chart.SIZE) {
-      totals_display_html = `<strong>Total Size:</strong> ${this.props.activeData.total.totalBundleSize} kb<br />
+      totals_display_html = `<strong>Total Size:</strong> ${this.props.activeData.total.totalBundleSize/1000} kb<br />
     `
     }     else if (this.props.chart.screen === chart.BUILDING_TIME) {
       totals_display_html = `<strong>Total Building Time:</strong> ${this.props.activeData.total.totalElapsedTime} milliseconds<br />
