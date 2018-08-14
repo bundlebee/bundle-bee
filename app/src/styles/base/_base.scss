@@ -2,8 +2,10 @@
 //Border box sets the sizing to a more intuitive model (padding,e tc. don't change the overall size of an element so it stays the size you define it as regardless of other changes in size of box-model elements (margin, padding, etc.)
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-body {
+::selection {
+background:transparent;
 }
+
 * {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
@@ -224,7 +226,7 @@ body {
 .card-hide {
   display: none;
 }
- 
+
 .loading {
   font-size: 3rem;
 }
@@ -423,4 +425,3 @@ div.header {
 
 
 }
- 
