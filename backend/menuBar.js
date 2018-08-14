@@ -31,6 +31,7 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
       label: 'Build',
       submenu: [
         {
+          enabled: false,
           label: 'Show Webpack Config',
           accelerator: 'CmdOrCtrl+W',
           click() {
@@ -38,6 +39,7 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
           }
         },
         {
+          enabled: false,
           label: 'Show Parcel Config',
           accelerator: 'CmdOrCtrl+P',
           click() {
@@ -45,6 +47,7 @@ module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir, OpenConfi
           }
         },
         {
+          enabled: false,
           label: 'Show Rollup Config',
           accelerator: 'CmdOrCtrl+R',
           click() {
