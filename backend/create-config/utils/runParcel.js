@@ -27,7 +27,6 @@ getSavedProjectDataFromFile(pathToSavedData)
     };
     const parcelBundlerProcess = path.join(__dirname, 'parcelBundleHelpers', 'parcelBundler.js');
     let entry;
-    console.log('here: ', res.indexHtmlPath);
     if (res.indexHtmlPath) {
       fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
         if (err) throw err;
