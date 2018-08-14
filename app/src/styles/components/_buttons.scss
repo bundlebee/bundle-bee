@@ -52,9 +52,11 @@ button:hover {
 }
 
 .button_default:hover {
-  background-color:#008CBA;
-  color: white;
+  // background-color:#008CBA;
+  color: black;
   border-radius: 50px;
+  border: 2px solid #ff9900;
+
 }
 
 .modal_text {
