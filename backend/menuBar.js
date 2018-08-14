@@ -35,17 +35,17 @@ module.exports = function createMenuBar(mainWindow, ResetDir) {
       label: 'Build',
       submenu: [
         {
-          label: 'Webpack',
+          label: 'Show Webpack Config',
           accelerator: 'CmdOrCtrl+W',
           click() {
-            OpenWebpackConfig();
+            OpenConfig('webpack');
           }
         },
         {
           label: 'Parcel',
           accelerator: 'CmdOrCtrl+P',
           click() {
-            OpenParcelConfig();
+            OpenConfig('parcel');
           }
         },
         {
