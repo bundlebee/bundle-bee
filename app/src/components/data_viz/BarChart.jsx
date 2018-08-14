@@ -172,7 +172,7 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'legend')
       .attr('transform', function(d, i) {
-        return 'translate(-420,' + -(i * 20) + ')';
+        return 'translate(-390,' + -(i * 20) + ')';
       });
 
     legend

@@ -21,7 +21,7 @@
     align-content: center;
     justify-content: flex-start;
       /* This section calls the slideInFromLeft animation we defined above */
-      animation: 1s ease-out 0s 1 slideInFromLeft;
+      animation: .5s ease-out 0s 1 slideInFromLeft;
     
     
   }
@@ -41,7 +41,7 @@
     align-content: center;
     justify-content: flex-start;
       /* This section calls the slideInFromLeft animation we defined above */
-      animation: 1s ease-out 0s 1 slideInFromRight;
+      animation: .5s ease-out 0s 1 slideInFromRight;
     
     
   }
