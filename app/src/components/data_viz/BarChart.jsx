@@ -50,6 +50,7 @@ class BarChart extends React.Component {
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
       Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
     };
+    console.log('TOTALS',data);
     var dataset = [];
 
     var keyNames = ['times', 'sizes'];
@@ -60,7 +61,7 @@ class BarChart extends React.Component {
         bundler,
         values: [
           { name: 'Time', value: data[bundler][keyNames[0]] },
-          { name: 'Size', value: data[bundler][keyNames[1]] },
+          { name: 'Size', value: data[bundler][keyNames[1]]/1000 },
         ],
       };
     }
@@ -153,6 +154,9 @@ class BarChart extends React.Component {
       .attr('y', function(d) {
         return y0(d.value);
       })
+      .attr("height", 0)
+        .transition()
+        .delay(function (d, i) { return i*100; })
       .attr('height', function(d) {
         return height - y0(d.value);
       })
@@ -163,7 +167,7 @@ class BarChart extends React.Component {
     // Legend
     var legend = svg
       .selectAll('.legend')
-      .data(['Time', 'Size'].slice())
+      .data(['Time (ms)', 'Size (kb)'].slice())
       .enter()
       .append('g')
       .attr('class', 'legend')

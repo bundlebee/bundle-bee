@@ -9,6 +9,7 @@ const initialState = {
 const chartReducer = (state = initialState, action) => {
   console.log("at chartReducer")
   console.log(state)
+  let loadBuildingTime = state.screen;
 
   switch (action.type) {
     case types.DISPLAY_SIZES:
@@ -31,15 +32,22 @@ const chartReducer = (state = initialState, action) => {
         ...state,
         bundleType: chart.WEBPACK};
     case types.DISPLAY_PARCEL:
+      if (state.screen === chart.FACTORY_TIME) {
+        loadBuildingTime = chart.BUILDING_TIME;
+      }
       return {
         ...state,
         bundleType: chart.PARCEL,
-        screen: chart.BUILDING_TIME};
+        screen: loadBuildingTime};
     case types.DISPLAY_ROLLUP:
+
+      if (state.screen === chart.FACTORY_TIME) {
+          loadBuildingTime = chart.BUILDING_TIME;
+      }    
       return {
         ...state,
         bundleType: chart.ROLLUP,
-        screen: chart.BUILDING_TIME};
+        screen: loadBuildingTime};
     case types.DISPLAY_TOTALS:
       return {
         ...state,
