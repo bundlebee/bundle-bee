@@ -381,7 +381,7 @@ class D3StarBurstChart extends Component {
             {"Factory Times"}
           </DisplayButton>
             </nav>
-            <nav className="tabs1" id="d3_data_type">  
+            <nav className="tabs2" id="d3_data_type">  
             
             <OpenFolderOfOneButton bundleType={this.props.chart.bundleType}
              dirname={this.props.dirname}
