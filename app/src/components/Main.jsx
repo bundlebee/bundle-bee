@@ -25,8 +25,8 @@ export class Main extends Component {
     super(props);
     this.state = {
       mainPageMessage: '',
-      // dirname: '',
-      dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
+      dirname: '',
+      // dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
