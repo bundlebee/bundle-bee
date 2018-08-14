@@ -36,7 +36,7 @@ module.exports = res =>
         file: './bundle-bee-rollup-dist/bundle.js',
         format: 'iife',
       },
-      plugins: [${plugins} sizeTimingPlugin()]
+      plugins: [${plugins} uglify.uglify(), sizeTimingPlugin()]
     };
     `;
     res.rollupDependencies = JSON.stringify({

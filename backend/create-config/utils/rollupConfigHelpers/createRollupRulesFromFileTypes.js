@@ -74,6 +74,10 @@ const base_rules = {
       variableName: 'json',
       packageName: 'rollup-plugin-json',
     },
+    {
+      variableName: 'uglify',
+      packageName: 'rollup-plugin-uglify'
+    }
   ],
   plugins: [
     `commonjs({
@@ -105,6 +109,7 @@ const base_rules = {
     'rollup-plugin-node-resolve': '^3.3.0',
     'rollup-plugin-replace': '^2.0.0',
     rollup: '^0.64.1',
+    "rollup-plugin-uglify": "^4.0.0"
   },
 };
 
