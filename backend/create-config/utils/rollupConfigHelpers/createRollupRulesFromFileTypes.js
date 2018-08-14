@@ -10,7 +10,7 @@ const JS_X = {
   plugins: [
     `babel({
       babelrc: false,
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
       presets: [['${upath.normalize(
         require.resolve('babel-preset-es2015-rollup')
       )}'], ['${upath.normalize(require.resolve('babel-preset-react'))}'], ['${upath.normalize(

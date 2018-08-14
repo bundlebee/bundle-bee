@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const upath = require('upath');
 
-const sizeTimingPluginPath = upath.normalize(path.join(__dirname, 'custom_plugin', 'size_timing.js'));
+const sizeTimingPluginPath = upath.normalize(
+  path.join(__dirname, 'custom_plugin', 'size_timing.js')
+);
 
 module.exports = res =>
   new Promise((resolve, reject) => {
@@ -11,21 +13,19 @@ module.exports = res =>
     modules = modules.reduce(
       (acc, rule) =>
         acc +
-        `const ${rule.variableName} = require('${upath.normalize(require.resolve(rule.packageName))}');` +
+        `const ${rule.variableName} = require('${upath.normalize(
+          require.resolve(rule.packageName)
+        )}');` +
         '\n',
       ''
     );
     plugins = plugins.reduce((acc, plugin) => acc + `${plugin}` + '\n', '');
-    const localRollupConfigSavePath = upath.normalize(path.join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      'electronUserData',
-      'rollup.config.js'
-    ));
-    const usersRollupConfigSavePath = upath.normalize(path.join(res.rootDir, 'bundle-bee-rollup.config.js'));
+    const localRollupConfigSavePath = upath.normalize(
+      path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'rollup.config.js')
+    );
+    const usersRollupConfigSavePath = upath.normalize(
+      path.join(res.rootDir, 'bundle-bee-rollup.config.js')
+    );
     const configString = `
     ${modules}
     const sizeTimingPlugin = require('${sizeTimingPluginPath}');
