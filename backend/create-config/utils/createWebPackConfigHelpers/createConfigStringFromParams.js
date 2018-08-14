@@ -1,4 +1,5 @@
 const path = require('path');
+const upath = require('upath');
 const util = require('util');
 const createRules = require('./create-rules.js');
 
@@ -22,16 +23,18 @@ module.exports = res => {
   // rules = util.inspect(rules, { showHidden: false, depth: null });
   const output = path.join(__dirname, '..', '..', '..', '..', 'electronUserData', 'webpack-dist');
   res.webpackConfigString = `
-const path = require('path');
+const path = require('${require.resolve('path')}');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('${upath.normalize(require.resolve('html-webpack-plugin'))}');
+const MiniCssExtractPlugin = require('${upath.normalize(
+    require.resolve('mini-css-extract-plugin')
+  )}');
 
 module.exports = {
-    entry: '${entry}',
-    context: '${rootDir}',
+    entry: '${upath.normalize(entry)}',
+    context: '${upath.normalize(rootDir)}',
     output: {
-      path: '${output}',
+      path: '${upath.normalize(output)}',
       filename: 'bundle.js',
     },
     module: {
@@ -41,7 +44,7 @@ module.exports = {
       contentBase: path.join(__dirname, 'webpack-dist'),
     },
     plugins: [
-    new HtmlWebpackPlugin(${indexHtmlPath}), 
+    new HtmlWebpackPlugin(${upath.normalize(indexHtmlPath)}), 
     new MiniCssExtractPlugin('bundle.css')
   ],
   resolve: {

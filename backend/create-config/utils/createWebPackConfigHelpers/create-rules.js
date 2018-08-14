@@ -1,14 +1,16 @@
+const upath = require('upath');
+
 const JS_X = {
   rules: `
 {
   test: /\.jsx?$/,
   exclude: /node_modules/,
   use: {
-    loader: require.resolve('babel-loader'),
+    loader: '${upath.normalize(require.resolve('babel-loader'))}',
     options: {
-      presets: ['babel-preset-env', 'babel-preset-react', 'babel-preset-stage-0'].map(x =>
-        require.resolve(x)
-      ),
+      presets: ['${upath.normalize(require.resolve('babel-preset-env'))}', '${upath.normalize(
+    require.resolve('babel-preset-react')
+  )}', '${upath.normalize(require.resolve('babel-preset-stage-0'))}'],
     },
   },
 }`,
@@ -25,9 +27,9 @@ const GIF_PNG_SVG_JPG_JPEG = {
   rules: `{
   test: /\.(gif|png|jpe?g|svg)$/,
   use: [
-    require.resolve('file-loader'),
+    '${upath.normalize(require.resolve('file-loader'))}',
     {
-      loader: require.resolve('image-webpack-loader'),
+      loader: '${upath.normalize(require.resolve('image-webpack-loader'))}',
       options: {
         bypassOnDebug: true, // webpack@1.x
         disable: true, // webpack@2.x and newer
@@ -41,7 +43,9 @@ const CSS_SASS_SCSS = {
   rules: `
 {
   test: /\.(sa|sc|c)ss$/,
-  use: [MiniCssExtractPlugin.loader, require.resolve('css-loader'), require.resolve('sass-loader')],
+  use: [MiniCssExtractPlugin.loader, '${upath.normalize(
+    require.resolve('css-loader')
+  )}', '${upath.normalize(require.resolve('sass-loader'))}'],
 }`,
   dependencies: {
     'node-sass': '^4.9.2',
@@ -55,9 +59,11 @@ const LESS = {
 {
   test: /\.less$/,
   use: [
-    require.resolve('style-loader') /* // creates style nodes from JS strings */,
-    require.resolve('css-loader') /* // translates CSS into CommonJS */,
-    require.resolve('less-loader') /*  // compiles Less to CSS */,
+    '${upath.normalize(
+      require.resolve('style-loader')
+    )}' /* // creates style nodes from JS strings */,
+    '${upath.normalize(require.resolve('css-loader'))}' /* // translates CSS into CommonJS */,
+    '${upath.normalize(require.resolve('less-loader'))}' /*  // compiles Less to CSS */,
   ],
 }`,
   dependencies: {
