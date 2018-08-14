@@ -1,4 +1,8 @@
-module.exports = function createMenuBar(mainWindow) {
+module.exports = function createMenuBar(mainWindow, ResetDir) {
+
+  // Need to import OpenDir, ResetDir, OpenWebpackConfig, OpenParcelConfig, OpenRollupConfig functions from main_process.js
+
+
 
   const menuBar = [
     {
@@ -8,7 +12,7 @@ module.exports = function createMenuBar(mainWindow) {
           label: 'Open Root Directory',
           accelerator: 'CmdOrCtrl+O',
           click() {
-            openDir();
+            OpenDir();
           }
         },
         {
@@ -32,23 +36,24 @@ module.exports = function createMenuBar(mainWindow) {
       submenu: [
         {
           label: 'Webpack',
-          submenu: [
-            { checked: true, label: 'Tree Shaking', type: 'checkbox' },
-            { checked: true, label: 'Code Splitting', type: 'checkbox' },
-            { checked: true, label: 'Source Maps', type: 'checkbox' },
-            { checked: true, label: 'Minify', type: 'checkbox' },
-            { checked: true, label: 'Uglify', type: 'checkbox' },
-            { type: 'separator' },
-          ],
           accelerator: 'CmdOrCtrl+W',
+          click() {
+            OpenWebpackConfig();
+          }
         },
         {
           label: 'Parcel',
           accelerator: 'CmdOrCtrl+P',
+          click() {
+            OpenParcelConfig();
+          }
         },
         {
           label: 'Rollup',
           accelerator: 'CmdOrCtrl+R',
+          click() {
+            OpenRollupConfig();
+          }
         }
       ]
     },

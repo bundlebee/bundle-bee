@@ -9,10 +9,10 @@ const fs = require('fs');
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ width: 1000, height: 765 });
+  mainWindow = new BrowserWindow({ width: 1300, height: 765 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
   //Adding Menu Bar
-  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
+  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir));
   Menu.setApplicationMenu(menu);
   // const initialStartFlagFilePath = path.join(__dirname, 'electronUserData', 'initialStartup.txt');
   // if (!fs.existsSync(initialStartFlagFilePath)) {
@@ -170,3 +170,9 @@ ipcMain.on('run-rollup', event => {
     event.sender.send('rollup-stats-results-json', __dirname);
   });
 });
+
+function ResetDir() {
+  app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+  console.log('running reset dir2')
+  app.exit(0);
+};
