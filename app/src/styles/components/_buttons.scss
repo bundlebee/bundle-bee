@@ -13,25 +13,48 @@ button {
   display:inline-block;
   position:relative;
   z-index:1;
-  transition-duration:0.6s;
+  transition-duration:0.3s;
+  cursor:pointer;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  margin: 0 5px;
+
 }
 
+button:focus {
+  outline: none;
+  border: 2px solid #ff9900;
+  border-radius: 50px;
+
+}
+
+button:hover {
+  outline: none;
+  border: 2px solid #ff9900;
+  border-radius: 50px;
+
+}
 .btn_icon {
   height: 20px;
+  margin-right: 12px;
+}
+.btn_icon_download_config {
+  height: 16px;
+  width: 16px;
+  margin-left: 8px;
   margin-right: 8px;
 }
-
 .button_default{
   -webkit-transition-duration: 0.4s; /* Safari */
   border: 2px solid #008CBA;
   transition-duration: 0.4s;
-  border-radius: 20px;
+  border-radius: 50px;
 }
 
 .button_default:hover {
   background-color:#008CBA;
   color: white;
-  border-radius: 20px;
+  border-radius: 50px;
 }
 
 .modal_text {

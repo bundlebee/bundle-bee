@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import D3StarBurstChart from './data_viz/D3StarBurstChart.jsx';
 import BarChart from './data_viz/BarChart.jsx';
 import { connect } from 'react-redux';
-import OpenFolderButtons from './OpenFolderButtons.jsx';
 
 import {
   displayWebpack,
@@ -55,19 +54,22 @@ class Chart extends Component {
           isHighligthed={this.props.chart.bundleType === chart.TOTALS}
           isActive={this.props.dirname}
         >
+           <img className="btn_icon" src="./assets/compare_all.png" />
+
           {'Totals'}
         </DisplayButton>
         </nav>
 
      {this.props.chart.bundleType === chart.TOTALS ? (
           <div>
-            <BarChart />
-            <OpenFolderButtons dirname={this.props.dirname} />
+            <BarChart dirname={this.props.dirname}
+            bundleType={this.props.chart.bundleType} />
           </div>
         ) : (
           <div>
-            <D3StarBurstChart />
-            {this.props.dirname && <OpenFolderButtons dirname={this.props.dirname} />}
+            <D3StarBurstChart dirname={this.props.dirname} />
+            
+            {/* && <OpenFolderButtons dirname={this.props.dirname} /> */}
           </div>
         )}
       </div>

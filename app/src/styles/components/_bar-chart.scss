@@ -23,3 +23,31 @@
 .x.axis text {
   fill: orange;
 }
+
+.barchart{
+      min-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 88px;
+}
+
+.barchart_inner{
+
+margin: auto;
+margin-top: 20px;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+// min-height: 780px;
+// flex-direction: column;
+}
+
+.barchart_btn{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }

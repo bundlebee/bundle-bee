@@ -33,25 +33,32 @@
   display: block;
 }
 
+.ar-chart {
+  margin: auto;
+  display: block;
+  justify-content: center;
+  display: flex;
+  background-color: blue;
+  margin-bottom: 100px;
+}
 
 .d3_btn_highligthed {
-  text-decoration: underline;
   // color: white;
   // background: -moz-linear-gradient(45deg, #05abe0 0%, #8200f4 100%);
   // background: -webkit-linear-gradient(45deg, #05abe0 0%,#8200f4 100%);
   // background: linear-gradient(45deg, #05abe0 0%,#8200f4 100%);
   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#8200f4',GradientType=1 ); 
   -webkit-transition-duration: 0.1s; /* Safari */
-  border: 2px solid #008CBA;
+  border: 2px solid #ff9900;
   transition-duration: 0.1s;
-  border-radius: 20px;
+  border-radius: 50px;
 }
 
 .d3_btn_default {
   background-color: Transparent;
   background-repeat:no-repeat;
   border: none;
-
+  border: 2px solid transparent;
 }
 
 .d3_btn_disabled {
@@ -61,7 +68,7 @@
 
 #sequence {
   width: 1200px;
-  height: 70px;
+  height: 0px;
 }
 
 #sequence text, #legend text {
@@ -74,7 +81,9 @@
   // border-left: 1px solid black;
   // border-right: 1px solid black;
   margin: auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 .d3_title {
@@ -83,18 +92,18 @@ h1 .d3_title {
 }
 
 .d3_tooltip {
-  background: lightgray;
-	box-shadow: 0 0 5px #999999;
+  background: rgba(255, 255, 255, 0.8);
 	color: #333;
 	font-size: 12px;
 	left: 130px;
-	padding: 10px;
+	padding: 18px;
 	position: absolute;
-	text-align: center;
+	text-align: left;
 	top: 95px;
 	width: 200px;
 	z-index: 10;
-	display: block;
+  border-radius: 10px;
+  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.055);
 	// opacity: 0;
 }
 .legend {
@@ -109,16 +118,30 @@ rect.disabled {                                                 /* NEW */
 }
 
 #totals_display {
-  background-color: blue;
+  background: rgba(255, 255, 255, 0.8);
+	color: #333;
+	font-size: 12px;
+	left: 130px;
+	padding: 18px;
+	position: absolute;
+	text-align: left;
+	bottom: 20px;
+	// width: 200px;
+	// z-index: 10;
+  border-radius: 10px;
+  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.025);
 }
 
 #d3_data_type {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display:inline-block;
-
+  margin-top: 8px;
+  margin-bottom: 10px;
 }
 
 #d3_bundle_type button{
   font-size: 1em;
+}
+.flexbuttons {
+  display: flex;
+  flex-direction: row;
+justify-content: space-between;
 }

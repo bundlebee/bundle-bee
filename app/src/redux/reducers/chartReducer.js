@@ -38,7 +38,8 @@ const chartReducer = (state = initialState, action) => {
     case types.DISPLAY_ROLLUP:
       return {
         ...state,
-        bundleType: chart.ROLLUP};
+        bundleType: chart.ROLLUP,
+        screen: chart.BUILDING_TIME};
     case types.DISPLAY_TOTALS:
       return {
         ...state,

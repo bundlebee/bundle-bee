@@ -93,11 +93,11 @@ export class Main extends Component {
   renderChart() {
     // change the width and height of the awesome bee to make more room for the d3 chart
     //svg 
-    document.getElementById('bee-happy').setAttribute("height", "80px");
-    document.getElementById('bee-happy').setAttribute("width", "80px");
+    document.getElementById('bee-happy').setAttribute("height", "50px");
+    document.getElementById('bee-happy').setAttribute("width", "50px");
 
     // div container of the svg
-    document.getElementById('bee_wrapper').style.top = "5px";
+    document.getElementById('bee_wrapper').style.top = "0px";
     document.getElementById('bee_wrapper').style.right = "150px";
     document.getElementById('bee_wrapper').style.position = "absolute";
 console.log(this.state.dirname, "MAIN JSX RENDER CHART")

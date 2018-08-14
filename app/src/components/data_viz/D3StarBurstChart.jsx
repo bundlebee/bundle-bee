@@ -9,6 +9,7 @@ import {
   displayFactoryTimes,
   displayBuildingTimes
 } from "../../redux/actions/chartActions.js";
+import OpenFolderOfOneButton from "../OpenFolderOfOneButton";
 
 class D3StarBurstChart extends Component {
   constructor(props) {
@@ -25,24 +26,35 @@ class D3StarBurstChart extends Component {
 
   // D3 Starburst init
   instantiateStarburstChart() {
+
     // hidden until mouseover-ed
     d3.select(".d3_tooltip").style("visibility", "hidden");
     d3.select("#sb_d3_explanation").style("visibility", "hidden");
 
     // show total size and speed
+    d3.selectAll("#totals_display").remove();
+
     var totals_display = d3
       .select(".sb_d3_box")
       .append("div")
       .attr("class", "totals_display");
-    totals_display.append("span");
-
     totals_display.append("span").attr("id", "totals_display");
 
-    totals_display.select("#totals_display").html(
-      `
-    <strong>Filename: </strong> <br />
+    // specify totals according to data type
+    console.log(this.props.activeData.total, "TOTALS")
+    let totals_display_html;
+    if (this.props.chart.screen === chart.SIZE) {
+      totals_display_html = `<strong>Total Size:</strong> ${this.props.activeData.total.totalBundleSize} kb<br />
     `
-    );
+    }     else if (this.props.chart.screen === chart.BUILDING_TIME) {
+      totals_display_html = `<strong>Total Building Time:</strong> ${this.props.activeData.total.totalElapsedTime} milliseconds<br />
+    `
+    }  else if (this.props.chart.screen === chart.FACTORY_TIME) {
+      totals_display_html = `<strong>Total Factory Time:</strong> ${this.props.activeData.total.factory} milliseconds<br />
+    `
+    }   
+
+    totals_display.select("#totals_display").html(totals_display_html);
 
     // MOUSEOVER EVENTS
     const mouseover = d => {
@@ -248,8 +260,8 @@ class D3StarBurstChart extends Component {
 
     // Dimensions of sunburst
     // TODO: should be dynamic
-    var width = 700;
-    var height = 700;
+    var width = 650;
+    var height = 650;
     var _self = this;
     // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
     var b = {
@@ -336,13 +348,14 @@ class D3StarBurstChart extends Component {
   }
 
   render() {
-    console.log(this.props.activeData, "DATAAAAAA");
+    
+    console.log(this.props.chart.bundleType, this.props.activeData, "DATAAAAAA");
     return (
       <div>
         {/* <h1 className="d3_title">{this.props.chart.bundleType.toUpperCase()}</h1> */}
         <div className="sb_d3_button_container">
+          <div className="flexbuttons">
           <nav className="tabs1" id="d3_data_type">            
-
 
           <DisplayButton
             handleClick={this.props.displaySizes}
@@ -369,12 +382,16 @@ class D3StarBurstChart extends Component {
           </DisplayButton>
             </nav>
             <nav className="tabs1" id="d3_data_type">  
-            <DisplayButton
+            
+            <OpenFolderOfOneButton bundleType={this.props.chart.bundleType}
+             dirname={this.props.dirname}
             isActive={true}
             >
-            View Configuration
-          </DisplayButton>
+            View Configuration 
+
+          </OpenFolderOfOneButton>
             </nav>
+            </div>
         </div>
         {/* Breadcrumbz */}
         <div id="sequence" />
