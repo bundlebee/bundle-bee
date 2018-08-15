@@ -34,6 +34,11 @@ getSavedProjectDataFromFile(pathToSavedData)
         validator(options).then(data => {
           if (!data.includes('Error:')) {
             entry = res.indexHtmlPath;
+            console.log('cwd: ', process.cwd());
+            console.log('parcel command: ');
+            console.log(
+              `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`
+            );
             exec(
               `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
               null,
