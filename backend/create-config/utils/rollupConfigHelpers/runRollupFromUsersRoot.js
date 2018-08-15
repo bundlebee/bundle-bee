@@ -15,6 +15,7 @@ module.exports = res =>
     );
     const rollupConfigPath = path.join(res.rootDir, 'bundle-bee-rollup.config.js');
     console.log('​rollupCommandAbsoluteLocation', rollupCommandAbsoluteLocation);
+    console.log('cwd: ', process.cwd());
     process.chdir(res.rootDir);
 
     const rollupBundlerPath = path.join(__dirname, 'rollupBundler.js');
