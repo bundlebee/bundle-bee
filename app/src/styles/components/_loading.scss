@@ -1,0 +1,43 @@
+
+#loader {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50vw;
+}
+
+.load {
+  font-size: 1.8rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.progress {
+  height: 2rem;
+  position: relative;
+  background: rgba(159, 159, 159, 0.5);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.progress span {
+  transition: all 100ms ease;
+  height: 20px;
+  width: calc(100% - 10px);
+  border-radius: 8px;
+  background: #474747;
+  position: absolute;
+  margin: 3px;
+  animation: load 5s ease infinite;
+}
+
+
+@keyframes load {
+  50%, 100% {
+    transform: scale3d(1,1,1);
+  }
+  50% {
+    transform: scale3d(0,1,1);
+  }
+}
