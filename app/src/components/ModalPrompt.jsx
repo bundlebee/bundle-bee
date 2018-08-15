@@ -72,7 +72,6 @@ class ModalPrompt extends Component {
           <button className="button_default"
             onClick={e => {
               e.preventDefault();
-              console.log('testing');
               ipcRenderer.send('run-webpack', { createNewConfig: false });
               this.props.loadBundle();
             }}

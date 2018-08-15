@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
-// import BarChart from './data_viz/BarChart.jsx';
 
 import {
   retrieveWebpackStats,
@@ -26,7 +25,6 @@ export class Main extends Component {
     this.state = {
       mainPageMessage: '',
       dirname: '',
-      // dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -37,25 +35,21 @@ export class Main extends Component {
       } else if (res.foundEntryFile) {
         ipcRenderer.send('run-webpack', { createNewConfig: true });
       } else {
-        console.log('no index.js nor webpack.config found');
         this.setState({ mainPageInstructions: 'Please drop your entry file as well' });
       }
     });
 
     ipcRenderer.on('webpack-stats-results-json', (event, res) => {
       ipcRenderer.send('run-parcel');
-      console.log('@webpack');
       this.props.retrieveWebpackStats(res);
     });
 
     ipcRenderer.on('parcel-stats-results-json', (event, res) => {
       ipcRenderer.send('run-rollup');
-      console.log('@parcel');
 
       this.props.retrieveParcelStats(res);
     });
     ipcRenderer.on('rollup-stats-results-json', (event, res) => {
-      console.log('build finished');
       this.setState({ dirname: res });
       this.props.retrieveRollupStats();
     });
@@ -63,10 +57,7 @@ export class Main extends Component {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
-    // ipcRenderer.on('rollup-stats-results-json', event => {
-    //   ipcRenderer.send('run-parcel');
-    //   this.props.retrieveRollupStats();
-    // });
+
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -100,7 +91,6 @@ export class Main extends Component {
     document.getElementById('bee_wrapper').style.top = "0px";
     document.getElementById('bee_wrapper').style.right = "150px";
     document.getElementById('bee_wrapper').style.position = "absolute";
-console.log(this.state.dirname, "MAIN JSX RENDER CHART")
     return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
@@ -108,9 +98,9 @@ console.log(this.state.dirname, "MAIN JSX RENDER CHART")
   }
   render() {
     // THIS IS FOR DEBUGGING PURPOSES
-    // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+    // // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
-    //   console.log("at if statement")
+    //   // console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   this.props.retrieveParcelStats();
     //   this.props.retrieveRollupStats();
@@ -128,8 +118,7 @@ console.log(this.state.dirname, "MAIN JSX RENDER CHART")
       <div className="main">
       
           <Bee />
-        {/* <div className="header">
-        </div> */}
+        {/* ERROR CODE, renders conditionally*/}
         {this.state.mainPageMessage && (
           <div className="main">
             <h1>{this.state.mainPageMessage}</h1>

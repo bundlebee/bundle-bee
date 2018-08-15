@@ -33,7 +33,6 @@ class DropZone extends Component {
   }
 
   _onDragEnter(e) {
-    console.log('entered');
     this.setState({ className: 'drop-zone-show' });
     e.stopPropagation();
     e.preventDefault();
@@ -59,7 +58,6 @@ class DropZone extends Component {
 
     let files = e.dataTransfer.files;
     const { path } = files[0];
-    console.log('path: ', path);
 
     ipcRenderer.send('index-project-files-from-dropped-item-path', path);
     this.props.loadModal();

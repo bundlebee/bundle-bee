@@ -4,7 +4,6 @@ const path = require('path');
 const upath = require('upath');
 
 export default ({ dirname, bundleType }) => {
-  console.log('inside helper func', dirname, bundleType);
   const dists = ['webpack-dist', 'parcel-dist', 'rollup-dist'];
   let webpackDist, parcelDist, rollupDist;
   if (dirname) {
@@ -26,10 +25,7 @@ export default ({ dirname, bundleType }) => {
     dist_folder = rollupDist;
     img = './assets/rollup_icon.png';
   }
-  console.log(bundleType, dirname);
-  console.log(webpackDist);
-  console.log(parcelDist);
-  console.log(rollupDist);
+
 
   return (
     <div>

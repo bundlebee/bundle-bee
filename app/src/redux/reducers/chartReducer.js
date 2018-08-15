@@ -3,17 +3,14 @@ import * as chart from '../constants/chartProperties.js';
 
 const initialState = {
   screen: chart.SIZE,
-  bundleType: chart.PARCEL
+  bundleType: chart.WEBPACK
 };
 
 const chartReducer = (state = initialState, action) => {
-  console.log("at chartReducer")
-  console.log(state)
   let loadBuildingTime = state.screen;
 
   switch (action.type) {
     case types.DISPLAY_SIZES:
-      // const screen = chart.SIZE;
       return {
         ...state,
         screen: chart.SIZE};
@@ -25,8 +22,6 @@ const chartReducer = (state = initialState, action) => {
       return {
         ...state,
         screen: chart.BUILDING_TIME};
-
-      // set different bundleType
     case types.DISPLAY_WEBPACK:
       return {
         ...state,

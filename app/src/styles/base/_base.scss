@@ -108,21 +108,15 @@ body {
 
         .holder {
           float: left;
-          //display: inline-block;
-          //margin-right: 8px;
-          //margin-bottom: 8px;
           text-align: center;
           background-color: #f2f2f2;
 
           &:last-child { margin-right: 0; }
 
           &.col-3 {
-            //width: calc(100% / 3 - 8px);
             @include colmk(3, 1%);
           }
           &.col-4 {
-            //width: calc(100% / 4 - 9px);
-            //&:nth-child(4n) { margin-right: 0; }
             @include colmk(4, 1%);
           }
 
@@ -191,26 +185,11 @@ body {
 
 
 
-
-
-  /* :root {
-    --primary-color: #42b983;
-} */
-
-/*
- * Global CSS goes here, it requires to use :global before each style
- */
-
-
  #app {
   display: flex;
   align-items: center;
   justify-content: center;
-  // height: 100%;
   color: #2c3e50;
-  /* max-width: 600px; */
-  /* font-family: Source Sans Pro, Helvetica, sans-serif;
-  text-align: center; */
 }
 
 .card {

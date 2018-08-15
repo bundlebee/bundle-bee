@@ -41,7 +41,6 @@ class D3StarBurstChart extends Component {
     totals_display.append("span").attr("id", "totals_display");
 
     // specify totals according to data type
-    console.log(this.props.activeData.total, "TOTALS")
     let totals_display_html;
     if (this.props.chart.screen === chart.SIZE) {
       totals_display_html = `<strong>Total Size:</strong> ${this.props.activeData.total.totalBundleSize/1000} kb<br />
@@ -79,7 +78,6 @@ class D3StarBurstChart extends Component {
         .style("top", d3.event.layerY +280+ "px")
         .style("left", d3.event.layerX + 150 + "px");
 
-      console.log(d3.event.layerY ,  d3.event.layerX )
       tooltip.select("#sb_d3_details").html(
         `
         <strong>Filename: </strong>${d.data.name}<br />
@@ -94,20 +92,9 @@ class D3StarBurstChart extends Component {
 
       tooltip.style("position", "absolute");
 
-      // show slice information on hover
-      // d3.select("#sb_d3_percentage").text(percentageString);
-      // //ADDED FILE NAME-
-      // d3.select("#sb_d3_filename").text(d.data.name);
-      // //ADDED FILE VALUE
-      // d3.select("#sb_d3_filevalue").text(d.value / 1000); // units of kb or seconds
-
-      // // makes everything inside #sb_d3_explanation visible
-      // d3.select("#sb_d3_explanation").style("visibility", "");
-      console.log("mouseover");
 
       // BREADCRUMBS info
       var sequenceArray = d.ancestors().reverse();
-      console.log(sequenceArray, "BREADCRUMBS");
       sequenceArray.shift(); // remove root node from the array
       let trickArray = sequenceArray.slice(0);
 
@@ -117,7 +104,6 @@ class D3StarBurstChart extends Component {
         trickArray.map(node => node.data.name).join("/") +
         (trickArray[trickArray.length - 1].children ? "/" : "");
 
-      console.log(path, "PATH");
       for (var i = 1; i < trickArray.length + 1; i++) {
         updateBreadcrumbs(trickArray.slice(0, i), percentageString);
       }
@@ -153,7 +139,6 @@ class D3StarBurstChart extends Component {
         });
       d3.selectAll(".d3_tooltip").remove();
 
-      console.log("mouseleave");
     };
 
     function initializeBreadcrumbTrail() {
@@ -350,10 +335,8 @@ class D3StarBurstChart extends Component {
 
   render() {
     
-    console.log(this.props.chart.bundleType, this.props.activeData, "DATAAAAAA");
     return (
       <div>
-        {/* <h1 className="d3_title">{this.props.chart.bundleType.toUpperCase()}</h1> */}
         <div className="sb_d3_button_container">
           <div className="flexbuttons">
           <nav className="tabs1" id="d3_data_type">            
