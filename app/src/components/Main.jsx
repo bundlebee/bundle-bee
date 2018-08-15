@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import DropZone from './DropZone.jsx';
 import ModalPrompt from './ModalPrompt.jsx';
 import Chart from './Chart.jsx';
-// import BarChart from './data_viz/BarChart.jsx';
 
 import {
   retrieveWebpackStats,
@@ -26,7 +25,6 @@ export class Main extends Component {
     this.state = {
       mainPageMessage: '',
       dirname: '',
-      // dirname: 'C:/Users/clari/OneDrive/Desktop/BUNDLE BEE/bundle-bee-core/bundle-bee/electronUserData/', // FOR DEBUGGING
     };
     this.handleRestart = this.handleRestart.bind(this);
   }
@@ -66,10 +64,7 @@ export class Main extends Component {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
-    // ipcRenderer.on('rollup-stats-results-json', event => {
-    //   ipcRenderer.send('run-parcel');
-    //   this.props.retrieveRollupStats();
-    // });
+  
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -110,7 +105,7 @@ export class Main extends Component {
     ipcRenderer.send('restart');
   }
   render() {
-    // THIS IS FOR DEBUGGING PURPOSES
+    // THIS IS FOR DEBUGGING PURPOSES; must have data to work though
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   console.log("at if statement")
@@ -132,8 +127,7 @@ export class Main extends Component {
     return (
       <div className="main">
         <Bee />
-        {/* <div className="header">
-        </div> */}
+        
         {this.state.mainPageMessage && (
           <div className="main">
             <h1>{this.state.mainPageMessage}</h1>

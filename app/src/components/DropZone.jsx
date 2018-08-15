@@ -59,7 +59,6 @@ class DropZone extends Component {
 
     let files = e.dataTransfer.files;
     const { path } = files[0];
-    console.log('path: ', path);
     if (this.props.isEntry) {
       ipcRenderer.send('run-webpack', { pathFromDrag: path, createNewConfig: true });
       this.props.loadBundle();
