@@ -1,9 +1,9 @@
 export const parseWebpackOutput = (data, bundleDir) => {
-  console.log('@ parseWebpackOutput');
+  // console.log('@ parseWebpackOutput');
   const total = { size: 0, factory: 0, building: 0 };
   total.totalElapsedTime = data.time;
   total.totalBundleSize = data.assets.reduce((acc, asset) => acc + asset.size, 0);
-  console.log('@ webpack size', total.totalBundleSize);
+  // console.log('@ webpack size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   console.log('bundleDir: ' + bundleDir);
@@ -52,11 +52,11 @@ export const parseWebpackOutput = (data, bundleDir) => {
 
 // parse our own custom parcel output. parcel doesn't keep track of factory times.
 export const parseParcelOutput = (data, bundleDir) => {
-  console.log('@ parseParcelOutput');
+  // console.log('@ parseParcelOutput');
   const total = { size: 0, building: 0 };
   total.totalElapsedTime = data.totalElapsedTime;
   total.totalBundleSize = data.totalBundleSize;
-  console.log('@ parcel size', total.totalBundleSize);
+  // console.log('@ parcel size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   data.files
@@ -104,11 +104,11 @@ export const parseParcelOutput = (data, bundleDir) => {
 };
 
 export const parseRollupOutput = data => {
-  console.log('@ parseRollupOutput');
+  // console.log('@ parseRollupOutput');
   const total = { size: 0, building: 0 };
   total.totalElapsedTime = data.totalElapsedTime;
   total.totalBundleSize = data.totalBundleSize;
-  console.log('@ rollup size', total.totalBundleSize);
+  // console.log('@ rollup size', total.totalBundleSize);
 
   const rootData = { name: 'rootData', children: [] };
   data.files.slice().forEach(element => {

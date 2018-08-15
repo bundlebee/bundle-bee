@@ -37,7 +37,7 @@ app.on('ready', () => {
   //   });
   // } else {
   //   fs.unlink(initialStartFlagFilePath, err => {
-  //     if (err) console.log(err);
+  //     if (err) // console.log(err);
   //   });
   // }
   // mainWindow.on('close', () => {
@@ -66,7 +66,7 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
   const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
   indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
     if (e) {
-      console.log(e);
+      // console.log(e);
       return event.sender.send('error');
     }
     event.sender.send('handle-file-indexing-results', {
@@ -102,10 +102,10 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
       });
       runWebpackChild.on('message', message => {
         if (message.error) {
-          console.log(message.error);
+          // console.log(message.error);
           return event.sender.send('error');
         }
-        console.log('webpack successfully run and stats.json successfully written...');
+        // console.log('webpack successfully run and stats.json successfully written...');
         event.sender.send('webpack-stats-results-json', __dirname);
       });
     });
@@ -118,10 +118,10 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
     });
     runWebpackChild.on('message', message => {
       if (message.error) {
-        console.log(message.error);
+        // console.log(message.error);
         return event.sender.send('error');
       }
-      console.log('webpack successfully run and stats.json successfully written...');
+      // console.log('webpack successfully run and stats.json successfully written...');
       event.sender.send('webpack-stats-results-json', __dirname);
     });
   }
@@ -144,10 +144,10 @@ ipcMain.on('run-parcel', event => {
   const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
   createParcelChild.on('message', message => {
     if (message.error) {
-      console.log(message.error);
+      // console.log(message.error);
       return event.sender.send('error');
     }
-    console.log('parcel successfully run and stats.json successfully written...');
+    // console.log('parcel successfully run and stats.json successfully written...');
     event.sender.send('parcel-stats-results-json', __dirname);
   });
 });
@@ -164,10 +164,10 @@ ipcMain.on('run-rollup', event => {
   const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
   createRollupChild.on('message', message => {
     if (message.error) {
-      console.log(message.error);
+      // console.log(message.error);
       return event.sender.send('error');
     }
-    console.log('rollup successfully run and stats.json successfully written...');
+    // console.log('rollup successfully run and stats.json successfully written...');
     event.sender.send('rollup-stats-results-json', __dirname);
   });
 });

@@ -19,7 +19,6 @@ class Chart extends Component {
   }
 
   render() {
-    console.log('props: ', this.props);
     return (
       <div className="">
         <nav className="tabs1" id="d3_bundle_type">
@@ -69,7 +68,6 @@ class Chart extends Component {
           <div>
             <D3StarBurstChart dirname={this.props.dirname} />
             
-            {/* && <OpenFolderButtons dirname={this.props.dirname} /> */}
           </div>
         )}
       </div>

@@ -11,9 +11,7 @@ export default ({ dirname }) => {
       upath.normalize(path.join(dirname, 'electronUserData', dist, 'package.json'))
     );
   }
-  console.log(webpackDist)
-  console.log(parcelDist)
-  console.log(rollupDist)
+
   return (
     <div className="rounded_div">
     <h3>Download Files</h3>
