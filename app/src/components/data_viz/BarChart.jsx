@@ -14,7 +14,6 @@ class BarChart extends React.Component {
   }
   instantiateBarGraph() {
 
-// console.log(mouseleave, mouseover)
     
     var margin = { top: 20, right: 40, bottom: 30, left: 40 },
       width = 600 - margin.left - margin.right,
@@ -46,11 +45,7 @@ class BarChart extends React.Component {
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-    // var data = {
-    //   Webpack: { times: 1, sizes: 2 },
-    //   Rollup: { times: 3, sizes: 5 },
-    //   Parcel: { times: 2, sizes: 4 },
-    // };
+    
     var data = {
       Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
@@ -65,7 +60,6 @@ class BarChart extends React.Component {
     const  mouseover = d => {
       d3.selectAll(".d3_tooltip_bar_chart").remove();
 
-      console.log(x)
       var tooltip = d3
         .select(".barchart_inner")
         .append("div")
@@ -77,8 +71,6 @@ class BarChart extends React.Component {
         .style("top", d3.event.layerY + "px")
         .style("left", d3.event.layerX + "px");
 
-      console.log(d3.event.layerY ,  d3.event.layerX )
-      console.log(d, "I want the this variable")
       tooltip.select("#sb_d3_details").html(
         `
         <strong>${d.name}:</strong> ${d.value} 
@@ -86,7 +78,6 @@ class BarChart extends React.Component {
         `
       );
     }
-    console.log('TOTALS',data);
     var dataset = [];
 
     var keyNames = ['times', 'sizes'];
@@ -172,7 +163,6 @@ class BarChart extends React.Component {
       .append('g')
       .attr('class', 'g')
       .attr('transform', function(d) {
-        console.log( x0(d.bundler) + 50, "x00000000000000000000")
         return 'translate(' + (x0(d.bundler) + 78) + ',0)';
       });
 
@@ -207,7 +197,6 @@ class BarChart extends React.Component {
       .on('mouseleave', mouseleave)
 console.log(graph, "graph")
 
-// console.log(d.name, d.values)
     // Legend
     var legend = svg
       .selectAll('.legend')

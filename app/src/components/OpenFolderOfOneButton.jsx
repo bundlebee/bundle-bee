@@ -26,10 +26,7 @@ export default ({ dirname, bundleType }) => {
     dist_folder = rollupDist;
     img = './assets/rollup_icon.png';
   }
-  console.log(bundleType, dirname);
-  console.log(webpackDist);
-  console.log(parcelDist);
-  console.log(rollupDist);
+ 
 
   return (
     <div>
