@@ -49,3 +49,4 @@ dist/
 .cache/
 electronUserData/
 release-build/
+release-builds/

@@ -7,9 +7,8 @@ const webpackCommandAbsoluteLocation = path.join(
   require.resolve('webpack'),
   '..',
   '..',
-  '..',
-  '.bin',
-  'webpack'
+  'bin',
+  'webpack.js'
 );
 console.log('cwd: ', process.cwd());
 console.log('webpack command: ');

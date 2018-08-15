@@ -29,7 +29,7 @@ getSavedProjectDataFromFile(pathToSavedData)
     let entry;
     if (res.indexHtmlPath) {
       fs.readFile(res.indexHtmlPath, 'utf8', (err, html) => {
-        if (err) throw err;
+        if (err) console.log(err);
         options.data = html;
         validator(options).then(data => {
           if (!data.includes('Error:')) {
@@ -55,6 +55,11 @@ getSavedProjectDataFromFile(pathToSavedData)
       });
     }
     entry = res.entry;
+    console.log('cwd: ', process.cwd());
+    console.log('parcel command: ');
+    console.log(
+      `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`
+    );
     exec(
       `node ${parcelBundlerProcess} ${entry} ${rootDir} ${pathToWriteStatsFile} ${outputDir}`,
       null,
