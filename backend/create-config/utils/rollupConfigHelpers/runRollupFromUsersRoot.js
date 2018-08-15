@@ -5,14 +5,7 @@ const fs = require('fs');
 module.exports = res =>
   new Promise((resolve, reject) => {
     const originalProcessDir = process.cwd();
-    const rollupCommandAbsoluteLocation = path.join(
-      require.resolve('rollup'),
-      '..',
-      '..',
-      '..',
-      '.bin',
-      'rollup'
-    );
+    const rollupCommandAbsoluteLocation = path.join(require.resolve('rollup'), 'bin', 'rollup');
     const rollupConfigPath = path.join(res.rootDir, 'bundle-bee-rollup.config.js');
     console.log('​rollupCommandAbsoluteLocation', rollupCommandAbsoluteLocation);
     console.log('cwd: ', process.cwd());
