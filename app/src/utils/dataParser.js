@@ -7,7 +7,7 @@ export const parseWebpackOutput = (data, bundleDir) => {
 
   const rootData = { name: 'rootData', children: [] };
   console.log('bundleDir: ' + bundleDir);
-  data.chunks[0].modules.filter(x => !x.name.includes('C:/') && !x.name.includes('..') && x.name.slice(0, 3) !== 'css').forEach(element => {
+  data.chunks[0].modules.filter(x => !x.name.includes('C:/') && !x.name.includes('..') && x.name.slice(0, 3) !== 'css' && !x.name.includes(bundleDir)).forEach(element => {
     let directoryAndName = element.name.replace(/\.\//, '');
     let parts = directoryAndName.split('/');
 
