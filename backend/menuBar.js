@@ -1,4 +1,21 @@
-module.exports = function createMenuBar(mainWindow) {
+const shell = require('electron').shell;
+const path = require('path');
+const upath = require('path');
+const fs = require('fs');
+
+const dists = ['webpack-dist', 'parcel-dist', 'rollup-dist'];
+let webpackDist, parcelDist, rollupDist;
+[webpackDist, parcelDist, rollupDist] = dists.map(dist =>
+  upath.normalize(path.join(__dirname, '..', 'electronUserData', dist, 'package.json'))
+);
+
+function getStatus(dist) {
+  const isEnabled = fs.existsSync(dist);
+  console.log('getStatus ran: ', isEnabled);
+  return isEnabled;
+}
+
+module.exports = function createMenuBar(mainWindow, ResetDir, OpenDir) {
 
   const menuBar = [
     {
@@ -8,7 +25,7 @@ module.exports = function createMenuBar(mainWindow) {
           label: 'Open Root Directory',
           accelerator: 'CmdOrCtrl+O',
           click() {
-            openDir();
+            OpenDir();
           }
         },
         {
@@ -16,72 +33,53 @@ module.exports = function createMenuBar(mainWindow) {
           accelerator: 'CmdOrCtrl+D',
           click() {
             ResetDir();
-          }
-        },
-        {
-          label: 'Save File',
-          accelerator: 'CmdOrCtrl+S',
-          click() {
-            mainWindow.webContents.send('save-file');
-          }
+          },
         }
-      ]
+      ],
     },
     {
-      label: 'Build',
+      label: 'View Config',
       submenu: [
         {
-          label: 'Webpack',
-          submenu: [
-            { checked: true, label: 'Tree Shaking', type: 'checkbox' },
-            { checked: true, label: 'Code Splitting', type: 'checkbox' },
-            { checked: true, label: 'Source Maps', type: 'checkbox' },
-            { checked: true, label: 'Minify', type: 'checkbox' },
-            { checked: true, label: 'Uglify', type: 'checkbox' },
-            { type: 'separator' },
-          ],
+          label: 'Show Webpack Config',
           accelerator: 'CmdOrCtrl+W',
+          click() {
+            console.log('clicked: webpack');
+            shell.showItemInFolder(webpackDist);
+          },
         },
         {
-          label: 'Parcel',
+          label: 'Show Parcel Config',
           accelerator: 'CmdOrCtrl+P',
+          click() {
+            shell.showItemInFolder(parcelDist);
+          },
         },
         {
-          label: 'Rollup',
+          label: 'Show Rollup Config',
           accelerator: 'CmdOrCtrl+R',
-        }
-      ]
+          click() {
+            shell.showItemInFolder(rollupDist);
+          },
+        },
+      ],
     },
-    {
-      label: 'Edit',
-      submenu: [
-        { role: 'undo' },
-        { role: 'redo' },
-        { type: 'separator' },
-        { role: 'cut' },
-        { role: 'copy' },
-        { role: 'paste' },
-        { role: 'pasteandmatchstyle' },
-        { role: 'delete' },
-        { role: 'selectall' }
-      ]
-    },
+
     {
       role: 'window',
-      submenu: [{ role: 'minimize' }, { role: 'close' }]
+      submenu: [{ role: 'minimize' }, { role: 'close' }],
     },
     {
       label: 'Developer',
       submenu: [
         {
           label: 'Toggle Developer Tools',
-          accelerator:
-            process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+          accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
           click() {
             mainWindow.webContents.toggleDevTools();
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
       role: 'help',
@@ -90,36 +88,11 @@ module.exports = function createMenuBar(mainWindow) {
           label: 'Learn More',
           click() {
             require('electron').shell.openExternal('https://github.com/bundlebee/bundle-bee');
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
 
-  // If macOS
-  if (process.platform === 'darwin') {
-    menuBar.unshift({
-      label: 'Bundle Bee',
-      submenu: [
-        { role: 'about' },
-        { type: 'separator' },
-        { role: 'services', submenu: [] },
-        { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideothers' },
-        { role: 'unhide' },
-        { type: 'separator' },
-        { role: 'quit' }
-      ]
-    });
-    // Window menu
-    menuBar[4].submenu = [
-      { role: 'close' },
-      { role: 'minimize' },
-      { role: 'zoom' },
-      { type: 'separator' },
-      { role: 'front' }
-    ];
-  }
   return menuBar;
-}
+};

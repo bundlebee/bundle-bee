@@ -1,20 +1,21 @@
-const fs = require('fs');
-const { spawn } = require('child_process');
+const path = require('path');
+const { exec } = require('child_process');
 
 const statsWritePath = process.argv[process.argv.length - 1];
-const resultsStream = fs.createWriteStream(statsWritePath);
 
-const child = spawn('webpack', ['--profile', '--json']);
-
-child.stdout.pipe(resultsStream);
-
-child.on('close', function(code) {
-  console.log('child process exited with code ' + code);
-  process.send('done');
-  process.exit();
-});
-
-child.on('error', error => {
-  process.send({ error });
+const webpackCommandAbsoluteLocation = path.join(
+  require.resolve('webpack'),
+  '..',
+  '..',
+  '..',
+  '.bin',
+  'webpack'
+);
+console.log('cwd: ', process.cwd());
+console.log('webpack command: ');
+console.log(`${webpackCommandAbsoluteLocation} --profile --json > ${statsWritePath}`);
+exec(`${webpackCommandAbsoluteLocation} --profile --json > ${statsWritePath}`, null, error => {
+  if (error) process.send({ error });
+  else process.send({ status: 'done' });
   process.exit();
 });

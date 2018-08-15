@@ -1,7 +1,15 @@
 // place the base settings in here. Anything that is the base/starting point for your html elements
 //Border box sets the sizing to a more intuitive model (padding,e tc. don't change the overall size of an element so it stays the size you define it as regardless of other changes in size of box-model elements (margin, padding, etc.)
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+::selection {
+background:transparent;
+}
+
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+
   }
   @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
@@ -56,8 +64,8 @@
     box-sizing: border-box;
   }
 
-  h1 {
-    font-size: $l-size;
+.dropzone {
+    font-size: 55px;
     color: white;
   }
   h2 {
@@ -65,10 +73,9 @@
     color: gray;
   }
   a {
-    color: white;
+    color: teal;
     outline: none;
     text-decoration: none;
-
     &:hover { text-decoration: underline; }
   }
 
@@ -201,7 +208,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  // height: 100%;
   color: #2c3e50;
   /* max-width: 600px; */
   /* font-family: Source Sans Pro, Helvetica, sans-serif;
@@ -219,7 +226,7 @@
 .card-hide {
   display: none;
 }
- 
+
 .loading {
   font-size: 3rem;
 }
@@ -252,8 +259,9 @@ div.header {
   display: inline-block;
 }
 
-#wrapper {
+#bee_wrapper {
   display: inline-block;
+  z-index: 100;
 }
 
 .drop_div {
@@ -297,7 +305,10 @@ div.header {
   color: #ffffff;
 }
 
+.dropzone_div{
+  margin-top: 40px;
 
+}
 .drag_div{
   min-width: 800px;
   min-height: 400px;
@@ -337,4 +348,80 @@ div.header {
   justify-content: center;
   align-items:center;
   flex-direction: column;
+}
+
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+	opacity:.8;  /* make things invisible upon start */
+	-webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation:fadeIn ease-in 1;
+	animation:fadeIn ease-in 1;
+
+	-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:.2s;
+	-moz-animation-duration:.2s;
+  animation-duration:.2s;
+
+
 }

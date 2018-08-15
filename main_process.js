@@ -1,22 +1,48 @@
+// @ts-nocheck
 // Basic init
-
 const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
-const { fork } = require('child_process');
+const { fork, exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-require('electron-reload')(__dirname, { ignored: /electronUserData|node_modules|[\/\\]\./ });
 
 // To avoid being garbage collected
 let mainWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ width: 200, height: 765 });
+  mainWindow = new BrowserWindow({ width: 1300, height: 900 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-
   //Adding Menu Bar
-  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow));
+  const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir, OpenDir));
   Menu.setApplicationMenu(menu);
+  // const initialStartFlagFilePath = path.join(__dirname, 'electronUserData', 'initialStartup.txt');
+  // if (!fs.existsSync(initialStartFlagFilePath)) {
+  //   let pathToExecutable;
+  //   if (process.platform === 'darwin') {
+  //     pathToExecutable = path.join(__dirname, '..', '..', 'MacOS', 'bundle-bee');
+  //   } else if (process.platform === 'win32') {
+  //     pathToExecutable = path.join(__dirname, '..', '..', 'MacOS', 'bundle-bee');
+  //   }
+  //   fs.writeFile(
+  //     initialStartFlagFilePath,
+  //     `command to run executable:
+  //   open ${pathToExecutable}
+  //   dirname: ${__dirname}
+  //   filename: ${__filename}
+  //   initalstartflagfilepath: ${initialStartFlagFilePath}
+  //   `
+  //   );
+  //   exec(`open ${pathToExecutable}`, err => {
+  //     app.exit(0);
+  //   });
+  // } else {
+  //   fs.unlink(initialStartFlagFilePath, err => {
+  //     if (err) console.log(err);
+  //   });
+  // }
+  // mainWindow.on('close', () => {
+  //   app.exit(0);
+  // });
 });
 
 ipcMain.on('ondragstart', (event, filePath) => {
@@ -24,6 +50,9 @@ ipcMain.on('ondragstart', (event, filePath) => {
     file: filePath,
     icon: '/path/to/icon.png',
   });
+});
+ipcMain.on('restart', () => {
+  ResetDir();
 });
 
 ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) => {
@@ -36,7 +65,10 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
   );
   const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
   indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
-    if (e) console.log('Error: ', e);
+    if (e) {
+      console.log(e);
+      return event.sender.send('error');
+    }
     event.sender.send('handle-file-indexing-results', {
       foundWebpackConfig,
       foundEntryFile,
@@ -64,17 +96,17 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
   if (createNewConfig) {
     const createWebpackChild = fork(pathToCreateWebpackFileModule, [pathFromDrag]);
     createWebpackChild.on('message', ({ webpackDirectory, err }) => {
-      if (err) console.log('Error: ', err);
+      if (err) return event.sender.send('error');
       const runWebpackChild = fork(pathToRunWebpackFileModule, [pathToWriteStatsFile], {
         cwd: webpackDirectory,
       });
       runWebpackChild.on('message', message => {
         if (message.error) {
-          console.log('error: ', message.error);
-        } else {
-          console.log('webpack successfully run and stats.json successfully written...');
-          event.sender.send('webpack-stats-results-json');
+          console.log(message.error);
+          return event.sender.send('error');
         }
+        console.log('webpack successfully run and stats.json successfully written...');
+        event.sender.send('webpack-stats-results-json', __dirname);
       });
     });
   } else {
@@ -86,11 +118,66 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
     });
     runWebpackChild.on('message', message => {
       if (message.error) {
-        console.log('error: ', message.error);
-      } else {
-        console.log('webpack successfully run and stats.json successfully written...');
-        event.sender.send('webpack-stats-results-json');
+        console.log(message.error);
+        return event.sender.send('error');
       }
+      console.log('webpack successfully run and stats.json successfully written...');
+      event.sender.send('webpack-stats-results-json', __dirname);
     });
   }
 });
+
+ipcMain.on('run-parcel', event => {
+  const pathToRunParcelFileModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runParcel.js'
+  );
+
+  const { rootDir } = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'electronUserData', 'configurationData.js'), 'utf-8')
+  );
+
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'parcel-stats.json');
+  const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
+  createParcelChild.on('message', message => {
+    if (message.error) {
+      console.log(message.error);
+      return event.sender.send('error');
+    }
+    console.log('parcel successfully run and stats.json successfully written...');
+    event.sender.send('parcel-stats-results-json', __dirname);
+  });
+});
+
+ipcMain.on('run-rollup', event => {
+  const pathToRunRollupModule = path.join(
+    __dirname,
+    'backend',
+    'create-config',
+    'utils',
+    'runRollup.js'
+  );
+  const pathToWriteStatsFile = path.join(__dirname, 'electronUserData', 'rollup-stats.json');
+  const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
+  createRollupChild.on('message', message => {
+    if (message.error) {
+      console.log(message.error);
+      return event.sender.send('error');
+    }
+    console.log('rollup successfully run and stats.json successfully written...');
+    event.sender.send('rollup-stats-results-json', __dirname);
+  });
+});
+
+function ResetDir() {
+  app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+  console.log('running reset dir2');
+  app.exit(0);
+};
+
+function OpenDir(build) {
+
+}

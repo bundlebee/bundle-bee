@@ -1,0 +1,58 @@
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.y0.axis path,
+.y0.axis line {
+  stroke: #98abc5;
+}
+
+.y1.axis path,
+.y1.axis line {
+  stroke: #d0743c;
+}
+
+.x.axis path,
+.x.axis line {
+  stroke: orange;
+}
+
+.x.axis text {
+  fill: orange;
+}
+
+.barchart{
+  min-width: 1200px;
+  min-height: 900px;
+  margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 88px;
+    animation: fadein .8s;
+    -moz-animation: fadein .8s; /* Firefox */
+    -webkit-animation: fadein .8s; /* Safari and Chrome */
+    -o-animation: fadein .8s; /* Opera */
+}
+
+.barchart_inner{
+
+margin: auto;
+margin-top: 20px;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+// min-height: 780px;
+// flex-direction: column;
+}
+
+.barchart_btn{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
