@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
+const upath = require('upath');
 function packageJSONExistsInDir(fileEntry, rootDir) {
   return fileEntry.name === 'package.json' && fileEntry.fullParentDir === rootDir;
 }
@@ -14,7 +14,9 @@ module.exports = files => {
   let filePaths = files.reduce((files, fileInfo) => {
     // check if entry file is in root of project
     if (!entryIsInRoot && packageJSONExistsInDir(fileInfo, rootDir)) entryIsInRoot = true;
-    const { name, fullPath, fullParentDir } = fileInfo;
+    let { name, fullPath, fullParentDir } = fileInfo;
+    fullPath = upath.normalize(fullPath);
+    fullParentDir = upath.normalize(fullParentDir);
     // TODO prompt if multiple webpack configs found
     // check for webpack config outside of node modules
     if (
@@ -33,7 +35,8 @@ module.exports = files => {
         name === 'index.html' &&
         !fullPath.includes('/node_modules/') &&
         !indexHtmlPath &&
-        !fullPath.includes('/dist/')
+        !fullPath.includes('/dist/') &&
+        !fullPath.includes('/build/')
       )
         indexHtmlPath = fullPath;
     }
