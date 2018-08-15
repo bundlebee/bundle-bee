@@ -47,6 +47,7 @@
 }
 
 .d3_btn_highligthed {
+  -webkit-transition-duration: 0.1s; /* Safari */
   border: 2px solid #ff9900;
   transition-duration: 0.1s;
   border-radius: 50px;
