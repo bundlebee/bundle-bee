@@ -50,8 +50,10 @@ If you encounter an error running Bundle Bee on your project, first check to see
 
 Additionally, there are some limitations in the individual bundlers that may be affecting the bundling process. It is beyond the scope of this document to cover all of these (consult the relevant docs for each bundler)
 
-https://github.com/rollup/rollup/wiki/Troubleshooting#name-is-not-exported-by-module
 https://github.com/webpack/docs/wiki/troubleshooting
+
+https://github.com/rollup/rollup/wiki/Troubleshooting
+
 https://github.com/parcel-bundler/parcel/issues
 
 but some common issues are below:
