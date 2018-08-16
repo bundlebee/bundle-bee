@@ -1,12 +1,10 @@
 // @ts-nocheck
-// Basic init
 const { app, BrowserWindow, ipcMain, Menu, Dialog } = require('electron');
 const createMenuBar = require('./backend/menuBar.js');
 const { fork, exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-// To avoid being garbage collected
 let mainWindow;
 
 app.on('ready', () => {
@@ -15,7 +13,7 @@ app.on('ready', () => {
   //Adding Menu Bar
   const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir, OpenDir));
   Menu.setApplicationMenu(menu);
-  if (process.ENV === 'package') {
+  if (process.env.NODE_ENV === 'packaging') {
     const initialStartFlagFilePath = path.join(__dirname, 'electronUserData', 'initialStartup.txt');
     if (!fs.existsSync(initialStartFlagFilePath)) {
       let pathToExecutable;
