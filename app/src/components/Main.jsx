@@ -62,11 +62,6 @@ export class Main extends Component {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -105,13 +100,8 @@ export class Main extends Component {
     ipcRenderer.send('restart');
   }
   render() {
-<<<<<<< HEAD
     // THIS IS FOR DEBUGGING PURPOSES
     // // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
-=======
-    // THIS IS FOR DEBUGGING PURPOSES; must have data to work though
-    // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
->>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
     //   // console.log("at if statement")
     //   this.props.retrieveWebpackStats();
@@ -131,15 +121,10 @@ export class Main extends Component {
 
     return (
       <div className="main">
-<<<<<<< HEAD
 
-          <Bee />
+        <Bee />
         {/* ERROR CODE, renders conditionally*/}
 
-=======
-        <Bee />
-        
->>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
         {this.state.mainPageMessage && (
           <div className="main">
             <h1>{this.state.mainPageMessage}</h1>

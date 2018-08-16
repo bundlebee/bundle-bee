@@ -25,11 +25,7 @@ export default ({ dirname, bundleType }) => {
     dist_folder = rollupDist;
     img = './assets/rollup_icon.png';
   }
-<<<<<<< HEAD
 
-=======
- 
->>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
 
   return (
     <div>
