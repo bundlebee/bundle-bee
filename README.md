@@ -58,11 +58,13 @@ but some common issues are below:
 
 - In some cases, Parcel encounters errors in resolving url paths in SASS/SCSS if the path is absolute, or if it uses single or double quotes
 - When destructuring some named exports from node modules (e.g, 'import { render } from 'react-dom';), rollup may encounter an error. We have included some rules to account for this in our configuration, such as the most common examples in React, but obviously there is no way to anticipate what will be in your project in advance. To add more named exports to your rollup config, please add them to the commonjs plugin in the rollup config as follows:
-```commonjs({
+```
+commonjs({
      include: 'node_modules/**',
      namedExports: {
        'node_modules/react-dom/index.js': ['render', 'findDOMNode'],
-     },```
+     },
+```
 - There is no hard and fast rule yet for how to order rollup plugins to ensure they will run properly. We attempted to find the order that resolves the most cases, but you may need to reorder the rollup plugins to see what works with your project.
 
 And finally, Bundle Bee is still in development, so bear with us as we iron out all the kinks!
