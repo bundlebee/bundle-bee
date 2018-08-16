@@ -71,17 +71,14 @@ And finally, Bundle Bee is still in development, so bear with us as we iron out 
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Electron](https://github.com/electron/electron) - Application Framework
+* [React](https://github.com/facebook/react) - Front-End Rendering
+* [Redux](https://maven.apache.org/) - State Management
+* [Node](https://github.com/nodejs/node) - Backend and File System Operations
+* [Webpack](https://github.com/webpack) - Module Bundling
+* [Rollup](https://github.com/rollup/rollup) - Module Bundling
+* [Parcel](https://github.com/parcel-bundler) - Module Bundling
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
@@ -93,12 +90,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Adam Modras** (https://github.com/js-mode)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hats off to https://twitter.com/michalhudecek for providing the bundle bee image!
+* Hats off to michal hudecek for providing the bundle bee image!
