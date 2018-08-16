@@ -13,8 +13,6 @@ class BarChart extends React.Component {
     this.instantiateBarGraph();
   }
   instantiateBarGraph() {
-
-    
     var margin = { top: 20, right: 40, bottom: 30, left: 40 },
       width = 600 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
@@ -32,11 +30,11 @@ class BarChart extends React.Component {
 
     var xAxis = d3.axisBottom(x0).ticks(5);
 
-    var yAxisLeft = d3.axisLeft(y0).tickFormat(function(d) {
+    var yAxisLeft = d3.axisLeft(y0).tickFormat(function (d) {
       return parseInt(d);
     });
 
-    var yAxisRight = d3.axisRight(y1).tickFormat(function(d) {
+    var yAxisRight = d3.axisRight(y1).tickFormat(function (d) {
       return parseInt(d);
     });
     var svg = d3
@@ -45,19 +43,19 @@ class BarChart extends React.Component {
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-    
+
     var data = {
       Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
       Rollup: { times: this.props.rollupData.time, sizes: this.props.rollupData.size },
     };
 
-    const  mouseleave = d => {
+    const mouseleave = d => {
       d3.selectAll(".d3_tooltip_bar_chart").remove();
 
     }
-    var x =0;
-    const  mouseover = d => {
+    var x = 0;
+    const mouseover = d => {
       d3.selectAll(".d3_tooltip_bar_chart").remove();
 
       var tooltip = d3
@@ -73,7 +71,7 @@ class BarChart extends React.Component {
 
       tooltip.select("#sb_d3_details").html(
         `
-        <strong>${d.name}:</strong> ${d.value} 
+        <strong>${d.name}:</strong> ${d.value}
         ${d.name === 'Size' ? 'kb' : 'ms'}<br />
         `
       );
@@ -88,13 +86,13 @@ class BarChart extends React.Component {
         bundler,
         values: [
           { name: 'Time', value: data[bundler][keyNames[0]] },
-          { name: 'Size', value: data[bundler][keyNames[1]]/1000 },
+          { name: 'Size', value: data[bundler][keyNames[1]] / 1000 },
         ],
       };
     }
 
     x0.domain(
-      dataset.map(function(d) {
+      dataset.map(function (d) {
         return d.bundler;
       })
     );
@@ -102,13 +100,13 @@ class BarChart extends React.Component {
 
     y0.domain([
       0,
-      d3.max(dataset, function(d) {
+      d3.max(dataset, function (d) {
         return d.values[0].value;
       }),
     ]);
     y1.domain([
       0,
-      d3.max(dataset, function(d) {
+      d3.max(dataset, function (d) {
         return d.values[1].value;
       }),
     ]);
@@ -162,40 +160,38 @@ class BarChart extends React.Component {
       .enter()
       .append('g')
       .attr('class', 'g')
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
         return 'translate(' + (x0(d.bundler) + 78) + ',0)';
       });
 
     graph
       .selectAll('rect')
-      .data(function(d) {
+      .data(function (d) {
         return d.values;
       })
       .enter()
       .append('rect')
       .attr('width', 22 /* x1.bandwidth() */)
-      .attr('x', function(d) {
-        return x1(d.name)-20;
+      .attr('x', function (d) {
+        return x1(d.name) - 20;
       })
-      .attr('y', function(d) {
+      .attr('y', function (d) {
         return y0(d.value);
       })
       .attr("height", 0)
-        .transition()
-        .delay(function (d, i) { return i*100; })
-      .attr('height', function(d) {
+      .transition()
+      .delay(function (d, i) { return i * 100; })
+      .attr('height', function (d) {
         return height - y0(d.value);
       })
-      .style('fill', function(d) {
+      .style('fill', function (d) {
         return color(d.name);
       })
-      // .on('mouseover', mouseover)
-      // 
 
-      graph.selectAll('rect').on('mouseover', mouseover)
+
+    graph.selectAll('rect').on('mouseover', mouseover)
       .on('mouseover', mouseover)
       .on('mouseleave', mouseleave)
-console.log(graph, "graph")
 
     // Legend
     var legend = svg
@@ -204,7 +200,7 @@ console.log(graph, "graph")
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', function(d, i) {
+      .attr('transform', function (d, i) {
         return 'translate(-390,' + -(i * 20) + ')';
       });
 
@@ -221,21 +217,21 @@ console.log(graph, "graph")
       .attr('y', 9)
       .attr('dy', '.35em')
       .style('text-anchor', 'end')
-      .text(function(d) {
+      .text(function (d) {
         return d;
       });
 
- 
+
   }
 
   render() {
     return (
       <div className="barchart ">
-      <h2>Build Comparison</h2><br/> 
-      <div className="barchart_inner ">
-        <svg className="bar-chart" />
-        <OpenFolderButtons dirname={this.props.dirname} />
-      </div>
+        <h2>Build Comparison</h2><br />
+        <div className="barchart_inner ">
+          <svg className="bar-chart" />
+          <OpenFolderButtons dirname={this.props.dirname} />
+        </div>
 
       </div>
     );

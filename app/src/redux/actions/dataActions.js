@@ -10,14 +10,12 @@ export const retrieveWebpackStats = bundleDir => {
   return function(dispatch) {
     d3.json('../electronUserData/stats.json')
       .then(function(data) {
-        console.log(data);
 
         const parsedData = parseWebpackOutput(data, bundleDir);
         dispatch({ type: types.BUNDLE_WEBPACK_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {
         alert('error:');
-        console.log(error);
       });
   };
 };
@@ -26,14 +24,12 @@ export const retrieveParcelStats = bundleDir => {
   return function(dispatch) {
     d3.json('../electronUserData/parcel-stats.json')
       .then(function(data) {
-        console.log(data);
 
         const parsedData = parseParcelOutput(data, bundleDir);
         dispatch({ type: types.BUNDLE_PARCEL_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {
         alert('error:');
-        console.log(error);
       });
   };
 };
@@ -52,16 +48,13 @@ export const retrieveRollupStats = bundleDir => {
           totalBundleSize: dataArray[1].totalBundleSize,
         };
 
-        console.log('retrieverollupstats data: ', data);
 
         const parsedData = parseRollupOutput(data);
-        console.log(parsedData, 'ROLLUP PARSED');
 
         dispatch({ type: types.BUNDLE_ROLLUP_COMPLETE, payload: parsedData });
       })
       .catch(function(error) {
         alert('error:');
-        console.log(error);
       });
   };
 };

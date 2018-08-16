@@ -76,9 +76,6 @@
 
 .chart {
   min-width: 1200px;
-  // border: 1px solid black;
-  // border-left: 1px solid black;
-  // border-right: 1px solid black;
   margin: auto;
   display: flex;
   align-items: center;
@@ -102,8 +99,6 @@ h1 .d3_title {
 	width: 200px;
 	z-index: 10;
   border-radius: 10px;
-  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.055);
-	// opacity: 0;
 }
 
 
@@ -119,8 +114,6 @@ h1 .d3_title {
 	width: 150px;
 	z-index: 10;
   border-radius: 10px;
-  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.055);
-	// opacity: 0;
 }
 .legend {
 	font-size: 12px;
@@ -137,15 +130,11 @@ rect.disabled {                                                 /* NEW */
   background: rgba(255, 255, 255, 0.8);
 	color: #333;
 	font-size: 12px;
-	left: 130px;
 	padding: 18px;
 	position: absolute;
 	text-align: left;
 	bottom: 20px;
-	// width: 200px;
-	// z-index: 10;
   border-radius: 10px;
-  // box-shadow: 0 0 0 0, 1px 1px 6px 4px rgba(10, 10, 0, 0.025);
   text-align: center;
   animation: fadein .8s;
   -moz-animation: fadein .8s; /* Firefox */

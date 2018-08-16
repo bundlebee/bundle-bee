@@ -10,7 +10,6 @@ let mainWindow;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({ width: 1300, height: 900 });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-  //Adding Menu Bar
   const menu = Menu.buildFromTemplate(createMenuBar(mainWindow, ResetDir, OpenDir));
   Menu.setApplicationMenu(menu);
   if (process.env.NODE_ENV === 'packaging') {
@@ -66,7 +65,6 @@ ipcMain.on('index-project-files-from-dropped-item-path', (event, rootDirPath) =>
   const indexFilesChild = fork(pathToIndexFileModule, [rootDirPath]);
   indexFilesChild.on('message', ({ foundWebpackConfig, foundEntryFile, e }) => {
     if (e) {
-      console.log(e);
       return event.sender.send('error');
     }
     event.sender.send('handle-file-indexing-results', {
@@ -102,10 +100,8 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
       });
       runWebpackChild.on('message', message => {
         if (message.error) {
-          console.log(message.error);
           return event.sender.send('error');
         }
-        console.log('webpack successfully run and stats.json successfully written...');
         event.sender.send('webpack-stats-results-json', __dirname);
       });
     });
@@ -118,10 +114,8 @@ ipcMain.on('run-webpack', (event, { createNewConfig, pathFromDrag }) => {
     });
     runWebpackChild.on('message', message => {
       if (message.error) {
-        console.log(message.error);
         return event.sender.send('error');
       }
-      console.log('webpack successfully run and stats.json successfully written...');
       event.sender.send('webpack-stats-results-json', __dirname);
     });
   }
@@ -144,10 +138,9 @@ ipcMain.on('run-parcel', event => {
   const createParcelChild = fork(pathToRunParcelFileModule, [rootDir, pathToWriteStatsFile]);
   createParcelChild.on('message', message => {
     if (message.error) {
-      console.log(message.error);
       return event.sender.send('error');
     }
-    console.log('parcel successfully run and stats.json successfully written...');
+    // console.log('parcel successfully run and stats.json successfully written...');
     event.sender.send('parcel-stats-results-json', __dirname);
   });
 });
@@ -164,10 +157,8 @@ ipcMain.on('run-rollup', event => {
   const createRollupChild = fork(pathToRunRollupModule, [pathToWriteStatsFile]);
   createRollupChild.on('message', message => {
     if (message.error) {
-      console.log(message.error);
       return event.sender.send('error');
     }
-    console.log('rollup successfully run and stats.json successfully written...');
     event.sender.send('rollup-stats-results-json', __dirname);
   });
 });
@@ -177,5 +168,3 @@ function ResetDir() {
   console.log('running reset dir2');
   app.exit(0);
 }
-
-function OpenDir(build) { }
