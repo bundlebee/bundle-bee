@@ -22,7 +22,10 @@ const chartReducer = (state = initialState, action) => {
       return {
         ...state,
         screen: chart.BUILDING_TIME};
+<<<<<<< HEAD
+=======
 
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
     case types.DISPLAY_WEBPACK:
       return {
         ...state,

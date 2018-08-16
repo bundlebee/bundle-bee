@@ -78,7 +78,6 @@ class D3StarBurstChart extends Component {
         .style("top", d3.event.layerY +280+ "px")
         .style("left", d3.event.layerX + 150 + "px");
 
-      console.log(d3.event.layerY ,  d3.event.layerX )
       tooltip.select("#sb_d3_details").html(
         `
         <strong>Filename: </strong>${d.data.name}<br />
@@ -96,7 +95,6 @@ class D3StarBurstChart extends Component {
 
       // BREADCRUMBS info
       var sequenceArray = d.ancestors().reverse();
-      console.log(sequenceArray, "BREADCRUMBS");
       sequenceArray.shift(); // remove root node from the array
       let trickArray = sequenceArray.slice(0);
 
@@ -106,7 +104,6 @@ class D3StarBurstChart extends Component {
         trickArray.map(node => node.data.name).join("/") +
         (trickArray[trickArray.length - 1].children ? "/" : "");
 
-      console.log(path, "PATH");
       for (var i = 1; i < trickArray.length + 1; i++) {
         updateBreadcrumbs(trickArray.slice(0, i), percentageString);
       }
@@ -142,7 +139,6 @@ class D3StarBurstChart extends Component {
         });
       d3.selectAll(".d3_tooltip").remove();
 
-      console.log("mouseleave");
     };
 
     function initializeBreadcrumbTrail() {
@@ -339,10 +335,8 @@ class D3StarBurstChart extends Component {
 
   render() {
     
-    console.log(this.props.chart.bundleType, this.props.activeData, "DATAAAAAA");
     return (
       <div>
-        {/* <h1 className="d3_title">{this.props.chart.bundleType.toUpperCase()}</h1> */}
         <div className="sb_d3_button_container">
           <div className="flexbuttons">
           <nav className="tabs1" id="d3_data_type">            

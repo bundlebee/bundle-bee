@@ -35,28 +35,26 @@ export class Main extends Component {
       } else if (res.foundEntryFile) {
         ipcRenderer.send('run-webpack', { createNewConfig: true });
       } else {
-        console.log('no index.js nor webpack.config found');
+
         this.setState({
           mainPageInstructions: `Please also drop your entry file (e.g., 'index.js')`,
         });
         this.props.waitForEntry();
+
       }
     });
 
     ipcRenderer.on('webpack-stats-results-json', (event, res) => {
       ipcRenderer.send('run-parcel');
-      console.log('@webpack');
       this.props.retrieveWebpackStats(res);
     });
 
     ipcRenderer.on('parcel-stats-results-json', (event, res) => {
       ipcRenderer.send('run-rollup');
-      console.log('@parcel');
 
       this.props.retrieveParcelStats(res);
     });
     ipcRenderer.on('rollup-stats-results-json', (event, res) => {
-      console.log('build finished');
       this.setState({ dirname: res });
       this.props.retrieveRollupStats();
     });
@@ -64,7 +62,11 @@ export class Main extends Component {
       this.setState({ mainPageMessage: 'An issue occurred while bundling your project.' });
     });
 
+<<<<<<< HEAD
+
+=======
   
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
   }
   renderLoadingModal() {
     return <ImportLoader />;
@@ -93,22 +95,25 @@ export class Main extends Component {
     //svg
     document.getElementById('bee-happy').setAttribute('height', '50px');
     document.getElementById('bee-happy').setAttribute('width', '50px');
-
-    // div container of the svg
     document.getElementById('bee_wrapper').style.top = '0px';
     document.getElementById('bee_wrapper').style.right = '150px';
     document.getElementById('bee_wrapper').style.position = 'absolute';
-    console.log(this.state.dirname, 'MAIN JSX RENDER CHART');
+
     return <Chart dirname={this.state.dirname} />;
   }
   handleRestart() {
     ipcRenderer.send('restart');
   }
   render() {
+<<<<<<< HEAD
+    // THIS IS FOR DEBUGGING PURPOSES
+    // // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+=======
     // THIS IS FOR DEBUGGING PURPOSES; must have data to work though
     // console.log(this.props.home.screen, home.SHOW_STARBURST, "MAIN JSX")
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
     // if ( this.props.home.screen !== home.SHOW_STARBURST) {
-    //   console.log("at if statement")
+    //   // console.log("at if statement")
     //   this.props.retrieveWebpackStats();
     //   this.props.retrieveParcelStats();
     //   this.props.retrieveRollupStats();
@@ -126,8 +131,15 @@ export class Main extends Component {
 
     return (
       <div className="main">
+<<<<<<< HEAD
+
+          <Bee />
+        {/* ERROR CODE, renders conditionally*/}
+
+=======
         <Bee />
         
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
         {this.state.mainPageMessage && (
           <div className="main">
             <h1>{this.state.mainPageMessage}</h1>

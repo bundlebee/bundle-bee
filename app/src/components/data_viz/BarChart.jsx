@@ -45,7 +45,11 @@ class BarChart extends React.Component {
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
     var data = {
       Webpack: { times: this.props.webpackData.time, sizes: this.props.webpackData.size },
       Parcel: { times: this.props.parcelData.time, sizes: this.props.parcelData.size },
@@ -71,6 +75,10 @@ class BarChart extends React.Component {
         .style("top", d3.event.layerY + "px")
         .style("left", d3.event.layerX + "px");
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
       tooltip.select("#sb_d3_details").html(
         `
         <strong>${d.name}:</strong> ${d.value} 
@@ -189,13 +197,11 @@ class BarChart extends React.Component {
       .style('fill', function(d) {
         return color(d.name);
       })
-      // .on('mouseover', mouseover)
-      // 
+
 
       graph.selectAll('rect').on('mouseover', mouseover)
       .on('mouseover', mouseover)
       .on('mouseleave', mouseleave)
-console.log(graph, "graph")
 
     // Legend
     var legend = svg
