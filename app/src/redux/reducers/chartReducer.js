@@ -13,23 +13,23 @@ const chartReducer = (state = initialState, action) => {
     case types.DISPLAY_SIZES:
       return {
         ...state,
-        screen: chart.SIZE};
+        screen: chart.SIZE
+      };
     case types.DISPLAY_FACTORY_TIMES:
-      return { 
+      return {
         ...state,
-        screen: chart.FACTORY_TIME};
+        screen: chart.FACTORY_TIME
+      };
     case types.DISPLAY_BUILDING_TIMES:
       return {
         ...state,
-        screen: chart.BUILDING_TIME};
-<<<<<<< HEAD
-=======
-
->>>>>>> bef34127320265d16bdaf244d61c596cfd6935d1
+        screen: chart.BUILDING_TIME
+      };
     case types.DISPLAY_WEBPACK:
       return {
         ...state,
-        bundleType: chart.WEBPACK};
+        bundleType: chart.WEBPACK
+      };
     case types.DISPLAY_PARCEL:
       if (state.screen === chart.FACTORY_TIME) {
         loadBuildingTime = chart.BUILDING_TIME;
@@ -37,27 +37,29 @@ const chartReducer = (state = initialState, action) => {
       return {
         ...state,
         bundleType: chart.PARCEL,
-        screen: loadBuildingTime};
+        screen: loadBuildingTime
+      };
     case types.DISPLAY_ROLLUP:
 
       if (state.screen === chart.FACTORY_TIME) {
-          loadBuildingTime = chart.BUILDING_TIME;
-      }    
+        loadBuildingTime = chart.BUILDING_TIME;
+      }
       return {
         ...state,
         bundleType: chart.ROLLUP,
-        screen: loadBuildingTime};
+        screen: loadBuildingTime
+      };
     case types.DISPLAY_TOTALS:
       return {
         ...state,
-        bundleType: chart.TOTALS};
+        bundleType: chart.TOTALS
+      };
 
 
-      default:
+    default:
       return state;
   }
 
 };
 
 export default chartReducer;
-
