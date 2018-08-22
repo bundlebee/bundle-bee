@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 Bundle Bee is currently only compatible with javascript projects using vanilla JS, React, SASS/SCSS, LESS, CSS, and standard image types. Application requiring javascript module loading of other file types are likely to encounter errors during bundling. The application is available in two formats: As a downloadable .app file for MacOS, and as an electron application launched from the terminal using npm or yarn.
 
 ### Installing
-Download the mac app from bundlebee.io, 
+Download the mac app from [bundlebee.io](https://www.bundlebee.io/), 
 
 OR
 
